@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SHIFT AI ジュニア定例ウェビナー レポート</title>
+  <title>SHIFT AI ジュニア定例ウェビナー一覧</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,14 +38,18 @@
       border-left: 5px solid #00C2CB;
     }
 
-    /* テーブル */
+    /* テーブル（スクロール形式） */
     .table-wrap {
       background: white; border-radius: 14px;
       box-shadow: 0 2px 12px rgba(30,39,97,0.08);
-      overflow: auto; margin-bottom: 52px;
+      overflow: hidden; margin-bottom: 52px;
     }
-    table { width: 100%; border-collapse: collapse; min-width: 700px; }
-    thead tr { background: #1E2761; }
+    .table-scroll {
+      max-height: 480px; overflow-y: auto;
+    }
+    /* ヘッダーを固定 */
+    .table-scroll table { width: 100%; border-collapse: collapse; min-width: 700px; }
+    thead tr { background: #1E2761; position: sticky; top: 0; z-index: 1; }
     thead th {
       color: white; font-size: 12px; font-weight: 600;
       padding: 14px 14px; text-align: left; letter-spacing: 0.04em;
@@ -76,11 +80,8 @@
     .rate-text { color: #64748B; font-size: 13px; font-weight: 600; }
     .no-data { color: #CBD5E1; font-size: 13px; }
     .td-score { text-align: center; white-space: nowrap; }
-    .score-val { font-weight: 700; font-size: 15px; display: block; }
+    .score-val { font-weight: 700; font-size: 15px; color: #1E2761; display: block; }
     .stars { font-size: 11px; color: #FFD166; display: block; margin-top: 2px; }
-    .score-high { color: #06D6A0; }
-    .score-mid  { color: #F59E0B; }
-    .score-low  { color: #FF6B6B; }
 
     /* 累積セクション */
     .summary-grid {
@@ -111,10 +112,33 @@
     .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
     .chart-row .chart-card { margin-bottom: 0; }
 
+    /* 円グラフはキャンバスを小さく中央寄せ */
+    .pie-wrap { max-width: 300px; margin: 0 auto; }
+
+    /* 都道府県ランキング */
+    .pref-ranking { list-style: none; }
+    .pref-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 0; border-bottom: 1px solid #EEF2F7;
+    }
+    .pref-item:last-child { border-bottom: none; }
+    .pref-rank {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: #1E2761; color: white;
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .pref-rank.top3 { background: #FFD166; color: #1E2761; }
+    .pref-name { font-size: 14px; font-weight: 600; color: #1E2761; width: 60px; flex-shrink: 0; }
+    .pref-bar-wrap { flex: 1; height: 8px; background: #EEF2F7; border-radius: 4px; overflow: hidden; }
+    .pref-bar { height: 100%; border-radius: 4px; background: #00C2CB; }
+    .pref-count { font-size: 13px; font-weight: 700; color: #1E2761; white-space: nowrap; width: 48px; text-align: right; }
+
     .pref-note {
       background: #FFF8E7; border: 1px solid #FFD166;
       border-radius: 10px; padding: 12px 16px;
-      font-size: 12px; color: #92703A; margin-top: 12px; line-height: 1.7;
+      font-size: 12px; color: #92703A; margin-top: 16px; line-height: 1.7;
     }
 
     footer { text-align: center; padding: 28px; font-size: 12px; color: #94A3B8; }
@@ -130,7 +154,7 @@
 
 <div class="hero">
   <div class="hero-tag">SHIFT AI ジュニア</div>
-  <h1>ジュニア定例ウェビナー<span>レポート</span>一覧</h1>
+  <h1>ジュニア定例ウェビナー<span>一覧</span></h1>
   <p class="hero-sub">各回のアンケート集計・分析結果をまとめています</p>
 </div>
 
@@ -139,147 +163,150 @@
   <!-- ウェビナー一覧 -->
   <h2 class="section-title">ウェビナー一覧</h2>
   <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>回次</th>
-          <th>開催日</th>
-          <th>タイトル</th>
-          <th>登壇者</th>
-          <th>当日参加人数</th>
-          <th>回答率</th>
-          <th>満足度</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>回次</th>
+            <th>開催日</th>
+            <th>タイトル</th>
+            <th>登壇者</th>
+            <th>当日参加人数</th>
+            <th>回答率</th>
+            <th>満足度</th>
+          </tr>
+        </thead>
+        <tbody>
 
-        <tr>
-          <td class="td-round">第12回</td>
-          <td class="td-date">2026/03/09</td>
-          <td class="td-title"><a href="https://www.notion.so/2ed80b19aa4a81f2bd4cda0b2daa211e?source=copy_link" target="_blank" rel="noopener">偉人、令和に降臨。AIで蘇らせる歴史ショートの作り方</a></td>
-          <td class="td-speaker">上洲智樹</td>
-          <td class="td-num">397<small> 名</small></td>
-          <td class="td-rate"><a class="rate-link" href="https://rinaaishiftai.github.io/junior-webinar-reports/%E7%AC%AC12%E5%9B%9E.html" target="_blank" rel="noopener">31% →</a></td>
-          <td class="td-score"><span class="score-val score-high">4.18</span><span class="stars">★★★★☆</span></td>
-        </tr>
+          <tr>
+            <td class="td-round">第12回</td>
+            <td class="td-date">2026/03/09</td>
+            <td class="td-title"><a href="https://www.notion.so/2ed80b19aa4a81f2bd4cda0b2daa211e?source=copy_link" target="_blank" rel="noopener">偉人、令和に降臨。AIで蘇らせる歴史ショートの作り方</a></td>
+            <td class="td-speaker">上洲智樹</td>
+            <td class="td-num">397<small> 名</small></td>
+            <td class="td-rate"><a class="rate-link" href="https://rinaaishiftai.github.io/junior-webinar-reports/%E7%AC%AC12%E5%9B%9E.html" target="_blank" rel="noopener">31% →</a></td>
+            <td class="td-score"><span class="score-val">4.18</span><span class="stars">★★★★☆</span></td>
+          </tr>
 
-        <tr>
-          <td class="td-round">第11回</td>
-          <td class="td-date">2026/03/02</td>
-          <td class="td-title"><a href="https://www.notion.so/AI-AI-5-2ed80b19aa4a814a88d8d1e73501bcd5?source=copy_link" target="_blank" rel="noopener">AI時代の思考設計ワーク：自分を具現化する「バトルカード」制作</a></td>
-          <td class="td-speaker">平田 研人</td>
-          <td class="td-num">259<small> 名</small></td>
-          <td class="td-rate"><span class="rate-text">34%</span></td>
-          <td class="td-score"><span class="score-val score-high">4.33</span><span class="stars">★★★★☆</span></td>
-        </tr>
+          <tr>
+            <td class="td-round">第11回</td>
+            <td class="td-date">2026/03/02</td>
+            <td class="td-title"><a href="https://www.notion.so/AI-AI-5-2ed80b19aa4a814a88d8d1e73501bcd5?source=copy_link" target="_blank" rel="noopener">AI時代の思考設計ワーク：自分を具現化する「バトルカード」制作</a></td>
+            <td class="td-speaker">平田 研人</td>
+            <td class="td-num">259<small> 名</small></td>
+            <td class="td-rate"><span class="rate-text">34%</span></td>
+            <td class="td-score"><span class="score-val">4.33</span><span class="stars">★★★★☆</span></td>
+          </tr>
 
-        <tr>
-          <td class="td-round">第10回</td>
-          <td class="td-date">2026/02/23</td>
-          <td class="td-title"><a href="https://www.notion.so/2d680b19aa4a8199a9f1dc2ad4800096?source=copy_link" target="_blank" rel="noopener">偏差値35でも東大合格！AI×東大思考で暗記地獄を突破するインプット術</a></td>
-          <td class="td-speaker">中村 格</td>
-          <td class="td-num">207<small> 名</small></td>
-          <td class="td-rate"><span class="rate-text">37%</span></td>
-          <td class="td-score"><span class="score-val score-high">4.57</span><span class="stars">★★★★★</span></td>
-        </tr>
+          <tr>
+            <td class="td-round">第10回</td>
+            <td class="td-date">2026/02/23</td>
+            <td class="td-title"><a href="https://www.notion.so/2d680b19aa4a8199a9f1dc2ad4800096?source=copy_link" target="_blank" rel="noopener">偏差値35でも東大合格！AI×東大思考で暗記地獄を突破するインプット術</a></td>
+            <td class="td-speaker">中村 格</td>
+            <td class="td-num">207<small> 名</small></td>
+            <td class="td-rate"><span class="rate-text">37%</span></td>
+            <td class="td-score"><span class="score-val">4.57</span><span class="stars">★★★★★</span></td>
+          </tr>
 
-        <tr>
-          <td class="td-round">第9回</td>
-          <td class="td-date">2026/02/16</td>
-          <td class="td-title"><a href="https://www.notion.so/2d680b19aa4a816eaeceeee7215d3f5d?source=copy_link" target="_blank" rel="noopener">【学習×ゲーム制作】問題集を「遊べる教材」に！AIで勉強をハックする次世代学習術</a></td>
-          <td class="td-speaker">福島 麻里子</td>
-          <td class="td-num">127<small> 名</small></td>
-          <td class="td-rate"><span class="rate-text">33%</span></td>
-          <td class="td-score"><span class="score-val score-high">4.57</span><span class="stars">★★★★★</span></td>
-        </tr>
+          <tr>
+            <td class="td-round">第9回</td>
+            <td class="td-date">2026/02/16</td>
+            <td class="td-title"><a href="https://www.notion.so/2d680b19aa4a816eaeceeee7215d3f5d?source=copy_link" target="_blank" rel="noopener">【学習×ゲーム制作】問題集を「遊べる教材」に！AIで勉強をハックする次世代学習術</a></td>
+            <td class="td-speaker">福島 麻里子</td>
+            <td class="td-num">127<small> 名</small></td>
+            <td class="td-rate"><span class="rate-text">33%</span></td>
+            <td class="td-score"><span class="score-val">4.57</span><span class="stars">★★★★★</span></td>
+          </tr>
 
-        <tr>
-          <td class="td-round">第8回</td>
-          <td class="td-date">2026/02/09</td>
-          <td class="td-title"><a href="https://www.notion.so/2d680b19aa4a817389acd27b90b17678?source=copy_link" target="_blank" rel="noopener">副業で疲弊している親へ　価値を生み出す３つのステップ</a></td>
-          <td class="td-speaker">佐藤 元紀</td>
-          <td class="td-num">159<small> 名</small></td>
-          <td class="td-rate"><span class="rate-text">16%</span></td>
-          <td class="td-score"><span class="score-val score-low">3.67</span><span class="stars">★★★★☆</span></td>
-        </tr>
+          <tr>
+            <td class="td-round">第8回</td>
+            <td class="td-date">2026/02/09</td>
+            <td class="td-title"><a href="https://www.notion.so/2d680b19aa4a817389acd27b90b17678?source=copy_link" target="_blank" rel="noopener">副業で疲弊している親へ　価値を生み出す３つのステップ</a></td>
+            <td class="td-speaker">佐藤 元紀</td>
+            <td class="td-num">159<small> 名</small></td>
+            <td class="td-rate"><span class="rate-text">16%</span></td>
+            <td class="td-score"><span class="score-val">3.67</span><span class="stars">★★★★☆</span></td>
+          </tr>
 
-        <tr>
-          <td class="td-round">第7回</td>
-          <td class="td-date">2026/02/02</td>
-          <td class="td-title"><a href="https://www.notion.so/2d680b19aa4a81999bb7c8b369ed1bc9?source=copy_link" target="_blank" rel="noopener">AIで「漫画」が作れる！魔法のワークフロー【絵が描けなくても大丈夫】</a></td>
-          <td class="td-speaker">上洲智樹</td>
-          <td class="td-num">656<small> 名</small></td>
-          <td class="td-rate"><span class="rate-text">37%</span></td>
-          <td class="td-score"><span class="score-val score-high">4.58</span><span class="stars">★★★★★</span></td>
-        </tr>
+          <tr>
+            <td class="td-round">第7回</td>
+            <td class="td-date">2026/02/02</td>
+            <td class="td-title"><a href="https://www.notion.so/2d680b19aa4a81999bb7c8b369ed1bc9?source=copy_link" target="_blank" rel="noopener">AIで「漫画」が作れる！魔法のワークフロー【絵が描けなくても大丈夫】</a></td>
+            <td class="td-speaker">上洲智樹</td>
+            <td class="td-num">656<small> 名</small></td>
+            <td class="td-rate"><span class="rate-text">37%</span></td>
+            <td class="td-score"><span class="score-val">4.58</span><span class="stars">★★★★★</span></td>
+          </tr>
 
-        <tr>
-          <td class="td-round">第6回</td>
-          <td class="td-date">2026/01/26</td>
-          <td class="td-title"><a href="https://www.notion.so/AI-2c680b19aa4a812ab074eb1be079b611?source=copy_link" target="_blank" rel="noopener">【保護者必見】わが子の未来を守る！学校×AI教育の新常識</a></td>
-          <td class="td-speaker">Hakushi</td>
-          <td class="td-num">101<small> 名</small></td>
-          <td class="td-rate"><span class="rate-text">47%</span></td>
-          <td class="td-score"><span class="score-val score-high">4.77</span><span class="stars">★★★★★</span></td>
-        </tr>
+          <tr>
+            <td class="td-round">第6回</td>
+            <td class="td-date">2026/01/26</td>
+            <td class="td-title"><a href="https://www.notion.so/AI-2c680b19aa4a812ab074eb1be079b611?source=copy_link" target="_blank" rel="noopener">【保護者必見】わが子の未来を守る！学校×AI教育の新常識</a></td>
+            <td class="td-speaker">Hakushi</td>
+            <td class="td-num">101<small> 名</small></td>
+            <td class="td-rate"><span class="rate-text">47%</span></td>
+            <td class="td-score"><span class="score-val">4.77</span><span class="stars">★★★★★</span></td>
+          </tr>
 
-        <tr>
-          <td class="td-round">第5回</td>
-          <td class="td-date">2026/01/19</td>
-          <td class="td-title"><a href="https://www.notion.so/AI-2c680b19aa4a814fac51fd1fd4c0cef2?source=copy_link" target="_blank" rel="noopener">素人が1時間でプロ級！AI映像制作の裏技【機材ゼロ円で開始】</a></td>
-          <td class="td-speaker">Hakushi</td>
-          <td class="td-num">762<small> 名</small></td>
-          <td class="td-rate"><span class="rate-text">42%</span></td>
-          <td class="td-score"><span class="score-val score-high">4.65</span><span class="stars">★★★★★</span></td>
-        </tr>
+          <tr>
+            <td class="td-round">第5回</td>
+            <td class="td-date">2026/01/19</td>
+            <td class="td-title"><a href="https://www.notion.so/AI-2c680b19aa4a814fac51fd1fd4c0cef2?source=copy_link" target="_blank" rel="noopener">素人が1時間でプロ級！AI映像制作の裏技【機材ゼロ円で開始】</a></td>
+            <td class="td-speaker">Hakushi</td>
+            <td class="td-num">762<small> 名</small></td>
+            <td class="td-rate"><span class="rate-text">42%</span></td>
+            <td class="td-score"><span class="score-val">4.65</span><span class="stars">★★★★★</span></td>
+          </tr>
 
-        <tr>
-          <td class="td-round">第4回</td>
-          <td class="td-date">2026/01/12</td>
-          <td class="td-title"><a href="https://www.notion.so/AI-2c680b19aa4a816e9895fb8f0f8875d2?source=copy_link" target="_blank" rel="noopener">東大生も実践！AIと作る最強勉強スケジュール【誰でも再現可能】</a></td>
-          <td class="td-speaker">Hakushi</td>
-          <td class="td-num">117<small> 名</small></td>
-          <td class="td-rate"><span class="rate-text">54%</span></td>
-          <td class="td-score"><span class="score-val score-high">4.81</span><span class="stars">★★★★★</span></td>
-        </tr>
+          <tr>
+            <td class="td-round">第4回</td>
+            <td class="td-date">2026/01/12</td>
+            <td class="td-title"><a href="https://www.notion.so/AI-2c680b19aa4a816e9895fb8f0f8875d2?source=copy_link" target="_blank" rel="noopener">東大生も実践！AIと作る最強勉強スケジュール【誰でも再現可能】</a></td>
+            <td class="td-speaker">Hakushi</td>
+            <td class="td-num">117<small> 名</small></td>
+            <td class="td-rate"><span class="rate-text">54%</span></td>
+            <td class="td-score"><span class="score-val">4.81</span><span class="stars">★★★★★</span></td>
+          </tr>
 
-        <tr>
-          <td class="td-round">第3回</td>
-          <td class="td-date">2026/01/05</td>
-          <td class="td-title"><a href="https://www.notion.so/AI-2c680b19aa4a819db665ff0bccdfa601?source=copy_link" target="_blank" rel="noopener">AIで成績アップ！学校では教えてくれない勉強法【親子で学べる】</a></td>
-          <td class="td-speaker">Hakushi</td>
-          <td class="td-num">325<small> 名</small></td>
-          <td class="td-rate"><span class="rate-text">29%</span></td>
-          <td class="td-score"><span class="score-val score-high">4.77</span><span class="stars">★★★★★</span></td>
-        </tr>
+          <tr>
+            <td class="td-round">第3回</td>
+            <td class="td-date">2026/01/05</td>
+            <td class="td-title"><a href="https://www.notion.so/AI-2c680b19aa4a819db665ff0bccdfa601?source=copy_link" target="_blank" rel="noopener">AIで成績アップ！学校では教えてくれない勉強法【親子で学べる】</a></td>
+            <td class="td-speaker">Hakushi</td>
+            <td class="td-num">325<small> 名</small></td>
+            <td class="td-rate"><span class="rate-text">29%</span></td>
+            <td class="td-score"><span class="score-val">4.77</span><span class="stars">★★★★★</span></td>
+          </tr>
 
-        <tr>
-          <td class="td-round">第2回</td>
-          <td class="td-date">2025/12/17</td>
-          <td class="td-title"><a href="https://www.notion.so/AI-2c680b19aa4a81d38c52f56e8859aee5?source=copy_link" target="_blank" rel="noopener">受験も進路も変わる！中高生の親が今すべきAI教育サポート</a></td>
-          <td class="td-speaker">Hakushi</td>
-          <td class="td-num">199<small> 名</small></td>
-          <td class="td-rate"><span class="rate-text">34%</span></td>
-          <td class="td-score"><span class="score-val score-high">4.85</span><span class="stars">★★★★★</span></td>
-        </tr>
+          <tr>
+            <td class="td-round">第2回</td>
+            <td class="td-date">2025/12/17</td>
+            <td class="td-title"><a href="https://www.notion.so/AI-2c680b19aa4a81d38c52f56e8859aee5?source=copy_link" target="_blank" rel="noopener">受験も進路も変わる！中高生の親が今すべきAI教育サポート</a></td>
+            <td class="td-speaker">Hakushi</td>
+            <td class="td-num">199<small> 名</small></td>
+            <td class="td-rate"><span class="rate-text">34%</span></td>
+            <td class="td-score"><span class="score-val">4.85</span><span class="stars">★★★★★</span></td>
+          </tr>
 
-        <tr>
-          <td class="td-round">第1回</td>
-          <td class="td-date">2025/12/14</td>
-          <td class="td-title"><a href="https://www.notion.so/AI-1-2c680b19aa4a817cbd2cfd689b53a681?source=copy_link" target="_blank" rel="noopener">AI画像生成、初心者が1時間で"プロ級"になる方法</a></td>
-          <td class="td-speaker">Hakushi</td>
-          <td class="td-num">424<small> 名</small></td>
-          <td class="td-rate"><span class="no-data">−</span></td>
-          <td class="td-score"><span class="no-data">−</span></td>
-        </tr>
+          <tr>
+            <td class="td-round">第1回</td>
+            <td class="td-date">2025/12/14</td>
+            <td class="td-title"><a href="https://www.notion.so/AI-1-2c680b19aa4a817cbd2cfd689b53a681?source=copy_link" target="_blank" rel="noopener">AI画像生成、初心者が1時間で"プロ級"になる方法</a></td>
+            <td class="td-speaker">Hakushi</td>
+            <td class="td-num">424<small> 名</small></td>
+            <td class="td-rate"><span class="no-data">−</span></td>
+            <td class="td-score"><span class="no-data">−</span></td>
+          </tr>
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- 累積分析 -->
   <h2 class="section-title">累積データ分析</h2>
 
+  <!-- サマリー -->
   <div class="summary-grid">
     <div class="summary-card">
       <div class="s-icon">📅</div>
@@ -303,31 +330,33 @@
     </div>
   </div>
 
+  <!-- 参加者数推移 -->
   <div class="chart-card">
     <div class="chart-subtitle">参加者数の推移</div>
     <canvas id="participantChart" height="75"></canvas>
     <p class="chart-note">※ 第1回はアンケートなし（参加者のみカウント）</p>
   </div>
 
+  <!-- 円グラフ2つ -->
   <div class="chart-row">
     <div class="chart-card">
-      <div class="chart-subtitle">回答率の推移</div>
-      <canvas id="rateChart" height="190"></canvas>
-      <p class="chart-note">第2〜12回のデータ</p>
+      <div class="chart-subtitle">次回やりたいテーマ（第12回〜累積）</div>
+      <div class="pie-wrap"><canvas id="themeChart"></canvas></div>
+      <p class="chart-note">複数回答あり　第12回：回答123件</p>
     </div>
     <div class="chart-card">
-      <div class="chart-subtitle">満足度の推移</div>
-      <canvas id="scoreChart" height="190"></canvas>
-      <p class="chart-note">第2〜12回のデータ（5段階評価の平均）</p>
+      <div class="chart-subtitle">参加のきっかけ（第12回〜累積）</div>
+      <div class="pie-wrap"><canvas id="triggerChart"></canvas></div>
+      <p class="chart-note">第12回：回答123件</p>
     </div>
   </div>
 
+  <!-- 都道府県ランキング -->
   <div class="chart-card">
-    <div class="chart-subtitle">都道府県別参加者数（第1〜12回 累計 上位15）</div>
-    <canvas id="prefChart" height="88"></canvas>
+    <div class="chart-subtitle">都道府県別参加者数 ランキング（第1〜12回 累計 上位15）</div>
+    <ul class="pref-ranking" id="prefRanking"></ul>
     <div class="pref-note">
-      ※ 第1〜12回の合算データ。第1〜11回は自由記述を正規化、第12回はアンケートの集計値を使用。<br>
-      今後のアンケートはプルダウン形式にすると、より正確に集計できます。
+      ※ 第1〜12回の合算データ。第1〜11回は自由記述を正規化、第12回以降はプルダウン形式で集計。
     </div>
   </div>
 
@@ -336,22 +365,14 @@
 <footer>SHIFT AI ジュニア ウェビナーレポート一覧</footer>
 
 <script>
-const participantLabels = ["第1回","第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回"];
-const participantData   = [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397];
-const rateLabels  = ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回"];
-const rateData    = [34.1, 28.9, 53.8, 41.7, 46.5, 36.7, 15.9, 33.0, 37.2, 34.3, 31.0];
-const scoreLabels = ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回"];
-const scoreData   = [4.85, 4.77, 4.81, 4.65, 4.77, 4.58, 3.67, 4.57, 4.57, 4.33, 4.18];
-const prefLabels  = ["東京","大阪","神奈川","愛知","埼玉","兵庫","福岡","千葉","北海道","京都","静岡","岐阜","岡山","沖縄","広島"];
-const prefData    = [225, 118, 101, 86, 76, 64, 49, 44, 30, 22, 20, 17, 17, 16, 16];
-
+// ===== 参加者数推移 =====
 new Chart(document.getElementById('participantChart'), {
   type: 'bar',
   data: {
-    labels: participantLabels,
+    labels: ["第1回","第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回"],
     datasets: [{
-      data: participantData,
-      backgroundColor: participantData.map(v => v === Math.max(...participantData) ? '#FFD166' : '#00C2CB'),
+      data: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397],
+      backgroundColor: [424,199,325,117,762,101,656,159,127,207,259,397].map(v => v === 762 ? '#FFD166' : '#00C2CB'),
       borderRadius: 6, borderSkipped: false,
     }]
   },
@@ -365,67 +386,77 @@ new Chart(document.getElementById('participantChart'), {
   }
 });
 
-new Chart(document.getElementById('rateChart'), {
-  type: 'line',
+// ===== テーマ 円グラフ =====
+new Chart(document.getElementById('themeChart'), {
+  type: 'doughnut',
   data: {
-    labels: rateLabels,
+    labels: ["動画・映像","画像生成","自由研究・工作","勉強法・学習","進路・受験","プログラミング","マナー・安全","ゲーム","文章作成"],
     datasets: [{
-      data: rateData,
-      borderColor: '#00C2CB', backgroundColor: 'rgba(0,194,203,0.12)',
-      fill: true, tension: 0.4, pointRadius: 5,
-      pointBackgroundColor: '#00C2CB', pointBorderColor: 'white', pointBorderWidth: 2,
+      data: [36, 31, 30, 24, 17, 17, 15, 3, 1],
+      backgroundColor: ['#1E2761','#00C2CB','#FFD166','#06D6A0','#7B68EE','#FF6B6B','#48CAE4','#A8D8DC','#FAD2A8'],
+      borderWidth: 2, borderColor: 'white',
     }]
   },
   options: {
     responsive: true,
-    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toFixed(1)}%` } } },
-    scales: {
-      y: { min: 0, max: 65, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { callback: v => v + '%' } },
-      x: { grid: { display: false } }
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.parsed}件` } }
     }
   }
 });
 
-new Chart(document.getElementById('scoreChart'), {
-  type: 'line',
+// ===== きっかけ 円グラフ =====
+new Chart(document.getElementById('triggerChart'), {
+  type: 'doughnut',
   data: {
-    labels: scoreLabels,
+    labels: ["LINE（公式・グループ）","SHIFT AIコミュニティ","その他"],
     datasets: [{
-      data: scoreData,
-      borderColor: '#FFD166', backgroundColor: 'rgba(255,209,102,0.12)',
-      fill: true, tension: 0.4, pointRadius: 5,
-      pointBackgroundColor: '#FFD166', pointBorderColor: 'white', pointBorderWidth: 2,
+      data: [84, 34, 5],
+      backgroundColor: ['#00C2CB','#1E2761','#FFD166'],
+      borderWidth: 2, borderColor: 'white',
     }]
   },
   options: {
     responsive: true,
-    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toFixed(2)} / 5.00` } } },
-    scales: {
-      y: { min: 3.0, max: 5.0, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { stepSize: 0.5 } },
-      x: { grid: { display: false } }
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.parsed}件` } }
     }
   }
 });
 
-new Chart(document.getElementById('prefChart'), {
-  type: 'bar',
-  data: {
-    labels: prefLabels,
-    datasets: [{
-      data: prefData,
-      backgroundColor: prefLabels.map((_, i) => i < 3 ? '#1E2761' : i < 8 ? '#00C2CB' : '#A8D8DC'),
-      borderRadius: 4, borderSkipped: false,
-    }]
-  },
-  options: {
-    indexAxis: 'y',
-    responsive: true,
-    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.x} 名` } } },
-    scales: {
-      x: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { callback: v => v + '名' } },
-      y: { grid: { display: false } }
-    }
-  }
+// ===== 都道府県ランキング =====
+const prefData = [
+  { name: "東京", count: 225 },
+  { name: "大阪", count: 118 },
+  { name: "神奈川", count: 101 },
+  { name: "愛知", count: 86 },
+  { name: "埼玉", count: 76 },
+  { name: "兵庫", count: 64 },
+  { name: "福岡", count: 49 },
+  { name: "千葉", count: 44 },
+  { name: "北海道", count: 30 },
+  { name: "京都", count: 22 },
+  { name: "静岡", count: 20 },
+  { name: "岐阜", count: 17 },
+  { name: "岡山", count: 17 },
+  { name: "沖縄", count: 16 },
+  { name: "広島", count: 16 },
+];
+const maxCount = prefData[0].count;
+const rankEl = document.getElementById('prefRanking');
+prefData.forEach((p, i) => {
+  const li = document.createElement('li');
+  li.className = 'pref-item';
+  const pct = Math.round((p.count / maxCount) * 100);
+  li.innerHTML = `
+    <span class="pref-rank ${i < 3 ? 'top3' : ''}">${i + 1}</span>
+    <span class="pref-name">${p.name}</span>
+    <div class="pref-bar-wrap"><div class="pref-bar" style="width:${pct}%"></div></div>
+    <span class="pref-count">${p.count}名</span>
+  `;
+  rankEl.appendChild(li);
 });
 </script>
 </body>
