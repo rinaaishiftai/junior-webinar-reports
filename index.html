@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SHIFT AI ジュニア定例ウェビナー レポート</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif; background: #F0F4F8; color: #1E2761; }
+    body { font-family: "Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif; background: #F0F4F8; color: #1E2761; }
 
     /* ヘッダー */
     .hero {
@@ -15,13 +16,11 @@
     }
     .hero::before {
       content: ""; position: absolute; top: -80px; right: -60px;
-      width: 320px; height: 320px; border-radius: 50%;
-      background: rgba(0,194,203,0.1);
+      width: 320px; height: 320px; border-radius: 50%; background: rgba(0,194,203,0.1);
     }
     .hero::after {
       content: ""; position: absolute; bottom: -60px; right: 160px;
-      width: 200px; height: 200px; border-radius: 50%;
-      background: rgba(255,209,102,0.07);
+      width: 200px; height: 200px; border-radius: 50%; background: rgba(255,209,102,0.07);
     }
     .hero-tag {
       display: inline-block; background: #00C2CB; color: #1E2761;
@@ -46,7 +45,7 @@
     .table-wrap {
       background: white; border-radius: 14px;
       box-shadow: 0 2px 12px rgba(30,39,97,0.08);
-      overflow: hidden; margin-bottom: 48px;
+      overflow: hidden; margin-bottom: 52px;
     }
     table { width: 100%; border-collapse: collapse; }
     thead tr { background: #1E2761; }
@@ -55,19 +54,13 @@
       padding: 14px 16px; text-align: left; letter-spacing: 0.04em;
       white-space: nowrap;
     }
-    tbody tr {
-      border-bottom: 1px solid #EEF2F7;
-      transition: background 0.15s;
-    }
+    tbody tr { border-bottom: 1px solid #EEF2F7; transition: background 0.15s; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: #F7F9FC; }
     tbody td { padding: 16px; font-size: 14px; vertical-align: middle; }
 
-    .td-round {
-      font-weight: 700; color: #00C2CB; font-size: 13px;
-      white-space: nowrap;
-    }
-    .td-date { color: #64748B; font-size: 13px; white-space: nowrap; }
+    .td-round { font-weight: 700; color: #00C2CB; font-size: 13px; white-space: nowrap; }
+    .td-date  { color: #64748B; font-size: 13px; white-space: nowrap; }
     .td-title a {
       color: #1E2761; font-weight: 600; text-decoration: none;
       font-size: 14px; line-height: 1.5;
@@ -77,75 +70,69 @@
     .td-speaker { color: #475569; font-size: 13px; white-space: nowrap; }
     .td-num { font-weight: 700; color: #1E2761; text-align: center; }
     .td-rate a {
-      display: inline-block;
-      background: #EEF2FF; color: #1E2761;
-      font-weight: 700; font-size: 13px;
-      padding: 4px 12px; border-radius: 20px;
-      text-decoration: none; white-space: nowrap;
+      display: inline-block; background: #EEF2FF; color: #1E2761;
+      font-weight: 700; font-size: 13px; padding: 4px 12px;
+      border-radius: 20px; text-decoration: none; white-space: nowrap;
     }
     .td-rate a:hover { background: #00C2CB; color: white; }
-    .td-rate span { color: #94A3B8; font-size: 13px; }
-    .td-score {
-      text-align: center; font-weight: 700;
-      font-size: 16px;
-    }
+    .td-rate .rate-plain { color: #64748B; font-size: 13px; font-weight: 600; }
+    .td-score { text-align: center; font-weight: 700; font-size: 16px; }
     .stars { color: #FFD166; font-size: 12px; display: block; margin-top: 2px; }
     .no-data { color: #CBD5E1; font-size: 13px; }
-
-    /* スコアの色 */
     .score-high { color: #06D6A0; }
     .score-mid  { color: #FFD166; }
     .score-low  { color: #FF6B6B; }
 
-    /* 累積分析セクション */
-    .cumulative-card {
-      background: linear-gradient(135deg, #1E2761 0%, #0A1040 100%);
-      border-radius: 16px; padding: 36px 32px; color: white;
-      position: relative; overflow: hidden;
-    }
-    .cumulative-card::before {
-      content: ""; position: absolute; top: -60px; right: -60px;
-      width: 220px; height: 220px; border-radius: 50%;
-      background: rgba(0,194,203,0.1);
-    }
-    .cumulative-card .section-title { color: white; border-color: #FFD166; }
-    .cumulative-sub { font-size: 13px; color: #8899BB; margin-bottom: 28px; }
+    /* ━━━ 累積分析セクション ━━━ */
+    .cumulative-section { margin-top: 0; }
 
-    .cumulative-link {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: #00C2CB; color: #1E2761;
-      font-weight: 700; font-size: 15px;
-      padding: 14px 28px; border-radius: 12px;
-      text-decoration: none; margin-bottom: 24px;
-      transition: opacity 0.2s;
+    .summary-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 16px; margin-bottom: 32px;
     }
-    .cumulative-link:hover { opacity: 0.85; }
+    .summary-card {
+      background: white; border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(30,39,97,0.08);
+      padding: 20px 16px 18px; text-align: center;
+    }
+    .summary-card .icon { font-size: 26px; margin-bottom: 8px; }
+    .summary-card .val { font-size: 26px; font-weight: 800; color: #1E2761; line-height: 1; }
+    .summary-card .val span { font-size: 13px; font-weight: 600; color: #64748B; margin-left: 2px; }
+    .summary-card .label { font-size: 11px; color: #94A3B8; margin-top: 6px; }
 
-    .metrics-preview {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px; margin-top: 4px;
+    .chart-card {
+      background: white; border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(30,39,97,0.08);
+      padding: 28px 28px 20px; margin-bottom: 24px;
     }
-    .metric-item {
-      background: rgba(255,255,255,0.07); border-radius: 10px;
-      padding: 14px 16px; display: flex; align-items: center; gap: 10px;
+    .chart-note { font-size: 12px; color: #94A3B8; margin-top: 10px; }
+
+    .chart-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;
     }
-    .metric-icon { font-size: 20px; flex-shrink: 0; }
-    .metric-label { font-size: 12px; color: #8899BB; }
+    .chart-grid .chart-card { margin-bottom: 0; }
+
+    .pref-note {
+      background: #FFF8E7; border: 1px solid #FFD166;
+      border-radius: 10px; padding: 12px 16px;
+      font-size: 12px; color: #92703A; margin-top: 12px; line-height: 1.6;
+    }
 
     /* フッター */
-    footer { text-align: center; padding: 24px; font-size: 12px; color: #94A3B8; }
+    footer { text-align: center; padding: 28px; font-size: 12px; color: #94A3B8; }
 
     /* レスポンシブ */
     @media (max-width: 700px) {
       .hero h1 { font-size: 22px; }
-      thead th, tbody td { padding: 10px 10px; }
+      thead th, tbody td { padding: 10px 8px; }
       .td-speaker { display: none; }
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+      .chart-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- ヘッダー -->
 <div class="hero">
   <div class="hero-tag">SHIFT AI ジュニア</div>
   <h1>ジュニア定例ウェビナー<span>レポート</span>一覧</h1>
@@ -154,7 +141,7 @@
 
 <div class="container">
 
-  <!-- ウェビナー一覧 -->
+  <!-- ━━━ ウェビナー一覧 ━━━ -->
   <h2 class="section-title">ウェビナー一覧</h2>
   <div class="table-wrap">
     <table>
@@ -169,29 +156,69 @@
           <th>満足度</th>
         </tr>
       </thead>
-      <tbody id="webinar-list">
-        <!-- データはJSで動的に生成 -->
-      </tbody>
+      <tbody id="webinar-list"></tbody>
     </table>
   </div>
 
-  <!-- 累積分析 -->
-  <div class="cumulative-card">
-    <h2 class="section-title">累積分析データ</h2>
-    <p class="cumulative-sub">第1〜12回（全12回）の累計データをグラフで確認できます</p>
+  <!-- ━━━ 累積分析 ━━━ -->
+  <div class="cumulative-section">
+    <h2 class="section-title">累積データ分析</h2>
 
-    <a href="./累積分析.html" class="cumulative-link">
-      📊 累積データ分析を見る →
-    </a>
-
-    <div class="metrics-preview">
-      <div class="metric-item"><span class="metric-icon">📈</span><span class="metric-label">参加者数推移（全12回）</span></div>
-      <div class="metric-item"><span class="metric-icon">📋</span><span class="metric-label">回答率推移（第2〜12回）</span></div>
-      <div class="metric-item"><span class="metric-icon">⭐</span><span class="metric-label">満足度推移（第2〜12回）</span></div>
-      <div class="metric-item"><span class="metric-icon">🗾</span><span class="metric-label">都道府県別参加者数（上位15）</span></div>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="icon">📅</div>
+        <div class="val">12<span>回</span></div>
+        <div class="label">実施回数</div>
+      </div>
+      <div class="summary-card">
+        <div class="icon">👥</div>
+        <div class="val">3,733<span>名</span></div>
+        <div class="label">累計参加者数</div>
+      </div>
+      <div class="summary-card">
+        <div class="icon">📋</div>
+        <div class="val">35.7<span>%</span></div>
+        <div class="label">平均回答率（第2〜12回）</div>
+      </div>
+      <div class="summary-card">
+        <div class="icon">⭐</div>
+        <div class="val">4.52<span>/5</span></div>
+        <div class="label">平均満足度（第2〜12回）</div>
+      </div>
     </div>
-  </div>
 
+    <!-- 参加者数推移 -->
+    <div class="chart-card">
+      <div class="section-title" style="font-size:15px;margin-bottom:14px;">参加者数の推移</div>
+      <canvas id="participantChart" height="75"></canvas>
+      <p class="chart-note">※ 第1回はアンケートなし（参加者のみカウント）</p>
+    </div>
+
+    <!-- 回答率 + 満足度 -->
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="section-title" style="font-size:15px;margin-bottom:14px;">回答率の推移</div>
+        <canvas id="rateChart" height="180"></canvas>
+        <p class="chart-note">第2回〜第12回のデータ（第1回はアンケートなし）</p>
+      </div>
+      <div class="chart-card">
+        <div class="section-title" style="font-size:15px;margin-bottom:14px;">満足度の推移</div>
+        <canvas id="scoreChart" height="180"></canvas>
+        <p class="chart-note">第2回〜第12回のデータ（5段階評価の平均）</p>
+      </div>
+    </div>
+
+    <!-- 都道府県 -->
+    <div class="chart-card">
+      <div class="section-title" style="font-size:15px;margin-bottom:14px;">都道府県別参加者数（累計 上位15）</div>
+      <canvas id="prefChart" height="85"></canvas>
+      <div class="pref-note">
+        ⚠️ 都道府県データは第1〜11回分（自由記述回答を正規化して集計）。第12回分は含まれていません。<br>
+        今後のアンケートをプルダウン形式にすると集計がより正確になります。
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <footer>SHIFT AI ジュニア ウェビナーレポート一覧</footer>
@@ -212,71 +239,61 @@ const webinars = [
     round: "第11回", date: "2026/03/02",
     title: "AI時代の思考設計ワーク：自分を具現化する「バトルカード」制作",
     notionUrl: "https://www.notion.so/AI-AI-5-2ed80b19aa4a814a88d8d1e73501bcd5?source=copy_link",
-    speaker: "平田 研人", participants: 259,
-    responseRate: "34%", reportUrl: null, score: 4.33,
+    speaker: "平田 研人", participants: 259, responseRate: "34%", reportUrl: null, score: 4.33,
   },
   {
     round: "第10回", date: "2026/02/23",
     title: "偏差値35でも東大合格！AI×東大思考で暗記地獄を突破するインプット術",
     notionUrl: "https://www.notion.so/2d680b19aa4a8199a9f1dc2ad4800096?source=copy_link",
-    speaker: "中村 格", participants: 207,
-    responseRate: "37%", reportUrl: null, score: 4.57,
+    speaker: "中村 格", participants: 207, responseRate: "37%", reportUrl: null, score: 4.57,
   },
   {
     round: "第9回", date: "2026/02/16",
     title: "【学習×ゲーム制作】問題集を「遊べる教材」に！AIで勉強をハックする次世代学習術",
     notionUrl: "https://www.notion.so/2d680b19aa4a816eaeceeee7215d3f5d?source=copy_link",
-    speaker: "福島 麻里子", participants: 127,
-    responseRate: "33%", reportUrl: null, score: 4.57,
+    speaker: "福島 麻里子", participants: 127, responseRate: "33%", reportUrl: null, score: 4.57,
   },
   {
     round: "第8回", date: "2026/02/09",
     title: "副業で疲弊している親へ　価値を生み出す３つのステップ",
     notionUrl: "https://www.notion.so/2d680b19aa4a817389acd27b90b17678?source=copy_link",
-    speaker: "佐藤 元紀", participants: 159,
-    responseRate: "16%", reportUrl: null, score: 3.67,
+    speaker: "佐藤 元紀", participants: 159, responseRate: "16%", reportUrl: null, score: 3.67,
   },
   {
     round: "第7回", date: "2026/02/02",
     title: "AIで「漫画」が作れる！魔法のワークフロー【絵が描けなくても大丈夫】",
     notionUrl: "https://www.notion.so/2d680b19aa4a81999bb7c8b369ed1bc9?source=copy_link",
-    speaker: "上洲智樹", participants: 656,
-    responseRate: "37%", reportUrl: null, score: 4.58,
+    speaker: "上洲智樹", participants: 656, responseRate: "37%", reportUrl: null, score: 4.58,
   },
   {
     round: "第6回", date: "2026/01/26",
     title: "【保護者必見】わが子の未来を守る！学校×AI教育の新常識",
     notionUrl: "https://www.notion.so/AI-2c680b19aa4a812ab074eb1be079b611?source=copy_link",
-    speaker: "Hakushi", participants: 101,
-    responseRate: "47%", reportUrl: null, score: 4.77,
+    speaker: "Hakushi", participants: 101, responseRate: "47%", reportUrl: null, score: 4.77,
   },
   {
     round: "第5回", date: "2026/01/19",
     title: "素人が1時間でプロ級！AI映像制作の裏技【機材ゼロ円で開始】",
     notionUrl: "https://www.notion.so/AI-2c680b19aa4a814fac51fd1fd4c0cef2?source=copy_link",
-    speaker: "Hakushi", participants: 762,
-    responseRate: "42%", reportUrl: null, score: 4.65,
+    speaker: "Hakushi", participants: 762, responseRate: "42%", reportUrl: null, score: 4.65,
   },
   {
     round: "第4回", date: "2026/01/12",
     title: "東大生も実践！AIと作る最強勉強スケジュール【誰でも再現可能】",
     notionUrl: "https://www.notion.so/AI-2c680b19aa4a816e9895fb8f0f8875d2?source=copy_link",
-    speaker: "Hakushi", participants: 117,
-    responseRate: "54%", reportUrl: null, score: 4.81,
+    speaker: "Hakushi", participants: 117, responseRate: "54%", reportUrl: null, score: 4.81,
   },
   {
     round: "第3回", date: "2026/01/05",
     title: "AIで成績アップ！学校では教えてくれない勉強法【親子で学べる】",
     notionUrl: "https://www.notion.so/AI-2c680b19aa4a819db665ff0bccdfa601?source=copy_link",
-    speaker: "Hakushi", participants: 325,
-    responseRate: "29%", reportUrl: null, score: 4.77,
+    speaker: "Hakushi", participants: 325, responseRate: "29%", reportUrl: null, score: 4.77,
   },
   {
     round: "第2回", date: "2025/12/17",
     title: "受験も進路も変わる！中高生の親が今すべきAI教育サポート",
     notionUrl: "https://www.notion.so/AI-2c680b19aa4a81d38c52f56e8859aee5?source=copy_link",
-    speaker: "Hakushi", participants: 199,
-    responseRate: "34%", reportUrl: null, score: 4.85,
+    speaker: "Hakushi", participants: 199, responseRate: "34%", reportUrl: null, score: 4.85,
   },
   {
     round: "第1回", date: "2025/12/14",
@@ -287,20 +304,16 @@ const webinars = [
   },
 ];
 
-// スコアに応じてクラスを返す
 function scoreClass(s) {
   if (s >= 4.0) return "score-high";
   if (s >= 3.0) return "score-mid";
   return "score-low";
 }
-
-// 星を生成（5段階）
 function stars(s) {
-  const full = Math.round(s);
-  return "★".repeat(full) + "☆".repeat(5 - full);
+  const f = Math.round(s);
+  return "★".repeat(f) + "☆".repeat(5 - f);
 }
 
-// テーブル行を生成
 const tbody = document.getElementById("webinar-list");
 webinars.forEach(w => {
   const titleCell = w.notionUrl
@@ -310,7 +323,7 @@ webinars.forEach(w => {
   const rateCell = w.reportUrl
     ? `<a href="${w.reportUrl}" target="_blank" rel="noopener">${w.responseRate} →</a>`
     : w.responseRate
-      ? `<span>${w.responseRate}</span>`
+      ? `<span class="rate-plain">${w.responseRate}</span>`
       : `<span class="no-data">−</span>`;
 
   const scoreCell = w.score !== null
@@ -323,11 +336,120 @@ webinars.forEach(w => {
     <td class="td-date">${w.date}</td>
     <td class="td-title">${titleCell}</td>
     <td class="td-speaker">${w.speaker}</td>
-    <td class="td-num">${w.participants.toLocaleString()}<span style="font-size:11px;color:#94A3B8;font-weight:400;">名</span></td>
+    <td class="td-num">${w.participants.toLocaleString()}<span style="font-size:11px;color:#94A3B8;font-weight:400;"> 名</span></td>
     <td class="td-rate">${rateCell}</td>
     <td class="td-score">${scoreCell}</td>
   `;
   tbody.appendChild(tr);
+});
+
+// ===== チャートデータ =====
+const participantLabels = ["第1回","第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回"];
+const participantData   = [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397];
+const rateLabels  = ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回"];
+const rateData    = [34.1, 28.9, 53.8, 41.7, 46.5, 36.7, 15.9, 33.0, 37.2, 34.3, 31.0];
+const scoreLabels = ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回"];
+const scoreData   = [4.85, 4.77, 4.81, 4.65, 4.77, 4.58, 3.67, 4.57, 4.57, 4.33, 4.18];
+const prefLabels  = ["東京","大阪","神奈川","愛知","埼玉","兵庫","福岡","千葉","北海道","京都","静岡","長野","岐阜","沖縄","広島"];
+const prefData    = [202, 100, 91, 77, 74, 60, 43, 35, 24, 21, 20, 15, 14, 14, 14];
+
+// 参加者数 棒グラフ
+new Chart(document.getElementById('participantChart'), {
+  type: 'bar',
+  data: {
+    labels: participantLabels,
+    datasets: [{
+      data: participantData,
+      backgroundColor: participantData.map(v => v === Math.max(...participantData) ? '#FFD166' : '#00C2CB'),
+      borderRadius: 6, borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toLocaleString()} 名` } }
+    },
+    scales: {
+      y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { callback: v => v.toLocaleString() } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// 回答率 折れ線
+new Chart(document.getElementById('rateChart'), {
+  type: 'line',
+  data: {
+    labels: rateLabels,
+    datasets: [{
+      data: rateData,
+      borderColor: '#00C2CB', backgroundColor: 'rgba(0,194,203,0.12)',
+      fill: true, tension: 0.4, pointRadius: 5,
+      pointBackgroundColor: '#00C2CB', pointBorderColor: 'white', pointBorderWidth: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toFixed(1)}%` } }
+    },
+    scales: {
+      y: { min: 0, max: 65, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { callback: v => v + '%' } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// 満足度 折れ線
+new Chart(document.getElementById('scoreChart'), {
+  type: 'line',
+  data: {
+    labels: scoreLabels,
+    datasets: [{
+      data: scoreData,
+      borderColor: '#FFD166', backgroundColor: 'rgba(255,209,102,0.12)',
+      fill: true, tension: 0.4, pointRadius: 5,
+      pointBackgroundColor: '#FFD166', pointBorderColor: 'white', pointBorderWidth: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toFixed(2)} / 5.00` } }
+    },
+    scales: {
+      y: { min: 3.0, max: 5.0, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { stepSize: 0.5 } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// 都道府県 横棒グラフ
+new Chart(document.getElementById('prefChart'), {
+  type: 'bar',
+  data: {
+    labels: prefLabels,
+    datasets: [{
+      data: prefData,
+      backgroundColor: prefLabels.map((_, i) => i < 3 ? '#1E2761' : i < 8 ? '#00C2CB' : '#A8D8DC'),
+      borderRadius: 4, borderSkipped: false,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.x} 名` } }
+    },
+    scales: {
+      x: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { callback: v => v + '名' } },
+      y: { grid: { display: false } }
+    }
+  }
 });
 </script>
 </body>
