@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHIFT AI ジュニア ウェビナーレポート</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif; background: #F0F4F8; color: #1E2761; }
+
+    /* ヘッダー */
+    .hero {
+      background: linear-gradient(135deg, #1E2761 0%, #0A1040 100%);
+      color: white; padding: 52px 40px 44px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ""; position: absolute; top: -80px; right: -60px;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: rgba(0,194,203,0.1);
+    }
+    .hero::after {
+      content: ""; position: absolute; bottom: -60px; right: 160px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: rgba(255,209,102,0.07);
+    }
+    .hero-tag {
+      display: inline-block; background: #00C2CB; color: #1E2761;
+      font-weight: 700; font-size: 12px; padding: 4px 14px;
+      border-radius: 20px; margin-bottom: 16px; letter-spacing: 0.05em;
+    }
+    .hero h1 { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+    .hero h1 span { color: #00C2CB; }
+    .hero-sub { font-size: 14px; color: #8899BB; }
+
+    /* コンテナ */
+    .container { max-width: 1000px; margin: 0 auto; padding: 40px 24px 60px; }
+
+    /* セクションタイトル */
+    .section-title {
+      font-size: 18px; font-weight: 700; color: #1E2761;
+      margin-bottom: 16px; padding-left: 14px;
+      border-left: 5px solid #00C2CB;
+    }
+
+    /* ウェビナー一覧テーブル */
+    .table-wrap {
+      background: white; border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(30,39,97,0.08);
+      overflow: hidden; margin-bottom: 48px;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: #1E2761; }
+    thead th {
+      color: white; font-size: 12px; font-weight: 600;
+      padding: 14px 16px; text-align: left; letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    tbody tr {
+      border-bottom: 1px solid #EEF2F7;
+      transition: background 0.15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #F7F9FC; }
+    tbody td { padding: 16px; font-size: 14px; vertical-align: middle; }
+
+    .td-round {
+      font-weight: 700; color: #00C2CB; font-size: 13px;
+      white-space: nowrap;
+    }
+    .td-date { color: #64748B; font-size: 13px; white-space: nowrap; }
+    .td-title a {
+      color: #1E2761; font-weight: 600; text-decoration: none;
+      font-size: 14px; line-height: 1.5;
+    }
+    .td-title a:hover { color: #00C2CB; text-decoration: underline; }
+    .td-speaker { color: #475569; font-size: 13px; white-space: nowrap; }
+    .td-num { font-weight: 700; color: #1E2761; text-align: center; }
+    .td-rate a {
+      display: inline-block;
+      background: #EEF2FF; color: #1E2761;
+      font-weight: 700; font-size: 13px;
+      padding: 4px 12px; border-radius: 20px;
+      text-decoration: none; white-space: nowrap;
+    }
+    .td-rate a:hover { background: #00C2CB; color: white; }
+    .td-score {
+      text-align: center; font-weight: 700;
+      font-size: 16px;
+    }
+    .stars { color: #FFD166; font-size: 12px; display: block; margin-top: 2px; }
+
+    /* スコアの色 */
+    .score-high { color: #06D6A0; }
+    .score-mid  { color: #FFD166; }
+    .score-low  { color: #FF6B6B; }
+
+    /* 累積分析セクション */
+    .cumulative-card {
+      background: linear-gradient(135deg, #1E2761 0%, #0A1040 100%);
+      border-radius: 16px; padding: 36px 32px; color: white;
+      position: relative; overflow: hidden;
+    }
+    .cumulative-card::before {
+      content: ""; position: absolute; top: -60px; right: -60px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: rgba(0,194,203,0.1);
+    }
+    .cumulative-card .section-title { color: white; border-color: #FFD166; }
+    .cumulative-sub { font-size: 13px; color: #8899BB; margin-bottom: 28px; }
+
+    .coming-soon {
+      display: flex; align-items: center; gap: 16px;
+      background: rgba(255,255,255,0.07); border-radius: 12px;
+      padding: 20px 24px;
+    }
+    .coming-icon { font-size: 36px; flex-shrink: 0; }
+    .coming-title { font-size: 16px; font-weight: 700; color: #FFD166; margin-bottom: 6px; }
+    .coming-body { font-size: 13px; color: #8899BB; line-height: 1.6; }
+
+    .metrics-preview {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px; margin-top: 20px;
+    }
+    .metric-item {
+      background: rgba(255,255,255,0.07); border-radius: 10px;
+      padding: 14px 16px; display: flex; align-items: center; gap: 10px;
+    }
+    .metric-icon { font-size: 20px; flex-shrink: 0; }
+    .metric-label { font-size: 12px; color: #8899BB; }
+
+    /* フッター */
+    footer { text-align: center; padding: 24px; font-size: 12px; color: #94A3B8; }
+
+    /* レスポンシブ */
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 22px; }
+      thead th, tbody td { padding: 10px 10px; }
+      .td-speaker { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ヘッダー -->
+<div class="hero">
+  <div class="hero-tag">SHIFT AI ジュニア</div>
+  <h1>ウェビナー<span>レポート</span>一覧</h1>
+  <p class="hero-sub">各回のアンケート集計・分析結果をまとめています</p>
+</div>
+
+<div class="container">
+
+  <!-- ウェビナー一覧 -->
+  <h2 class="section-title">ウェビナー一覧</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>回数</th>
+          <th>日時</th>
+          <th>タイトル</th>
+          <th>登壇者</th>
+          <th>参加人数</th>
+          <th>回収率</th>
+          <th>満足度</th>
+        </tr>
+      </thead>
+      <tbody id="webinar-list">
+        <!-- データはJSで動的に生成 -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 累積分析 -->
+  <div class="cumulative-card">
+    <h2 class="section-title">累積分析データ</h2>
+    <p class="cumulative-sub">第12回以降のデータが蓄積されると自動で更新されます</p>
+
+    <div class="coming-soon">
+      <div class="coming-icon">📊</div>
+      <div>
+        <div class="coming-title">Coming Soon — データ蓄積中</div>
+        <div class="coming-body">
+          複数回分のデータが揃い次第、以下の累積分析レポートを公開します。<br>
+          現在 <strong style="color:#00C2CB;">1回分</strong> のデータが蓄積されています。
+        </div>
+      </div>
+    </div>
+
+    <div class="metrics-preview">
+      <div class="metric-item"><span class="metric-icon">📈</span><span class="metric-label">参加者数・回答率の推移</span></div>
+      <div class="metric-item"><span class="metric-icon">⭐</span><span class="metric-label">満足度の推移</span></div>
+      <div class="metric-item"><span class="metric-icon">🎬</span><span class="metric-label">テーマ人気ランキング（累計）</span></div>
+      <div class="metric-item"><span class="metric-icon">📋</span><span class="metric-label">Junior登録率の推移</span></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>SHIFT AI ジュニア ウェビナーレポート一覧</footer>
+
+<script>
+// ===== ウェビナーデータ（マスタ管理表から生成） =====
+const webinars = [
+  {
+    round: "第12回",
+    date: "2026/03/09",
+    title: "偉人、令和に降臨。AIで蘇らせる歴史ショートの作り方",
+    notionUrl: "https://www.notion.so/2ed80b19aa4a81f2bd4cda0b2daa211e?source=copy_link",
+    speaker: "上洲智樹",
+    participants: 397,
+    responseRate: "31%",
+    reportUrl: "https://rinaaishiftai.github.io/junior-webinar-reports/%E7%AC%AC12%E5%9B%9E.html",
+    score: 4.18,
+  },
+];
+
+// スコアに応じてクラスを返す
+function scoreClass(s) {
+  if (s >= 4.0) return "score-high";
+  if (s >= 3.0) return "score-mid";
+  return "score-low";
+}
+
+// 星を生成（5段階）
+function stars(s) {
+  const full = Math.round(s);
+  return "★".repeat(full) + "☆".repeat(5 - full);
+}
+
+// テーブル行を生成
+const tbody = document.getElementById("webinar-list");
+webinars.forEach(w => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td class="td-round">${w.round}</td>
+    <td class="td-date">${w.date}</td>
+    <td class="td-title"><a href="${w.notionUrl}" target="_blank" rel="noopener">${w.title}</a></td>
+    <td class="td-speaker">${w.speaker}</td>
+    <td class="td-num">${w.participants.toLocaleString()}<span style="font-size:11px;color:#94A3B8;font-weight:400;">名</span></td>
+    <td class="td-rate"><a href="${w.reportUrl}" target="_blank" rel="noopener">${w.responseRate} →</a></td>
+    <td class="td-score">
+      <span class="${scoreClass(w.score)}">${w.score.toFixed(2)}</span>
+      <span class="stars">${stars(w.score)}</span>
+    </td>
+  `;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
