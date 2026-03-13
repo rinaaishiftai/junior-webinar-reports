@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>累積データ分析 | ジュニア定例ウェビナー</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif; background: #F0F4F8; color: #1E2761; }
+
+    .hero {
+      background: linear-gradient(135deg, #1E2761 0%, #0A1040 100%);
+      color: white; padding: 52px 40px 44px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ""; position: absolute; top: -80px; right: -60px;
+      width: 320px; height: 320px; border-radius: 50%; background: rgba(0,194,203,0.1);
+    }
+    .hero::after {
+      content: ""; position: absolute; bottom: -60px; right: 160px;
+      width: 200px; height: 200px; border-radius: 50%; background: rgba(255,209,102,0.07);
+    }
+    .hero-tag {
+      display: inline-block; background: #00C2CB; color: #1E2761;
+      font-weight: 700; font-size: 12px; padding: 4px 14px;
+      border-radius: 20px; margin-bottom: 16px; letter-spacing: 0.05em;
+    }
+    .hero h1 { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+    .hero h1 span { color: #00C2CB; }
+    .hero-sub { font-size: 14px; color: #8899BB; margin-bottom: 20px; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: #8899BB; text-decoration: none; font-size: 13px;
+      border: 1px solid rgba(255,255,255,0.2); padding: 6px 14px;
+      border-radius: 20px; transition: all 0.2s;
+    }
+    .back-link:hover { color: #00C2CB; border-color: #00C2CB; }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 40px 24px 60px; }
+
+    /* サマリーカード */
+    .summary-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+      margin-bottom: 40px;
+    }
+    .summary-card {
+      background: white; border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(30,39,97,0.08);
+      padding: 20px 20px 18px; text-align: center;
+    }
+    .summary-card .icon { font-size: 28px; margin-bottom: 8px; }
+    .summary-card .val { font-size: 28px; font-weight: 800; color: #1E2761; line-height: 1; }
+    .summary-card .val span { font-size: 14px; font-weight: 600; color: #64748B; margin-left: 2px; }
+    .summary-card .label { font-size: 12px; color: #94A3B8; margin-top: 6px; }
+
+    /* セクションタイトル */
+    .section-title {
+      font-size: 18px; font-weight: 700; color: #1E2761;
+      margin-bottom: 16px; padding-left: 14px;
+      border-left: 5px solid #00C2CB;
+    }
+
+    /* チャートカード */
+    .chart-card {
+      background: white; border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(30,39,97,0.08);
+      padding: 28px 28px 20px; margin-bottom: 28px;
+    }
+    .chart-note { font-size: 12px; color: #94A3B8; margin-top: 10px; }
+
+    /* 2列グリッド */
+    .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+
+    /* 都道府県 */
+    .pref-note {
+      background: #FFF8E7; border: 1px solid #FFD166;
+      border-radius: 10px; padding: 12px 16px;
+      font-size: 12px; color: #92703A; margin-top: 12px; line-height: 1.6;
+    }
+
+    footer { text-align: center; padding: 24px; font-size: 12px; color: #94A3B8; }
+
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 20px; }
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+      .chart-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">SHIFT AI ジュニア</div>
+  <h1>累積データ<span>分析</span></h1>
+  <p class="hero-sub">第1回〜第12回の全データを集計・可視化しています（都道府県は第1〜11回分）</p>
+  <a href="./index.html" class="back-link">← ウェビナー一覧に戻る</a>
+</div>
+
+<div class="container">
+
+  <!-- サマリー -->
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="icon">📅</div>
+      <div class="val">12<span>回</span></div>
+      <div class="label">実施回数</div>
+    </div>
+    <div class="summary-card">
+      <div class="icon">👥</div>
+      <div class="val">3,733<span>名</span></div>
+      <div class="label">累計参加者数</div>
+    </div>
+    <div class="summary-card">
+      <div class="icon">📋</div>
+      <div class="val">35.7<span>%</span></div>
+      <div class="label">平均回答率（第2〜12回）</div>
+    </div>
+    <div class="summary-card">
+      <div class="icon">⭐</div>
+      <div class="val">4.52<span>/5</span></div>
+      <div class="label">平均満足度（第2〜12回）</div>
+    </div>
+  </div>
+
+  <!-- 参加者数推移 -->
+  <h2 class="section-title">参加者数の推移</h2>
+  <div class="chart-card">
+    <canvas id="participantChart" height="80"></canvas>
+    <p class="chart-note">※ 第1回はアンケートなし（参加者のみカウント）</p>
+  </div>
+
+  <!-- 回答率・満足度グリッド -->
+  <div class="chart-grid">
+    <div>
+      <h2 class="section-title">回答率の推移</h2>
+      <div class="chart-card">
+        <canvas id="rateChart" height="160"></canvas>
+        <p class="chart-note">第2回〜第12回のデータ（第1回はアンケートなし）</p>
+      </div>
+    </div>
+    <div>
+      <h2 class="section-title">満足度の推移</h2>
+      <div class="chart-card">
+        <canvas id="scoreChart" height="160"></canvas>
+        <p class="chart-note">第2回〜第12回のデータ（5段階評価の平均）</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 都道府県 -->
+  <h2 class="section-title">都道府県別参加者数（累計 上位15）</h2>
+  <div class="chart-card">
+    <canvas id="prefChart" height="90"></canvas>
+    <div class="pref-note">
+      ⚠️ 都道府県は第1〜11回のアンケートデータ（自由記述回答を正規化して集計）。<br>
+      第12回分は含まれていません。今後のアンケートはプルダウン形式にすると集計が正確になります。
+    </div>
+  </div>
+
+</div>
+
+<footer>SHIFT AI ジュニア ウェビナーレポート — 累積データ分析</footer>
+
+<script>
+// ===== データ =====
+const participantLabels = ["第1回","第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回"];
+const participantData   = [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397];
+
+const rateLabels = ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回"];
+const rateData   = [34.1, 28.9, 53.8, 41.7, 46.5, 36.7, 15.9, 33.0, 37.2, 34.3, 31.0];
+
+const scoreLabels = ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回"];
+const scoreData   = [4.85, 4.77, 4.81, 4.65, 4.77, 4.58, 3.67, 4.57, 4.57, 4.33, 4.18];
+
+const prefLabels = ["東京","大阪","神奈川","愛知","埼玉","兵庫","福岡","千葉","北海道","京都","静岡","長野","岐阜","沖縄","広島"];
+const prefData   = [202, 100, 91, 77, 74, 60, 43, 35, 24, 21, 20, 15, 14, 14, 14];
+
+// ===== 参加者数 棒グラフ =====
+new Chart(document.getElementById('participantChart'), {
+  type: 'bar',
+  data: {
+    labels: participantLabels,
+    datasets: [{
+      label: '参加者数（名）',
+      data: participantData,
+      backgroundColor: participantData.map((v, i) =>
+        i === participantData.indexOf(Math.max(...participantData)) ? '#FFD166' : '#00C2CB'
+      ),
+      borderRadius: 6, borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toLocaleString()} 名` } }
+    },
+    scales: {
+      y: {
+        beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' },
+        ticks: { callback: v => v.toLocaleString() }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ===== 回答率 折れ線 =====
+new Chart(document.getElementById('rateChart'), {
+  type: 'line',
+  data: {
+    labels: rateLabels,
+    datasets: [{
+      label: '回答率（%）',
+      data: rateData,
+      borderColor: '#00C2CB', backgroundColor: 'rgba(0,194,203,0.12)',
+      fill: true, tension: 0.4, pointRadius: 5,
+      pointBackgroundColor: '#00C2CB', pointBorderColor: 'white', pointBorderWidth: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toFixed(1)}%` } }
+    },
+    scales: {
+      y: {
+        min: 0, max: 65,
+        grid: { color: 'rgba(0,0,0,0.05)' },
+        ticks: { callback: v => v + '%' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ===== 満足度 折れ線 =====
+new Chart(document.getElementById('scoreChart'), {
+  type: 'line',
+  data: {
+    labels: scoreLabels,
+    datasets: [{
+      label: '満足度（5段階）',
+      data: scoreData,
+      borderColor: '#FFD166', backgroundColor: 'rgba(255,209,102,0.12)',
+      fill: true, tension: 0.4, pointRadius: 5,
+      pointBackgroundColor: '#FFD166', pointBorderColor: 'white', pointBorderWidth: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.y.toFixed(2)} / 5.00` } }
+    },
+    scales: {
+      y: {
+        min: 3.0, max: 5.0,
+        grid: { color: 'rgba(0,0,0,0.05)' },
+        ticks: { stepSize: 0.5 }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ===== 都道府県 横棒グラフ =====
+new Chart(document.getElementById('prefChart'), {
+  type: 'bar',
+  data: {
+    labels: prefLabels,
+    datasets: [{
+      label: '参加者数（名）',
+      data: prefData,
+      backgroundColor: prefLabels.map((_, i) => i < 3 ? '#1E2761' : i < 8 ? '#00C2CB' : '#A8D8DC'),
+      borderRadius: 4, borderSkipped: false,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.parsed.x} 名` } }
+    },
+    scales: {
+      x: {
+        beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' },
+        ticks: { callback: v => v + '名' }
+      },
+      y: { grid: { display: false } }
+    }
+  }
+});
+</script>
+</body>
+</html>
