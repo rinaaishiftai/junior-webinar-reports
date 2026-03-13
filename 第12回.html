@@ -89,8 +89,8 @@
   <div class="hero-meta">
     <div>📅 実施日：<strong>2025年3月9日（日）</strong></div>
     <div>👥 リアルタイム参加者：<strong>397名</strong></div>
-    <div>📋 アンケート回答：<strong>115名</strong></div>
-    <div>📊 回答率：<strong>29%</strong></div>
+    <div>📋 アンケート回答：<strong>123名</strong></div>
+    <div>📊 回答率：<strong>31%</strong></div>
   </div>
 </div>
 
@@ -98,8 +98,8 @@
 
   <div class="stats-grid">
     <div class="stat-card"><div class="stat-value">397</div><div class="stat-label">リアルタイム参加者数</div></div>
-    <div class="stat-card"><div class="stat-value">115</div><div class="stat-label">アンケート回答数</div></div>
-    <div class="stat-card"><div class="stat-value">29%</div><div class="stat-label">回答率</div></div>
+    <div class="stat-card"><div class="stat-value">123</div><div class="stat-label">アンケート回答数</div></div>
+    <div class="stat-card"><div class="stat-value">31%</div><div class="stat-label">回答率</div></div>
     <div class="stat-card"><div class="stat-value">4.18</div><div class="stat-label">全体満足度（5点満点）</div></div>
   </div>
 
@@ -124,7 +124,7 @@
       <div class="chart-subtitle">5点満点スコア</div>
       <div class="score-list">
         <div><div class="score-header"><span class="score-label">全体平均</span><span class="score-num" style="color:#1E2761">4.18</span></div><div class="score-bar-bg"><div class="score-bar" style="width:83.6%;background:#1E2761"></div></div></div>
-        <div><div class="score-header"><span class="score-label">保護者</span><span class="score-num" style="color:#06D6A0">4.41</span></div><div class="score-bar-bg"><div class="score-bar" style="width:88.2%;background:#06D6A0"></div></div></div>
+        <div><div class="score-header"><span class="score-label">保護者</span><span class="score-num" style="color:#06D6A0">4.39</span></div><div class="score-bar-bg"><div class="score-bar" style="width:87.8%;background:#06D6A0"></div></div></div>
         <div><div class="score-header"><span class="score-label">一般参加者</span><span class="score-num" style="color:#9B5DE5">4.00</span></div><div class="score-bar-bg"><div class="score-bar" style="width:80%;background:#9B5DE5"></div></div></div>
         <div><div class="score-header"><span class="score-label">お子さまの楽しさ</span><span class="score-num" style="color:#FF6B6B">2.75</span></div><div class="score-bar-bg"><div class="score-bar" style="width:55%;background:#FF6B6B"></div></div></div>
       </div>
@@ -198,9 +198,9 @@
   <div class="summary-section">
     <h2 class="section-title">まとめ・次回への提言</h2>
     <div class="insight-list">
-      <div class="insight-item"><div class="insight-icon">✅</div><div><div class="insight-title">高い満足度を維持</div><div class="insight-body">全体4.18、保護者4.41と高水準。コンテンツの質は参加者から高く評価されている。</div></div></div>
-      <div class="insight-item"><div class="insight-icon">📣</div><div><div class="insight-title">LINEが主力集客チャネル（71%）</div><div class="insight-body">参加者の約7割がLINE案内経由。SNS活用や口コミ促進で新規参加者の拡大が期待できる。</div></div></div>
-      <div class="insight-item"><div class="insight-icon">🎬</div><div><div class="insight-title">動画・クリエイティブ系テーマの需要が高い</div><div class="insight-body">「動画作成」（34票）、「画像生成」（28票）、「自由研究」（28票）がトップ3。次回テーマ選定の参考に。</div></div></div>
+      <div class="insight-item"><div class="insight-icon">✅</div><div><div class="insight-title">高い満足度を維持</div><div class="insight-body">全体4.18、保護者4.39と高水準。コンテンツの質は参加者から高く評価されている。</div></div></div>
+      <div class="insight-item"><div class="insight-icon">📣</div><div><div class="insight-title">LINEが主力集客チャネル（68%）</div><div class="insight-body">参加者の約7割がLINE案内経由。SNS活用や口コミ促進で新規参加者の拡大が期待できる。</div></div></div>
+      <div class="insight-item"><div class="insight-icon">🎬</div><div><div class="insight-title">動画・クリエイティブ系テーマの需要が高い</div><div class="insight-body">「動画作成」（36票）、「自由研究」（30票）、「画像生成」（31票）がトップ3。次回テーマ選定の参考に。</div></div></div>
       <div class="insight-item"><div class="insight-icon">📋</div><div><div class="insight-title">Junior登録促進の余地あり</div><div class="insight-body">未登録者の40%が「そのうち登録」、26%が「活動内容不明」。分かりやすい案内と継続フォローで登録率向上が見込める。</div></div></div>
       <div class="insight-item"><div class="insight-icon">👨‍👩‍👧</div><div><div class="insight-title">一般・大人向けへの訴求も検討を</div><div class="insight-body">参加者の約56%がジュニア対象外の「その他（大人）」。「大人も楽しめた」という声が多数。対象範囲の明示や大人向け展開を検討したい。</div></div></div>
     </div>
@@ -216,49 +216,49 @@ const C = { navy:'#1E2761', cyan:'#00C2CB', purple:'#9B5DE5', green:'#06D6A0', y
 
 new Chart(document.getElementById('participantChart'), {
   type: 'doughnut',
-  data: { labels: ['その他（大人）','保護者','保護者＋子','学生'], datasets: [{ data: [64,47,4,0], backgroundColor: [C.gray,C.navy,C.cyan,C.green], borderWidth:3, borderColor:'#fff' }] },
+  data: { labels: ['その他（大人）','保護者','保護者＋子','学生'], datasets: [{ data: [66,53,4,0], backgroundColor: [C.gray,C.navy,C.cyan,C.green], borderWidth:3, borderColor:'#fff' }] },
   options: { plugins: { legend: { position:'bottom', labels:{ padding:16, font:{size:13} } }, tooltip: { callbacks: { label: (ctx) => { const t=ctx.dataset.data.reduce((a,b)=>a+b,0); return ` ${ctx.label}: ${ctx.raw}名（${Math.round(ctx.raw/t*100)}%）`; } } } }, cutout:'60%' }
 });
 
 new Chart(document.getElementById('gradeChart'), {
   type: 'bar',
-  data: { labels: ['未就学児','小学生','中学生','高校生'], datasets: [{ label:'人数', data:[4,20,7,20], backgroundColor:[C.cyan,C.navy,C.purple,C.green], borderRadius:6 }] },
+  data: { labels: ['未就学児','小学生','中学生','高校生'], datasets: [{ label:'人数', data:[6,23,7,21], backgroundColor:[C.cyan,C.navy,C.purple,C.green], borderRadius:6 }] },
   options: { plugins:{legend:{display:false}}, scales:{ y:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, x:{grid:{display:false},ticks:{color:'#475569'}} } }
 });
 
 new Chart(document.getElementById('practiceChart'), {
   type: 'doughnut',
-  data: { labels: ['すぐできる','手順があればできる','まだ難しい'], datasets: [{ data:[18,21,8], backgroundColor:[C.green,C.cyan,C.red], borderWidth:3, borderColor:'#fff' }] },
+  data: { labels: ['すぐできる','手順があればできる','まだ難しい'], datasets: [{ data:[19,26,8], backgroundColor:[C.green,C.cyan,C.red], borderWidth:3, borderColor:'#fff' }] },
   options: { plugins: { legend:{position:'bottom',labels:{padding:14,font:{size:12}}}, tooltip:{callbacks:{label:(ctx)=>{ const t=ctx.dataset.data.reduce((a,b)=>a+b,0); return ` ${ctx.label}: ${ctx.raw}名（${Math.round(ctx.raw/t*100)}%）`; }}} }, cutout:'55%' }
 });
 
 new Chart(document.getElementById('themeChart'), {
   type: 'bar',
-  data: { labels: ['動画作成・制作','画像生成','自由研究','勉強法','プログラミング','進路関係','マナー・安全','ゲーム作成','文章作成'], datasets: [{ label:'票数', data:[34,28,28,20,16,15,12,3,1], backgroundColor:[C.cyan,C.purple,C.green,C.navy,C.orange,C.teal,C.yellow,C.red,C.gray], borderRadius:5 }] },
+  data: { labels: ['動画作成・制作','画像生成','自由研究','勉強法','進路関係','プログラミング','マナー・安全','ゲーム作成','文章作成'], datasets: [{ label:'票数', data:[36,31,30,24,17,17,15,3,1], backgroundColor:[C.cyan,C.purple,C.green,C.navy,C.orange,C.teal,C.yellow,C.red,C.gray], borderRadius:5 }] },
   options: { indexAxis:'y', plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, y:{grid:{display:false},ticks:{color:'#1E2761',font:{weight:'600'}}} } }
 });
 
 new Chart(document.getElementById('referralChart'), {
   type: 'bar',
-  data: { labels: ['LINE案内','コミュニティ','その他'], datasets: [{ label:'人数', data:[82,29,4], backgroundColor:[C.cyan,C.navy,C.gray], borderRadius:6 }] },
+  data: { labels: ['LINE案内','コミュニティ','その他'], datasets: [{ label:'人数', data:[84,34,5], backgroundColor:[C.cyan,C.navy,C.gray], borderRadius:6 }] },
   options: { plugins:{legend:{display:false}}, scales:{ y:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, x:{grid:{display:false},ticks:{color:'#475569'}} } }
 });
 
 new Chart(document.getElementById('registrationChart'), {
   type: 'doughnut',
-  data: { labels: ['未登録','登録済み','登録方法不明'], datasets: [{ data:[81,34,13], backgroundColor:[C.red,C.green,C.gray], borderWidth:3, borderColor:'#fff' }] },
+  data: { labels: ['未登録','登録済み','登録方法不明'], datasets: [{ data:[87,36,15], backgroundColor:[C.red,C.green,C.gray], borderWidth:3, borderColor:'#fff' }] },
   options: { plugins: { legend:{position:'bottom',labels:{padding:14,font:{size:12}}}, tooltip:{callbacks:{label:(ctx)=>{ const t=ctx.dataset.data.reduce((a,b)=>a+b,0); return ` ${ctx.label}: ${ctx.raw}名（${Math.round(ctx.raw/t*100)}%）`; }}} }, cutout:'55%' }
 });
 
 new Chart(document.getElementById('unregiChart'), {
   type: 'bar',
-  data: { labels: ['そのうち登録','活動内容不明','時間がない','費用面','安全面不安'], datasets: [{ label:'人数', data:[28,18,11,9,4], backgroundColor:[C.cyan,C.purple,C.yellow,C.orange,C.red], borderRadius:5 }] },
+  data: { labels: ['そのうち登録','活動内容不明','時間がない','費用面','安全面不安'], datasets: [{ label:'人数', data:[31,20,12,9,4], backgroundColor:[C.cyan,C.purple,C.yellow,C.orange,C.red], borderRadius:5 }] },
   options: { indexAxis:'y', plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, y:{grid:{display:false},ticks:{color:'#1E2761',font:{size:12}}} } }
 });
 
 new Chart(document.getElementById('prefChart'), {
   type: 'bar',
-  data: { labels: ['東京都','大阪府','神奈川県','愛知県','千葉県','北海道','福岡県','兵庫県','茨城県','新潟県'], datasets: [{ label:'人数', data:[23,17,10,8,7,6,5,4,3,3], backgroundColor:[C.navy,C.navy,C.cyan,C.cyan,C.cyan,C.gray,C.gray,C.gray,C.gray,C.gray], borderRadius:5 }] },
+  data: { labels: ['東京都','大阪府','神奈川県','千葉県','愛知県','北海道','福岡県','兵庫県','茨城県','新潟県'], datasets: [{ label:'人数', data:[23,18,10,9,9,6,6,4,3,3], backgroundColor:[C.navy,C.navy,C.cyan,C.cyan,C.cyan,C.gray,C.gray,C.gray,C.gray,C.gray], borderRadius:5 }] },
   options: { indexAxis:'y', plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, y:{grid:{display:false},ticks:{color:'#1E2761',font:{size:12}}} } }
 });
 </script>
