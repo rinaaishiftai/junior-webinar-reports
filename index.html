@@ -179,6 +179,16 @@
         <tbody>
 
           <tr>
+            <td class="td-round">第13回</td>
+            <td class="td-date">2026/03/23</td>
+            <td class="td-title"><a href="https://www.notion.so/AI-2ed80b19aa4a81918a5ce290b1c927a3?source=copy_link" target="_blank" rel="noopener">めんどい読書は終わり!AIで深く理解するツッコミ読書術</a></td>
+            <td class="td-speaker">中村 格</td>
+            <td class="td-num">267<small> 名</small></td>
+            <td class="td-rate"><a class="rate-link" href="https://rinaaishiftai.github.io/junior-webinar-reports/第13回.html" target="_blank" rel="noopener">38.2% →</a></td>
+            <td class="td-score"><span class="score-val">3.97</span><span class="stars">★★★★☆</span></td>
+          </tr>
+
+          <tr>
             <td class="td-round">第12回</td>
             <td class="td-date">2026/03/09</td>
             <td class="td-title"><a href="https://www.notion.so/2ed80b19aa4a81f2bd4cda0b2daa211e?source=copy_link" target="_blank" rel="noopener">偉人、令和に降臨。AIで蘇らせる歴史ショートの作り方</a></td>
@@ -310,23 +320,23 @@
   <div class="summary-grid">
     <div class="summary-card">
       <div class="s-icon">📅</div>
-      <div class="s-val">12<small>回</small></div>
+      <div class="s-val">13<small>回</small></div>
       <div class="s-label">実施回数</div>
     </div>
     <div class="summary-card">
       <div class="s-icon">👥</div>
-      <div class="s-val">3,733<small>名</small></div>
+      <div class="s-val">4,000<small>名</small></div>
       <div class="s-label">累計参加者数</div>
     </div>
     <div class="summary-card">
       <div class="s-icon">📋</div>
-      <div class="s-val">35.7<small>%</small></div>
-      <div class="s-label">平均回答率（第2〜12回）</div>
+      <div class="s-val">36.0<small>%</small></div>
+      <div class="s-label">平均回答率（第2〜13回）</div>
     </div>
     <div class="summary-card">
       <div class="s-icon">⭐</div>
-      <div class="s-val">4.52<small>/5</small></div>
-      <div class="s-label">平均満足度（第2〜12回）</div>
+      <div class="s-val">4.47<small>/5</small></div>
+      <div class="s-label">平均満足度（第2〜13回）</div>
     </div>
   </div>
 
@@ -340,23 +350,23 @@
   <!-- 円グラフ2つ -->
   <div class="chart-row">
     <div class="chart-card">
-      <div class="chart-subtitle">次回やりたいテーマ（第12回〜累積）</div>
+      <div class="chart-subtitle">次回やりたいテーマ（第12〜13回累積）</div>
       <div class="pie-wrap"><canvas id="themeChart"></canvas></div>
-      <p class="chart-note">複数回答あり　第12回：回答123件</p>
+      <p class="chart-note">複数回答あり　第12回：123件 ＋ 第13回：102件</p>
     </div>
     <div class="chart-card">
-      <div class="chart-subtitle">参加のきっかけ（第12回〜累積）</div>
+      <div class="chart-subtitle">参加のきっかけ（第12〜13回累積）</div>
       <div class="pie-wrap"><canvas id="triggerChart"></canvas></div>
-      <p class="chart-note">第12回：回答123件</p>
+      <p class="chart-note">第12回：123件 ＋ 第13回：102件</p>
     </div>
   </div>
 
   <!-- 都道府県ランキング -->
   <div class="chart-card">
-    <div class="chart-subtitle">都道府県別参加者数 ランキング（第1〜12回 累計 上位15）</div>
+    <div class="chart-subtitle">都道府県別参加者数 ランキング（第1〜13回 累計 上位15）</div>
     <ul class="pref-ranking" id="prefRanking"></ul>
     <div class="pref-note">
-      ※ 第1〜12回の合算データ。第1〜11回は自由記述を正規化、第12回以降はプルダウン形式で集計。
+      ※ 第1〜13回の合算データ。第1〜11回は自由記述を正規化、第12回以降はプルダウン形式で集計。
     </div>
   </div>
 
@@ -369,10 +379,10 @@
 new Chart(document.getElementById('participantChart'), {
   type: 'bar',
   data: {
-    labels: ["第1回","第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回"],
+    labels: ["第1回","第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回"],
     datasets: [{
-      data: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397],
-      backgroundColor: [424,199,325,117,762,101,656,159,127,207,259,397].map(v => v === 762 ? '#FFD166' : '#00C2CB'),
+      data: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267],
+      backgroundColor: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267].map(v => v === 762 ? '#FFD166' : '#00C2CB'),
       borderRadius: 6, borderSkipped: false,
     }]
   },
@@ -390,9 +400,9 @@ new Chart(document.getElementById('participantChart'), {
 new Chart(document.getElementById('themeChart'), {
   type: 'doughnut',
   data: {
-    labels: ["動画・映像","画像生成","自由研究・工作","勉強法・学習","進路・受験","プログラミング","マナー・安全","ゲーム","文章作成"],
+    labels: ["自由研究・工作","動画・映像","画像生成","勉強法・学習","プログラミング","マナー・安全","進路・受験","ゲーム","文章作成"],
     datasets: [{
-      data: [36, 31, 30, 24, 17, 17, 15, 3, 1],
+      data: [50, 49, 46, 45, 35, 31, 29, 6, 3],
       backgroundColor: ['#1E2761','#00C2CB','#FFD166','#06D6A0','#7B68EE','#FF6B6B','#48CAE4','#A8D8DC','#FAD2A8'],
       borderWidth: 2, borderColor: 'white',
     }]
@@ -412,7 +422,7 @@ new Chart(document.getElementById('triggerChart'), {
   data: {
     labels: ["LINE（公式・グループ）","SHIFT AIコミュニティ","その他"],
     datasets: [{
-      data: [84, 34, 5],
+      data: [163, 51, 11],
       backgroundColor: ['#00C2CB','#1E2761','#FFD166'],
       borderWidth: 2, borderColor: 'white',
     }]
@@ -428,20 +438,20 @@ new Chart(document.getElementById('triggerChart'), {
 
 // ===== 都道府県ランキング =====
 const prefData = [
-  { name: "東京", count: 225 },
-  { name: "大阪", count: 118 },
-  { name: "神奈川", count: 101 },
-  { name: "愛知", count: 86 },
-  { name: "埼玉", count: 76 },
-  { name: "兵庫", count: 64 },
-  { name: "福岡", count: 49 },
-  { name: "千葉", count: 44 },
-  { name: "北海道", count: 30 },
+  { name: "東京", count: 237 },
+  { name: "大阪", count: 126 },
+  { name: "神奈川", count: 104 },
+  { name: "愛知", count: 93 },
+  { name: "埼玉", count: 89 },
+  { name: "兵庫", count: 74 },
+  { name: "福岡", count: 53 },
+  { name: "千葉", count: 48 },
+  { name: "北海道", count: 35 },
   { name: "京都", count: 22 },
-  { name: "静岡", count: 20 },
+  { name: "静岡", count: 21 },
+  { name: "岡山", count: 19 },
+  { name: "沖縄", count: 19 },
   { name: "岐阜", count: 17 },
-  { name: "岡山", count: 17 },
-  { name: "沖縄", count: 16 },
   { name: "広島", count: 16 },
 ];
 const maxCount = prefData[0].count;
