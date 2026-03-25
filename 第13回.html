@@ -169,6 +169,14 @@
   </div>
 
   <div class="charts-grid">
+    <div class="chart-card full">
+      <div class="chart-title">📊 全参加者のやりたいテーマ（複数回答）</div>
+      <div class="chart-subtitle">全参加者　N=104名</div>
+      <div class="chart-wrap"><canvas id="themeChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
     <div class="chart-card">
       <div class="chart-title">🧒 子どものやりたいテーマ（複数回答）</div>
       <div class="chart-subtitle">保護者+子（子ども回答）＋学生本人　N=4名</div>
@@ -176,7 +184,7 @@
     </div>
     <div class="chart-card">
       <div class="chart-title">👨‍👩‍👧 保護者のやりたいテーマ（複数回答）</div>
-      <div class="chart-subtitle">保護者さま＋保護者+子（保護者回答）　N=38名</div>
+      <div class="chart-subtitle">保護者さま＋保護者+子（保護者回答）＋その他　N=104名</div>
       <div class="chart-wrap"><canvas id="parentThemeChart"></canvas></div>
     </div>
   </div>
@@ -310,6 +318,15 @@ new Chart(document.getElementById('practiceChart'), {
   type: 'doughnut',
   data: { labels: ['すぐできる','手順があればできる','まだ難しい'], datasets: [{ data:[11,17,5], backgroundColor:[C.green,C.cyan,C.red], borderWidth:3, borderColor:'#fff' }] },
   options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'bottom',labels:{padding:14,font:{size:12}}}, tooltip:tooltipN }, cutout:'55%' }
+});
+
+new Chart(document.getElementById('themeChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['勉強法','自由研究','プログラミング','マナー・安全','画像生成','動画作成・制作','進路関係','ゲーム作成','文章作成'],
+    datasets: [{ data:[22,21,19,16,16,14,12,3,2], backgroundColor:[C.green,C.teal,C.orange,C.yellow,C.purple,C.cyan,C.navy,C.red,C.gray], borderWidth:2, borderColor:'#fff' }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'bottom',labels:{padding:10,font:{size:12},boxWidth:12}}, tooltip } }
 });
 
 new Chart(document.getElementById('childThemeChart'), {
