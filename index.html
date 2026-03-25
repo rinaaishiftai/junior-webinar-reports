@@ -428,7 +428,7 @@
   <!-- 円グラフ2つ -->
   <div class="chart-row">
     <div class="chart-card">
-      <div class="chart-subtitle">次回やりたいテーマ（第12〜13回累積）</div>
+      <div class="chart-subtitle">次回やりたいテーマ（第12〜13回累積・全参加者）</div>
       <div class="pie-wrap"><canvas id="themeChart"></canvas></div>
       <p class="chart-note">複数回答あり　第12回：123件 ＋ 第13回：102件</p>
     </div>
@@ -436,6 +436,15 @@
       <div class="chart-subtitle">参加のきっかけ（第12〜13回累積）</div>
       <div class="pie-wrap"><canvas id="triggerChart"></canvas></div>
       <p class="chart-note">第12回：123件 ＋ 第13回：102件</p>
+    </div>
+  </div>
+
+  <!-- 子どもテーマ -->
+  <div class="chart-row">
+    <div class="chart-card" style="max-width:560px; margin:0 auto;">
+      <div class="chart-subtitle">🧒 お子さまのやりたいテーマ（第12〜13回累積）</div>
+      <div class="pie-wrap"><canvas id="childThemeChart"></canvas></div>
+      <p class="chart-note">保護者さまとお子さま ＋ 18歳未満の学生本人のみ集計　合計64件</p>
     </div>
   </div>
 
@@ -633,6 +642,26 @@ new Chart(document.getElementById('themeChart'), {
     datasets: [{
       data: [50, 49, 46, 45, 35, 31, 29, 6, 3],
       backgroundColor: ['#1E2761','#00C2CB','#FFD166','#06D6A0','#7B68EE','#FF6B6B','#48CAE4','#A8D8DC','#FAD2A8'],
+      borderWidth: 2, borderColor: 'white',
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.parsed}件` } }
+    }
+  }
+});
+
+// ===== 子どもテーマ 円グラフ =====
+new Chart(document.getElementById('childThemeChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['画像生成','進路関係','動画作成・制作','勉強法','自由研究','マナー・安全','ゲーム作成','プログラミング','文章作成'],
+    datasets: [{
+      data: [10, 10, 9, 8, 8, 6, 6, 4, 3],
+      backgroundColor: ['#7B68EE','#1E2761','#00C2CB','#06D6A0','#48CAE4','#FFD166','#FF6B6B','#F4A261','#A8D8DC'],
       borderWidth: 2, borderColor: 'white',
     }]
   },
