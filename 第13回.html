@@ -174,10 +174,15 @@
   </div>
 
   <div class="charts-grid">
-    <div class="chart-card full">
-      <div class="chart-title">🧒 お子さまのやりたいテーマ（複数回答）</div>
-      <div class="chart-subtitle">保護者さまとお子さま ＋ 18歳未満の学生本人のみ集計　N=35</div>
+    <div class="chart-card">
+      <div class="chart-title">🧒 子どものやりたいテーマ（複数回答）</div>
+      <div class="chart-subtitle">保護者+子（子ども回答）＋学生本人　N=4名</div>
       <div class="chart-wrap"><canvas id="childThemeChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">👨‍👩‍👧 保護者のやりたいテーマ（複数回答）</div>
+      <div class="chart-subtitle">保護者さま＋保護者+子（保護者回答）　N=38名</div>
+      <div class="chart-wrap"><canvas id="parentThemeChart"></canvas></div>
     </div>
   </div>
 
@@ -324,8 +329,17 @@ new Chart(document.getElementById('themeChart'), {
 new Chart(document.getElementById('childThemeChart'), {
   type: 'doughnut',
   data: {
-    labels: ['画像生成','進路関係','動画作成・制作','自由研究','勉強法','マナー・安全','ゲーム作成','プログラミング','文章作成'],
-    datasets: [{ data:[6,5,5,5,4,3,3,2,2], backgroundColor:[C.purple,C.navy,C.cyan,C.teal,C.green,C.yellow,C.red,C.orange,C.gray], borderWidth:2, borderColor:'#fff' }]
+    labels: ['ゲーム作成','画像生成','文章作成','進路関係','自由研究','動画作成・制作','勉強法'],
+    datasets: [{ data:[3,2,2,2,2,1,1], backgroundColor:[C.red,C.purple,C.gray,C.navy,C.teal,C.cyan,C.green], borderWidth:2, borderColor:'#fff' }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'bottom',labels:{padding:10,font:{size:12},boxWidth:12}}, tooltip } }
+});
+
+new Chart(document.getElementById('parentThemeChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['勉強法','自由研究','プログラミング','マナー・安全','画像生成','動画作成・制作','進路関係'],
+    datasets: [{ data:[21,19,19,16,14,13,10], backgroundColor:[C.green,C.teal,C.orange,C.yellow,C.purple,C.cyan,C.navy], borderWidth:2, borderColor:'#fff' }]
   },
   options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'bottom',labels:{padding:10,font:{size:12},boxWidth:12}}, tooltip } }
 });

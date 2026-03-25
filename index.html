@@ -439,12 +439,17 @@
     </div>
   </div>
 
-  <!-- 子どもテーマ -->
+  <!-- 親子テーマ比較 -->
   <div class="chart-row">
-    <div class="chart-card" style="max-width:560px; margin:0 auto;">
-      <div class="chart-subtitle">🧒 お子さまのやりたいテーマ（第12〜13回累積）</div>
+    <div class="chart-card">
+      <div class="chart-subtitle">🧒 子どものやりたいテーマ（第12〜13回累積）</div>
       <div class="pie-wrap"><canvas id="childThemeChart"></canvas></div>
-      <p class="chart-note">保護者さまとお子さま ＋ 18歳未満の学生本人のみ集計　合計64件</p>
+      <p class="chart-note">保護者+子（子ども回答）＋学生本人　複数回答</p>
+    </div>
+    <div class="chart-card">
+      <div class="chart-subtitle">👨‍👩‍👧 保護者のやりたいテーマ（第12〜13回累積）</div>
+      <div class="pie-wrap"><canvas id="parentThemeChart"></canvas></div>
+      <p class="chart-note">保護者さま＋保護者+子（保護者回答）　複数回答</p>
     </div>
   </div>
 
@@ -658,10 +663,30 @@ new Chart(document.getElementById('themeChart'), {
 new Chart(document.getElementById('childThemeChart'), {
   type: 'doughnut',
   data: {
-    labels: ['画像生成','進路関係','動画作成・制作','勉強法','自由研究','マナー・安全','ゲーム作成','プログラミング','文章作成'],
+    labels: ['ゲーム作成','画像生成','動画作成・制作','進路関係','文章作成','自由研究','勉強法'],
     datasets: [{
-      data: [10, 10, 9, 8, 8, 6, 6, 4, 3],
-      backgroundColor: ['#7B68EE','#1E2761','#00C2CB','#06D6A0','#48CAE4','#FFD166','#FF6B6B','#F4A261','#A8D8DC'],
+      data: [6, 4, 4, 4, 3, 3, 2],
+      backgroundColor: ['#FF6B6B','#7B68EE','#00C2CB','#1E2761','#A8D8DC','#48CAE4','#06D6A0'],
+      borderWidth: 2, borderColor: 'white',
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.parsed}件` } }
+    }
+  }
+});
+
+// ===== 保護者テーマ 円グラフ =====
+new Chart(document.getElementById('parentThemeChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['動画作成・制作','自由研究','勉強法','画像生成','プログラミング','マナー・安全','進路関係'],
+    datasets: [{
+      data: [46, 48, 46, 43, 36, 31, 25],
+      backgroundColor: ['#00C2CB','#48CAE4','#06D6A0','#7B68EE','#F4A261','#FFD166','#1E2761'],
       borderWidth: 2, borderColor: 'white',
     }]
   },
