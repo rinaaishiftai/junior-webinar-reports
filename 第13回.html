@@ -1,1082 +1,276 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>第13回 ジュニアウェビナー レポート</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ジュニアウェビナー第13回 アンケート結果レポート</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    :root {
-      --navy: #1E2761;
-      --cyan: #00C2CB;
-      --yellow: #FFD166;
-      --navy-light: #2d3a8c;
-      --navy-dark: #141a45;
-      --bg: #f4f6fb;
-      --card-bg: #ffffff;
-      --text: #1a1a2e;
-      --text-muted: #5a6080;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif; background: #F0F4F8; color: #1E2761; }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    /* Hero */
     .hero {
-      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%);
-      color: #fff;
-      padding: 60px 24px 48px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+      background: linear-gradient(135deg, #1E2761 0%, #0A1040 100%);
+      color: white; padding: 60px 40px 50px; position: relative; overflow: hidden;
     }
-
     .hero::before {
-      content: '';
-      position: absolute;
-      top: -60px;
-      right: -60px;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: rgba(0, 194, 203, 0.12);
+      content: ""; position: absolute; top: -80px; right: -80px;
+      width: 300px; height: 300px; border-radius: 50%; background: rgba(0,194,203,0.12);
     }
-
     .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -80px;
-      left: -40px;
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      background: rgba(255, 209, 102, 0.08);
+      content: ""; position: absolute; bottom: -60px; right: 100px;
+      width: 200px; height: 200px; border-radius: 50%; background: rgba(255,209,102,0.08);
     }
+    .hero-tag { display: inline-block; background: #00C2CB; color: #1E2761; font-weight: 700; font-size: 13px; padding: 4px 14px; border-radius: 20px; margin-bottom: 12px; }
+    .hero-round { font-size: 14px; color: #00C2CB; font-weight: 700; margin-bottom: 8px; }
+    .hero h1 { font-size: 30px; font-weight: 800; line-height: 1.4; margin-bottom: 6px; }
+    .hero-speaker { font-size: 14px; color: #B0C0D8; margin-bottom: 20px; }
+    .hero-speaker span { color: #FFD166; font-weight: 700; }
+    .hero-meta { display: flex; gap: 32px; flex-wrap: wrap; font-size: 14px; color: #B0C0D8; }
+    .hero-meta strong { color: #FFD166; font-size: 15px; }
 
-    .hero-badge {
-      display: inline-block;
-      background: var(--cyan);
-      color: var(--navy-dark);
-      font-weight: 700;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-    }
+    .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+    .section-title { font-size: 20px; font-weight: 700; color: #1E2761; margin-bottom: 20px; padding-left: 14px; border-left: 5px solid #00C2CB; }
 
-    .hero h1 {
-      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-      font-weight: 800;
-      line-height: 1.4;
-      max-width: 680px;
-      margin: 0 auto 20px;
-      position: relative;
-      z-index: 1;
-    }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 48px; }
+    .stat-card { background: white; border-radius: 12px; padding: 24px 20px 20px; box-shadow: 0 2px 12px rgba(30,39,97,0.08); text-align: center; border-top: 5px solid; }
+    .stat-card:nth-child(1) { border-color: #1E2761; }
+    .stat-card:nth-child(2) { border-color: #00C2CB; }
+    .stat-card:nth-child(3) { border-color: #9B5DE5; }
+    .stat-card:nth-child(4) { border-color: #06D6A0; }
+    .stat-value { font-size: 48px; font-weight: 800; line-height: 1; margin-bottom: 8px; }
+    .stat-card:nth-child(1) .stat-value { color: #1E2761; }
+    .stat-card:nth-child(2) .stat-value { color: #00C2CB; }
+    .stat-card:nth-child(3) .stat-value { color: #9B5DE5; }
+    .stat-card:nth-child(4) .stat-value { color: #06D6A0; }
+    .stat-label { font-size: 13px; color: #64748B; font-weight: 500; }
 
-    .hero h1 span {
-      color: var(--yellow);
-    }
+    .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 24px; margin-bottom: 48px; }
+    .chart-card { background: white; border-radius: 14px; padding: 28px 24px; box-shadow: 0 2px 12px rgba(30,39,97,0.08); }
+    .chart-card.full { grid-column: 1 / -1; }
+    .chart-title { font-size: 16px; font-weight: 700; color: #1E2761; margin-bottom: 6px; }
+    .chart-subtitle { font-size: 12px; color: #94A3B8; margin-bottom: 20px; }
+    .chart-wrap { position: relative; height: 280px; }
+    .chart-wrap.tall { height: 360px; }
 
-    .hero-meta {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.85);
-      position: relative;
-      z-index: 1;
-    }
+    .score-list { display: flex; flex-direction: column; gap: 18px; margin-top: 8px; }
+    .score-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .score-label { font-size: 14px; font-weight: 600; color: #1E2761; }
+    .score-num { font-size: 22px; font-weight: 800; }
+    .score-bar-bg { background: #E2E8F0; border-radius: 6px; height: 14px; overflow: hidden; }
+    .score-bar { height: 100%; border-radius: 6px; }
 
-    .hero-meta-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .text-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px; }
+    @media (max-width: 700px) { .text-grid { grid-template-columns: 1fr; } }
+    .text-card { background: white; border-radius: 14px; padding: 28px 24px; box-shadow: 0 2px 12px rgba(30,39,97,0.08); }
+    .text-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .text-card-title { font-size: 15px; font-weight: 700; color: #1E2761; }
+    .text-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .text-list li { font-size: 13px; color: #475569; padding: 10px 14px; background: #F8FAFC; border-radius: 8px; border-left: 3px solid; line-height: 1.5; }
 
-    .hero-meta-item svg {
-      opacity: 0.8;
-    }
+    .summary-section { background: linear-gradient(135deg, #1E2761 0%, #0A1040 100%); border-radius: 16px; padding: 36px 32px; margin-bottom: 48px; color: white; }
+    .summary-section .section-title { color: white; border-color: #FFD166; }
+    .insight-list { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+    .insight-item { display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 16px; }
+    .insight-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .insight-title { font-size: 14px; font-weight: 700; color: #FFD166; margin-bottom: 4px; }
+    .insight-body { font-size: 13px; color: #B0C0D8; line-height: 1.6; }
 
-    .hero-notion {
-      margin-top: 24px;
-      position: relative;
-      z-index: 1;
-    }
+    footer { text-align: center; padding: 24px; font-size: 12px; color: #94A3B8; }
 
-    .hero-notion a {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #fff;
-      text-decoration: none;
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      transition: background 0.2s;
-    }
-
-    .hero-notion a:hover {
-      background: rgba(255,255,255,0.22);
-    }
-
-    /* Layout */
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    .section {
-      padding: 40px 0 20px;
-    }
-
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--navy);
-      border-left: 4px solid var(--cyan);
-      padding-left: 12px;
-      margin-bottom: 20px;
-    }
-
-    /* Summary Cards */
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 8px;
-    }
-
-    .summary-card {
-      background: var(--card-bg);
-      border-radius: 14px;
-      padding: 24px 20px;
-      text-align: center;
-      box-shadow: 0 2px 12px rgba(30,39,97,0.08);
-      border-top: 4px solid var(--cyan);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .summary-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(30,39,97,0.13);
-    }
-
-    .summary-card.accent {
-      border-top-color: var(--yellow);
-    }
-
-    .summary-label {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      margin-bottom: 8px;
-    }
-
-    .summary-value {
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: var(--navy);
-      line-height: 1;
-    }
-
-    .summary-unit {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-left: 2px;
-    }
-
-    .summary-sub {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    /* Chart Cards */
-    .card {
-      background: var(--card-bg);
-      border-radius: 14px;
-      padding: 24px;
-      box-shadow: 0 2px 12px rgba(30,39,97,0.08);
-      margin-bottom: 20px;
-    }
-
-    .card-title {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 16px;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    @media (max-width: 640px) {
-      .two-col {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .chart-wrap {
-      position: relative;
-      height: 240px;
-    }
-
-    .chart-wrap-bar {
-      position: relative;
-      height: 320px;
-    }
-
-    .chart-wrap-hbar {
-      position: relative;
-    }
-
-    /* Score display */
-    .score-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 14px;
-    }
-
-    .score-item {
-      background: var(--bg);
-      border-radius: 10px;
-      padding: 16px;
-      text-align: center;
-    }
-
-    .score-label {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .score-value {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--navy);
-      line-height: 1;
-    }
-
-    .score-max {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .score-bar-wrap {
-      background: #e8eaf3;
-      border-radius: 4px;
-      height: 6px;
-      margin-top: 8px;
-      overflow: hidden;
-    }
-
-    .score-bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      background: linear-gradient(90deg, var(--cyan), var(--navy-light));
-    }
-
-    /* Recommend score */
-    .rec-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    @media (max-width: 480px) {
-      .rec-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Practice */
-    .practice-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    @media (max-width: 640px) {
-      .practice-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Prefecture table */
-    .pref-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.88rem;
-    }
-
-    .pref-table th {
-      background: var(--navy);
-      color: #fff;
-      padding: 10px 14px;
-      text-align: left;
-      font-weight: 600;
-    }
-
-    .pref-table td {
-      padding: 10px 14px;
-      border-bottom: 1px solid #eaecf5;
-    }
-
-    .pref-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .pref-table tr:nth-child(even) td {
-      background: #f8f9fc;
-    }
-
-    .pref-rank {
-      font-weight: 700;
-      color: var(--navy);
-    }
-
-    .pref-bar {
-      background: #e8eaf3;
-      border-radius: 4px;
-      height: 8px;
-      min-width: 60px;
-      display: inline-block;
-      vertical-align: middle;
-      overflow: hidden;
-    }
-
-    .pref-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--cyan), var(--navy-light));
-      border-radius: 4px;
-    }
-
-    .pref-count {
-      font-weight: 700;
-      color: var(--navy);
-    }
-
-    /* Free text */
-    .feedback-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .feedback-item {
-      background: var(--bg);
-      border-left: 3px solid var(--cyan);
-      padding: 12px 16px;
-      border-radius: 0 8px 8px 0;
-      font-size: 0.88rem;
-    }
-
-    /* Summary / Proposal */
-    .proposal-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .proposal-item {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      background: var(--bg);
-      padding: 14px 16px;
-      border-radius: 10px;
-      font-size: 0.88rem;
-    }
-
-    .proposal-icon {
-      flex-shrink: 0;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--yellow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--navy);
-    }
-
-    /* Footer */
-    .footer {
-      background: var(--navy-dark);
-      color: rgba(255,255,255,0.6);
-      text-align: center;
-      padding: 28px 20px;
-      margin-top: 48px;
-      font-size: 0.82rem;
-    }
-
-    .footer a {
-      color: var(--cyan);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
-
-    .footer-divider {
-      margin: 10px 0;
-      border: none;
-      border-top: 1px solid rgba(255,255,255,0.1);
+    @media (max-width: 700px) {
+      .hero { padding: 40px 20px 36px; }
+      .hero h1 { font-size: 22px; }
+      .charts-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-badge">第13回 ジュニアウェビナー</div>
-  <h1>めんどい読書は終わり！<br><span>AIで深く理解する</span>ツッコミ読書術</h1>
+<div class="hero">
+  <div class="hero-tag">SHIFT AI ジュニア</div>
+  <div class="hero-round">第13回</div>
+  <h1>めんどい読書は終わり!<br>AIで深く理解するツッコミ読書術</h1>
+  <div class="hero-speaker">登壇者：<span>中村 格</span></div>
   <div class="hero-meta">
-    <div class="hero-meta-item">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      2026年3月23日（月）
-    </div>
-    <div class="hero-meta-item">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      登壇者：中村 格
-    </div>
-    <div class="hero-meta-item">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      リアルタイム参加 267名
-    </div>
+    <div>📅 実施日：<strong>2026年3月23日（月）</strong></div>
+    <div>👥 リアルタイム参加者：<strong>267名</strong></div>
+    <div>📋 アンケート回答：<strong>102名</strong></div>
+    <div>📊 回答率：<strong>38.2%</strong></div>
+    <div>📎 <a href="https://www.notion.so/AI-2ed80b19aa4a81918a5ce290b1c927a3?source=copy_link" target="_blank" rel="noopener" style="color:#00C2CB;">Notionページ →</a></div>
   </div>
-  <div class="hero-notion">
-    <a href="https://www.notion.so/AI-2ed80b19aa4a81918a5ce290b1c927a3?source=copy_link" target="_blank" rel="noopener">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-      Notion詳細ページを開く
-    </a>
-  </div>
-</section>
+</div>
 
 <div class="container">
 
-  <!-- Summary Cards -->
-  <section class="section">
-    <div class="summary-grid">
-      <div class="summary-card">
-        <div class="summary-label">リアルタイム参加者</div>
-        <div class="summary-value">267<span class="summary-unit">名</span></div>
-      </div>
-      <div class="summary-card">
-        <div class="summary-label">アンケート回答数</div>
-        <div class="summary-value">102<span class="summary-unit">件</span></div>
-      </div>
-      <div class="summary-card accent">
-        <div class="summary-label">回答率</div>
-        <div class="summary-value">38.2<span class="summary-unit">%</span></div>
-      </div>
-      <div class="summary-card accent">
-        <div class="summary-label">満足度（全体平均）</div>
-        <div class="summary-value">3.97<span class="summary-unit"> /5</span></div>
-        <div class="summary-sub">★ 高評価</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 参加者内訳 & 学年 -->
-  <section class="section">
-    <div class="section-title">参加者内訳・学年分布</div>
-    <div class="two-col">
-      <div class="card">
-        <div class="card-title">参加者内訳（n=102）</div>
-        <div class="chart-wrap">
-          <canvas id="participantChart"></canvas>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">お子さまの学年（複数回答）</div>
-        <div class="chart-wrap">
-          <canvas id="gradeChart"></canvas>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 満足度 -->
-  <section class="section">
-    <div class="section-title">満足度スコア（5点満点）</div>
-    <div class="card">
-      <div class="score-grid">
-        <div class="score-item">
-          <div class="score-label">全体（平均）</div>
-          <div class="score-value">3.97</div>
-          <div class="score-max">/ 5点</div>
-          <div class="score-bar-wrap"><div class="score-bar-fill" style="width:79.4%"></div></div>
-        </div>
-        <div class="score-item">
-          <div class="score-label">保護者（平均）</div>
-          <div class="score-value">3.78</div>
-          <div class="score-max">/ 5点</div>
-          <div class="score-bar-wrap"><div class="score-bar-fill" style="width:75.6%"></div></div>
-        </div>
-        <div class="score-item">
-          <div class="score-label">子 楽しさ（平均）</div>
-          <div class="score-value">3.00</div>
-          <div class="score-max">/ 5点</div>
-          <div class="score-bar-wrap"><div class="score-bar-fill" style="width:60%"></div></div>
-        </div>
-        <div class="score-item">
-          <div class="score-label">一般（平均）</div>
-          <div class="score-value">4.08</div>
-          <div class="score-max">/ 5点</div>
-          <div class="score-bar-wrap"><div class="score-bar-fill" style="width:81.6%"></div></div>
-        </div>
-      </div>
-      <div style="margin-top:20px;">
-        <div class="chart-wrap-bar">
-          <canvas id="satisfactionChart"></canvas>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 推薦意向 -->
-  <section class="section">
-    <div class="section-title">推薦意向スコア（5点満点）</div>
-    <div class="card">
-      <div class="rec-grid">
-        <div class="score-item">
-          <div class="score-label">保護者（平均）</div>
-          <div class="score-value">3.68</div>
-          <div class="score-max">/ 5点</div>
-          <div class="score-bar-wrap"><div class="score-bar-fill" style="width:73.6%"></div></div>
-        </div>
-        <div class="score-item">
-          <div class="score-label">子（平均）</div>
-          <div class="score-value">2.50</div>
-          <div class="score-max">/ 5点</div>
-          <div class="score-bar-wrap"><div class="score-bar-fill" style="width:50%"></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 実践意欲 -->
-  <section class="section">
-    <div class="section-title">実践意欲</div>
-    <div class="practice-grid">
-      <div class="card">
-        <div class="card-title">保護者（n=33）</div>
-        <div class="chart-wrap-hbar" style="height:160px;">
-          <canvas id="practiceParentChart"></canvas>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">お子さま（n=3）</div>
-        <div class="chart-wrap-hbar" style="height:160px;">
-          <canvas id="practiceChildChart"></canvas>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- やりたいテーマ -->
-  <section class="section">
-    <div class="section-title">次回以降やりたいテーマ（複数回答）</div>
-    <div class="card">
-      <div class="chart-wrap-hbar" style="height:380px;">
-        <canvas id="themeChart"></canvas>
-      </div>
-    </div>
-  </section>
-
-  <!-- 知ったきっかけ -->
-  <section class="section">
-    <div class="section-title">ウェビナーを知ったきっかけ</div>
-    <div class="two-col">
-      <div class="card">
-        <div class="card-title">知ったきっかけ（n=102）</div>
-        <div class="chart-wrap">
-          <canvas id="sourceChart"></canvas>
-        </div>
-      </div>
-      <div class="card" style="display:flex; flex-direction:column; justify-content:center;">
-        <div class="card-title">内訳詳細</div>
-        <table style="width:100%; font-size:0.86rem; border-collapse:collapse;">
-          <tbody>
-            <tr><td style="padding:8px 4px; border-bottom:1px solid #eaecf5;">LINE案内</td><td style="font-weight:700; color:var(--navy); text-align:right; padding:8px 4px; border-bottom:1px solid #eaecf5;">79名</td></tr>
-            <tr><td style="padding:8px 4px; border-bottom:1px solid #eaecf5;">コミュニティ</td><td style="font-weight:700; color:var(--navy); text-align:right; padding:8px 4px; border-bottom:1px solid #eaecf5;">17名</td></tr>
-            <tr><td style="padding:8px 4px; border-bottom:1px solid #eaecf5;">その他</td><td style="font-weight:700; color:var(--navy); text-align:right; padding:8px 4px; border-bottom:1px solid #eaecf5;">5名</td></tr>
-            <tr><td style="padding:8px 4px; border-bottom:1px solid #eaecf5;">X (Twitter)</td><td style="font-weight:700; color:var(--navy); text-align:right; padding:8px 4px; border-bottom:1px solid #eaecf5;">1名</td></tr>
-            <tr><td style="padding:8px 4px;">知人の紹介</td><td style="font-weight:700; color:var(--navy); text-align:right; padding:8px 4px;">0名</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- Junior登録 -->
-  <section class="section">
-    <div class="section-title">Junior登録状況・未登録の理由</div>
-    <div class="two-col">
-      <div class="card">
-        <div class="card-title">登録状況（n=102）</div>
-        <div class="chart-wrap">
-          <canvas id="registrationChart"></canvas>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">未登録の理由（複数回答・n=72）</div>
-        <div class="chart-wrap-hbar" style="height:240px;">
-          <canvas id="nonRegChart"></canvas>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 都道府県 -->
-  <section class="section">
-    <div class="section-title">参加者の居住地 上位10都道府県</div>
-    <div class="card">
-      <table class="pref-table">
-        <thead>
-          <tr>
-            <th style="width:48px;">順位</th>
-            <th>都道府県</th>
-            <th>人数</th>
-            <th style="min-width:120px;">割合</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="pref-rank">1位</td>
-            <td>埼玉県</td>
-            <td class="pref-count">13名</td>
-            <td><span class="pref-bar"><span class="pref-bar-fill" style="width:100%"></span></span></td>
-          </tr>
-          <tr>
-            <td class="pref-rank">2位</td>
-            <td>東京都</td>
-            <td class="pref-count">12名</td>
-            <td><span class="pref-bar"><span class="pref-bar-fill" style="width:92.3%"></span></span></td>
-          </tr>
-          <tr>
-            <td class="pref-rank">3位</td>
-            <td>兵庫県</td>
-            <td class="pref-count">10名</td>
-            <td><span class="pref-bar"><span class="pref-bar-fill" style="width:76.9%"></span></span></td>
-          </tr>
-          <tr>
-            <td class="pref-rank">4位</td>
-            <td>大阪府</td>
-            <td class="pref-count">8名</td>
-            <td><span class="pref-bar"><span class="pref-bar-fill" style="width:61.5%"></span></span></td>
-          </tr>
-          <tr>
-            <td class="pref-rank">5位</td>
-            <td>愛知県</td>
-            <td class="pref-count">7名</td>
-            <td><span class="pref-bar"><span class="pref-bar-fill" style="width:53.8%"></span></span></td>
-          </tr>
-          <tr>
-            <td class="pref-rank">6位</td>
-            <td>北海道</td>
-            <td class="pref-count">5名</td>
-            <td><span class="pref-bar"><span class="pref-bar-fill" style="width:38.5%"></span></span></td>
-          </tr>
-          <tr>
-            <td class="pref-rank">7位</td>
-            <td>福岡県</td>
-            <td class="pref-count">4名</td>
-            <td><span class="pref-bar"><span class="pref-bar-fill" style="width:30.8%"></span></span></td>
-          </tr>
-          <tr>
-            <td class="pref-rank">7位</td>
-            <td>宮城県</td>
-            <td class="pref-count">4名</td>
-            <td><span class="pref-bar"><span class="pref-bar-fill" style="width:30.8%"></span></span></td>
-          </tr>
-          <tr>
-            <td class="pref-rank">7位</td>
-            <td>千葉県</td>
-            <td class="pref-count">4名</td>
-            <td><span class="pref-bar"><span class="pref-bar-fill" style="width:30.8%"></span></span></td>
-          </tr>
-          <tr>
-            <td class="pref-rank">10位</td>
-            <td>石川県</td>
-            <td class="pref-count">3名</td>
-            <td><span class="pref-bar"><span class="pref-bar-fill" style="width:23.1%"></span></span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- 自由記述 -->
-  <section class="section">
-    <div class="section-title">自由記述まとめ（その他参加者 65件より）</div>
-    <div class="card">
-      <ul class="feedback-list">
-        <li class="feedback-item">「読書が苦手で積読を解消したい」「本を深く理解したい」が目的の声が多数寄せられた。</li>
-        <li class="feedback-item">「Juniorと知らずに参加した」「子供がいないが内容が有益だった」など、大人向けの学習ニーズも高い。</li>
-        <li class="feedback-item">期待・提案として「NotebookLMの活用をもっと知りたい」「大人向けの活用法も紹介してほしい」「次回も参加したい」という前向きな声が集まった。</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- まとめ・提言 -->
-  <section class="section">
-    <div class="section-title">まとめ・次回への提言</div>
-    <div class="card">
-      <ul class="proposal-list">
-        <li class="proposal-item">
-          <div class="proposal-icon">1</div>
-          <div>「その他（お子さまなし）」参加者が65名（64%）と突出して多く、今回の「読書術」テーマは大人のニーズを強く引き付けた。テーマ設定の訴求力が高かったことを示している。</div>
-        </li>
-        <li class="proposal-item">
-          <div class="proposal-icon">2</div>
-          <div>満足度は全体3.97。一般参加者が4.08と特に高く、コンテンツ品質は高評価。子の楽しさスコアは3.00と低めで、子ども向けの内容補強が課題。</div>
-        </li>
-        <li class="proposal-item">
-          <div class="proposal-icon">3</div>
-          <div>Junior未登録72名中「そのうち登録するつもり（29名）」「活動内容不明（24名）」が多く、登録への意欲はあるが情報不足が障壁。ウェビナー内での丁寧な紹介が有効。</div>
-        </li>
-        <li class="proposal-item">
-          <div class="proposal-icon">4</div>
-          <div>次回は登録誘導タイミングの工夫（ウェビナー終盤にQRコード表示など）を検討。登録方法が不明な11名へのわかりやすい案内も重要。</div>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-</div><!-- /container -->
-
-<!-- Footer -->
-<footer class="footer">
-  <div>第13回 ジュニアウェビナー アンケートレポート &nbsp;|&nbsp; 2026年3月23日</div>
-  <hr class="footer-divider" />
-  <div>
-    <a href="https://rinaaishiftai.github.io/junior-webinar-reports/" target="_blank" rel="noopener">← 一覧ページへ戻る</a>
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value">267</div><div class="stat-label">リアルタイム参加者数</div></div>
+    <div class="stat-card"><div class="stat-value">102</div><div class="stat-label">アンケート回答数</div></div>
+    <div class="stat-card"><div class="stat-value">38.2%</div><div class="stat-label">回答率</div></div>
+    <div class="stat-card"><div class="stat-value">3.97</div><div class="stat-label">全体満足度（5点満点）</div></div>
   </div>
+
+  <h2 class="section-title">参加者内訳</h2>
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">参加者区分</div>
+      <div class="chart-subtitle">N=102</div>
+      <div class="chart-wrap"><canvas id="participantChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">お子さんの学年</div>
+      <div class="chart-subtitle">N=37</div>
+      <div class="chart-wrap"><canvas id="gradeChart"></canvas></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">満足度スコア（5点満点）</h2>
+  <div class="charts-grid" style="margin-bottom:48px;">
+    <div class="chart-card">
+      <div class="chart-title">カテゴリ別満足度</div>
+      <div class="chart-subtitle">5点満点スコア</div>
+      <div class="score-list">
+        <div><div class="score-header"><span class="score-label">全体平均</span><span class="score-num" style="color:#1E2761">3.97</span></div><div class="score-bar-bg"><div class="score-bar" style="width:79.4%;background:#1E2761"></div></div></div>
+        <div><div class="score-header"><span class="score-label">一般参加者</span><span class="score-num" style="color:#9B5DE5">4.08</span></div><div class="score-bar-bg"><div class="score-bar" style="width:81.6%;background:#9B5DE5"></div></div></div>
+        <div><div class="score-header"><span class="score-label">保護者</span><span class="score-num" style="color:#06D6A0">3.78</span></div><div class="score-bar-bg"><div class="score-bar" style="width:75.6%;background:#06D6A0"></div></div></div>
+        <div><div class="score-header"><span class="score-label">お子さまの楽しさ</span><span class="score-num" style="color:#FF6B6B">3.00</span></div><div class="score-bar-bg"><div class="score-bar" style="width:60%;background:#FF6B6B"></div></div></div>
+      </div>
+      <p style="margin-top:16px;font-size:12px;color:#94A3B8;">※ 一般参加者（その他）64%が参加した今回は、一般満足度が最も高い結果に。</p>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">保護者の実践意欲</div>
+      <div class="chart-subtitle">N=33</div>
+      <div class="chart-wrap"><canvas id="practiceChart"></canvas></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">次回やりたいテーマ ＆ 参加のきっかけ</h2>
+  <div class="charts-grid">
+    <div class="chart-card full">
+      <div class="chart-title">次回以降にやりたいテーマ（複数回答）</div>
+      <div class="chart-subtitle">N=102</div>
+      <div class="chart-wrap tall"><canvas id="themeChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">ウェビナーを知ったきっかけ</div>
+      <div class="chart-subtitle">N=102</div>
+      <div class="chart-wrap"><canvas id="referralChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Junior登録状況</div>
+      <div class="chart-subtitle">N=102</div>
+      <div class="chart-wrap"><canvas id="registrationChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">未登録の理由</div>
+      <div class="chart-subtitle">未登録者 N=72</div>
+      <div class="chart-wrap"><canvas id="unregiChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">参加者の都道府県（上位10）</div>
+      <div class="chart-subtitle">全29都道府県から参加</div>
+      <div class="chart-wrap"><canvas id="prefChart"></canvas></div>
+    </div>
+  </div>
+
+  <h2 class="section-title">自由記述まとめ</h2>
+  <div class="text-grid">
+    <div class="text-card">
+      <div class="text-card-header"><div style="font-size:24px">🎯</div><div class="text-card-title">視聴目的・きっかけ</div></div>
+      <ul class="text-list">
+        <li style="border-color:#00C2CB">読書が苦手で積読を解消したい</li>
+        <li style="border-color:#00C2CB">本の内容を深く理解したい</li>
+        <li style="border-color:#9B5DE5">AIを使った学習法に興味があった</li>
+        <li style="border-color:#9B5DE5">Juniorと知らずに参加したが内容が有益だった</li>
+        <li style="border-color:#1E2761">NotebookLMを初めて知った</li>
+        <li style="border-color:#1E2761">子育て・自己学習に活かしたい</li>
+      </ul>
+    </div>
+    <div class="text-card">
+      <div class="text-card-header"><div style="font-size:24px">💡</div><div class="text-card-title">期待・ご提案</div></div>
+      <ul class="text-list">
+        <li style="border-color:#FFD166">NotebookLMの活用をもっと詳しく知りたい</li>
+        <li style="border-color:#FFD166">大人向けのAI活用法も紹介してほしい</li>
+        <li style="border-color:#06D6A0">次回も参加したい・続編を希望</li>
+        <li style="border-color:#06D6A0">使用ツールの事後共有希望</li>
+        <li style="border-color:#FF6B6B">Junior登録・Discordの案内をわかりやすく</li>
+        <li style="border-color:#FF6B6B">子どもの勉強・受験への具体的活用法</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="summary-section">
+    <h2 class="section-title">まとめ・次回への提言</h2>
+    <div class="insight-list">
+      <div class="insight-item"><div class="insight-icon">👨‍👩‍👧</div><div><div class="insight-title">一般参加者が64%と突出して多い回</div><div class="insight-body">「その他（お子さまなし）」65名が全体の64%。「読書術」テーマが子ども向け以外の大人層にも強く刺さった結果。大人向け展開・ターゲット明示の検討余地あり。</div></div></div>
+      <div class="insight-item"><div class="insight-icon">⭐</div><div><div class="insight-title">一般参加者の満足度が最高（4.08）</div><div class="insight-body">全体3.97のうち、一般参加者が4.08と最も高評価。保護者3.78、子楽しさ3.00。大人層に刺さるコンテンツ設計が満足度向上につながっている。</div></div></div>
+      <div class="insight-item"><div class="insight-icon">📣</div><div><div class="insight-title">LINEが主力集客チャネル（77%）</div><div class="insight-body">参加者の約8割がLINE案内経由。今回も集客の主軸はLINE。コミュニティ経由（17%）も安定している。</div></div></div>
+      <div class="insight-item"><div class="insight-icon">📋</div><div><div class="insight-title">Junior登録促進の余地あり（未登録72名）</div><div class="insight-body">未登録者の40%が「そのうち登録するつもり」、33%が「活動内容不明」。ウェビナー終盤でのQRコード表示・登録導線の改善が有効。</div></div></div>
+      <div class="insight-item"><div class="insight-icon">📚</div><div><div class="insight-title">勉強法・プログラミング・自由研究が次回テーマ上位</div><div class="insight-body">勉強法21票、自由研究20票、プログラミング18票がトップ3。学習系・探究系テーマへの需要が高い。</div></div></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  SHIFT AI ジュニアウェビナー第13回 アンケート結果レポート　|　2026年3月　|
+  <a href="https://rinaaishiftai.github.io/junior-webinar-reports/" style="color:#00C2CB;">← 一覧に戻る</a>
 </footer>
 
 <script>
-  // カラーパレット
-  const NAVY   = '#1E2761';
-  const CYAN   = '#00C2CB';
-  const YELLOW = '#FFD166';
-  const PINK   = '#FF6B8A';
-  const GREEN  = '#06D6A0';
-  const PURPLE = '#845EC2';
-  const ORANGE = '#FF9A3C';
+Chart.defaults.font.family = '"Hiragino Sans", "Noto Sans JP", sans-serif';
+const C = { navy:'#1E2761', cyan:'#00C2CB', purple:'#9B5DE5', green:'#06D6A0', yellow:'#FFD166', red:'#FF6B6B', gray:'#94A3B8', teal:'#4ECDC4', orange:'#F4A261' };
 
-  const defaultFont = {
-    family: "'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif"
-  };
+new Chart(document.getElementById('participantChart'), {
+  type: 'doughnut',
+  data: { labels: ['その他（大人）','保護者','保護者＋子','学生'], datasets: [{ data: [65,33,4,0], backgroundColor: [C.gray,C.navy,C.cyan,C.green], borderWidth:3, borderColor:'#fff' }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position:'bottom', labels:{ padding:16, font:{size:13} } }, tooltip: { callbacks: { label: (ctx) => { const t=ctx.dataset.data.reduce((a,b)=>a+b,0); return ` ${ctx.label}: ${ctx.raw}名（${Math.round(ctx.raw/t*100)}%）`; } } } }, cutout:'60%' }
+});
 
-  Chart.defaults.font.family = defaultFont.family;
-  Chart.defaults.color = '#5a6080';
+new Chart(document.getElementById('gradeChart'), {
+  type: 'bar',
+  data: { labels: ['未就学児','小学生','中学生','高校生'], datasets: [{ label:'人数', data:[6,9,9,13], backgroundColor:[C.cyan,C.navy,C.purple,C.green], borderRadius:6 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins:{legend:{display:false}}, scales:{ y:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, x:{grid:{display:false},ticks:{color:'#475569'}} } }
+});
 
-  // 1. 参加者内訳 ドーナツ
-  new Chart(document.getElementById('participantChart'), {
-    type: 'doughnut',
-    data: {
-      labels: ['保護者', '保護者＋子', 'その他（お子さまなし）'],
-      datasets: [{
-        data: [33, 4, 65],
-        backgroundColor: [CYAN, YELLOW, NAVY],
-        borderWidth: 2,
-        borderColor: '#fff'
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '62%',
-      plugins: {
-        legend: { position: 'bottom', labels: { padding: 14, font: { size: 11 } } },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.label}: ${ctx.raw}名 (${(ctx.raw/102*100).toFixed(1)}%)`
-          }
-        }
-      }
-    }
-  });
+new Chart(document.getElementById('practiceChart'), {
+  type: 'doughnut',
+  data: { labels: ['すぐできる','手順があればできる','まだ難しい'], datasets: [{ data:[11,17,5], backgroundColor:[C.green,C.cyan,C.red], borderWidth:3, borderColor:'#fff' }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend:{position:'bottom',labels:{padding:14,font:{size:12}}}, tooltip:{callbacks:{label:(ctx)=>{ const t=ctx.dataset.data.reduce((a,b)=>a+b,0); return ` ${ctx.label}: ${ctx.raw}名（${Math.round(ctx.raw/t*100)}%）`; }}} }, cutout:'55%' }
+});
 
-  // 2. 学年 ドーナツ
-  new Chart(document.getElementById('gradeChart'), {
-    type: 'doughnut',
-    data: {
-      labels: ['未就学児', '小学生', '中学生', '高校生'],
-      datasets: [{
-        data: [6, 9, 9, 13],
-        backgroundColor: [CYAN, GREEN, YELLOW, PINK],
-        borderWidth: 2,
-        borderColor: '#fff'
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '62%',
-      plugins: {
-        legend: { position: 'bottom', labels: { padding: 14, font: { size: 11 } } },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.label}: ${ctx.raw}名`
-          }
-        }
-      }
-    }
-  });
+new Chart(document.getElementById('themeChart'), {
+  type: 'bar',
+  data: { labels: ['勉強法','自由研究','プログラミング','マナー・安全','画像生成','動画作成・制作','進路関係','ゲーム作成','文章作成'], datasets: [{ label:'票数', data:[21,20,18,16,15,13,12,3,2], backgroundColor:[C.cyan,C.purple,C.green,C.navy,C.orange,C.teal,C.yellow,C.red,C.gray], borderRadius:5 }] },
+  options: { responsive: true, maintainAspectRatio: false, indexAxis:'y', plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, y:{grid:{display:false},ticks:{color:'#1E2761',font:{weight:'600'}}} } }
+});
 
-  // 3. 満足度 棒グラフ
-  new Chart(document.getElementById('satisfactionChart'), {
-    type: 'bar',
-    data: {
-      labels: ['全体（平均）', '保護者（平均）', '子 楽しさ（平均）', '一般（平均）'],
-      datasets: [{
-        label: '満足度スコア',
-        data: [3.97, 3.78, 3.00, 4.08],
-        backgroundColor: [NAVY, CYAN, YELLOW, GREEN],
-        borderRadius: 8,
-        borderSkipped: false,
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: {
-          min: 0, max: 5,
-          ticks: { stepSize: 1 },
-          grid: { color: 'rgba(0,0,0,0.05)' }
-        },
-        x: { grid: { display: false } }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: { label: ctx => ` ${ctx.raw} / 5点` }
-        }
-      }
-    }
-  });
+new Chart(document.getElementById('referralChart'), {
+  type: 'bar',
+  data: { labels: ['LINE案内','コミュニティ','その他','X(Twitter)'], datasets: [{ label:'人数', data:[79,17,5,1], backgroundColor:[C.cyan,C.navy,C.gray,C.teal], borderRadius:6 }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins:{legend:{display:false}}, scales:{ y:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, x:{grid:{display:false},ticks:{color:'#475569'}} } }
+});
 
-  // 4. 実践度（保護者）横棒
-  new Chart(document.getElementById('practiceParentChart'), {
-    type: 'bar',
-    data: {
-      labels: ['すぐできる', '手順があれば', 'まだ難しい'],
-      datasets: [{
-        data: [11, 17, 5],
-        backgroundColor: [GREEN, CYAN, PINK],
-        borderRadius: 6,
-        borderSkipped: false,
-      }]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { stepSize: 5 } },
-        y: { grid: { display: false } }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => ` ${ctx.raw}名` } }
-      }
-    }
-  });
+new Chart(document.getElementById('registrationChart'), {
+  type: 'doughnut',
+  data: { labels: ['未登録','登録済み'], datasets: [{ data:[72,30], backgroundColor:[C.red,C.green], borderWidth:3, borderColor:'#fff' }] },
+  options: { responsive: true, maintainAspectRatio: false, plugins: { legend:{position:'bottom',labels:{padding:14,font:{size:12}}}, tooltip:{callbacks:{label:(ctx)=>{ const t=ctx.dataset.data.reduce((a,b)=>a+b,0); return ` ${ctx.label}: ${ctx.raw}名（${Math.round(ctx.raw/t*100)}%）`; }}} }, cutout:'55%' }
+});
 
-  // 5. 実践度（子）横棒
-  new Chart(document.getElementById('practiceChildChart'), {
-    type: 'bar',
-    data: {
-      labels: ['すぐやってみたい', 'やり方があれば', 'まだむずかしい'],
-      datasets: [{
-        data: [0, 3, 0],
-        backgroundColor: [GREEN, CYAN, PINK],
-        borderRadius: 6,
-        borderSkipped: false,
-      }]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { stepSize: 1 } },
-        y: { grid: { display: false } }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => ` ${ctx.raw}名` } }
-      }
-    }
-  });
+new Chart(document.getElementById('unregiChart'), {
+  type: 'bar',
+  data: { labels: ['そのうち登録','活動内容不明','登録方法不明','時間がない','費用面','安全面不安'], datasets: [{ label:'人数', data:[29,24,11,7,3,2], backgroundColor:[C.cyan,C.purple,C.yellow,C.orange,C.red,C.gray], borderRadius:5 }] },
+  options: { responsive: true, maintainAspectRatio: false, indexAxis:'y', plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, y:{grid:{display:false},ticks:{color:'#1E2761',font:{size:12}}} } }
+});
 
-  // 6. やりたいテーマ 横棒（降順）
-  const themeData = [
-    { label: '勉強法', value: 21 },
-    { label: '自由研究', value: 20 },
-    { label: 'プログラミング', value: 18 },
-    { label: 'マナー・安全', value: 16 },
-    { label: '画像生成', value: 15 },
-    { label: '動画作成・制作', value: 13 },
-    { label: '進路関係', value: 12 },
-    { label: 'ゲーム作成', value: 3 },
-    { label: '文章作成', value: 2 },
-    { label: 'その他', value: 0 },
-  ].sort((a, b) => b.value - a.value);
-
-  new Chart(document.getElementById('themeChart'), {
-    type: 'bar',
-    data: {
-      labels: themeData.map(d => d.label),
-      datasets: [{
-        data: themeData.map(d => d.value),
-        backgroundColor: [
-          NAVY, '#2d3a8c', CYAN, '#00a8b0', YELLOW,
-          '#e6b84f', GREEN, PINK, ORANGE, PURPLE
-        ],
-        borderRadius: 6,
-        borderSkipped: false,
-      }]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { stepSize: 5 } },
-        y: { grid: { display: false } }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => ` ${ctx.raw}票` } }
-      }
-    }
-  });
-
-  // 7. 知ったきっかけ ドーナツ
-  new Chart(document.getElementById('sourceChart'), {
-    type: 'doughnut',
-    data: {
-      labels: ['LINE案内', 'コミュニティ', 'その他', 'X(Twitter)', '知人の紹介'],
-      datasets: [{
-        data: [79, 17, 5, 1, 0],
-        backgroundColor: [CYAN, NAVY, YELLOW, GREEN, PINK],
-        borderWidth: 2,
-        borderColor: '#fff'
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '62%',
-      plugins: {
-        legend: { position: 'bottom', labels: { padding: 12, font: { size: 11 } } },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.label}: ${ctx.raw}名`
-          }
-        }
-      }
-    }
-  });
-
-  // 8. 登録状況 ドーナツ
-  new Chart(document.getElementById('registrationChart'), {
-    type: 'doughnut',
-    data: {
-      labels: ['登録済み', '未登録'],
-      datasets: [{
-        data: [30, 72],
-        backgroundColor: [CYAN, NAVY],
-        borderWidth: 2,
-        borderColor: '#fff'
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '62%',
-      plugins: {
-        legend: { position: 'bottom', labels: { padding: 16, font: { size: 12 } } },
-        tooltip: {
-          callbacks: {
-            label: ctx => ` ${ctx.label}: ${ctx.raw}名 (${(ctx.raw/102*100).toFixed(1)}%)`
-          }
-        }
-      }
-    }
-  });
-
-  // 9. 未登録の理由 横棒
-  const nonRegData = [
-    { label: 'そのうち登録するつもり', value: 29 },
-    { label: '活動内容不明', value: 24 },
-    { label: '登録方法不明', value: 11 },
-    { label: '時間がない', value: 7 },
-    { label: '費用面', value: 3 },
-    { label: '安全面不安', value: 2 },
-    { label: '類似サービス', value: 1 },
-    { label: 'その他', value: 0 },
-  ].sort((a, b) => b.value - a.value);
-
-  new Chart(document.getElementById('nonRegChart'), {
-    type: 'bar',
-    data: {
-      labels: nonRegData.map(d => d.label),
-      datasets: [{
-        data: nonRegData.map(d => d.value),
-        backgroundColor: [NAVY, CYAN, YELLOW, GREEN, PINK, ORANGE, PURPLE, '#ccc'],
-        borderRadius: 6,
-        borderSkipped: false,
-      }]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        x: { grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { stepSize: 5 } },
-        y: { grid: { display: false }, ticks: { font: { size: 11 } } }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: ctx => ` ${ctx.raw}名` } }
-      }
-    }
-  });
+new Chart(document.getElementById('prefChart'), {
+  type: 'bar',
+  data: { labels: ['埼玉県','東京都','兵庫県','大阪府','愛知県','北海道','福岡県','宮城県','千葉県','石川県'], datasets: [{ label:'人数', data:[13,12,10,8,7,5,4,4,4,3], backgroundColor:[C.navy,C.navy,C.cyan,C.cyan,C.cyan,C.gray,C.gray,C.gray,C.gray,C.gray], borderRadius:5 }] },
+  options: { responsive: true, maintainAspectRatio: false, indexAxis:'y', plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, y:{grid:{display:false},ticks:{color:'#1E2761',font:{size:12}}} } }
+});
 </script>
 </body>
 </html>
