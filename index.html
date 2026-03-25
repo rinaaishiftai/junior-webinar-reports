@@ -143,10 +143,88 @@
 
     footer { text-align: center; padding: 28px; font-size: 12px; color: #94A3B8; }
 
+    /* PDCA セクション */
+    .pdca-issue-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-bottom: 24px;
+    }
+    .pdca-issue-card {
+      background: white; border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(30,39,97,0.08);
+      padding: 20px 18px;
+    }
+    .pdca-issue-icon { font-size: 24px; margin-bottom: 8px; }
+    .pdca-issue-title {
+      font-size: 13px; font-weight: 700; color: #1E2761;
+      margin-bottom: 12px; padding-bottom: 8px;
+      border-bottom: 2px solid #EEF2F7;
+    }
+    .pdca-issue-count {
+      display: inline-block; background: #00C2CB; color: white;
+      font-size: 10px; font-weight: 700; padding: 1px 7px;
+      border-radius: 10px; margin-left: 6px; vertical-align: middle;
+    }
+    .pdca-issue-list { list-style: none; }
+    .pdca-issue-list li {
+      font-size: 12px; color: #475569; padding: 5px 0;
+      display: flex; align-items: flex-start; gap: 6px; line-height: 1.5;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .pdca-issue-list li:last-child { border-bottom: none; }
+    .pdca-issue-list li::before { content: "▸"; color: #00C2CB; flex-shrink: 0; font-size: 10px; margin-top: 2px; }
+
+    .pdca-action-table { width: 100%; border-collapse: collapse; }
+    .pdca-action-table th {
+      background: #F0F4F8; font-size: 12px; font-weight: 700;
+      color: #475569; padding: 10px 14px; text-align: left;
+      border-bottom: 2px solid #E2E8F0;
+    }
+    .pdca-action-table td {
+      font-size: 13px; color: #1E2761; padding: 12px 14px;
+      border-bottom: 1px solid #EEF2F7; vertical-align: middle; line-height: 1.6;
+    }
+    .pdca-action-table tr:last-child td { border-bottom: none; }
+    .priority-high { background: #FEF2F2; color: #EF4444; font-weight: 700; font-size: 11px; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+    .priority-mid  { background: #FFFBEB; color: #D97706; font-weight: 700; font-size: 11px; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+    .priority-low  { background: #F0FDF4; color: #059669; font-weight: 700; font-size: 11px; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+    .owner-badge {
+      display: inline-block; background: #EEF2FF; color: #1E2761;
+      font-size: 11px; font-weight: 600; padding: 2px 9px;
+      border-radius: 10px; white-space: nowrap;
+    }
+
+    .voice-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-top: 8px;
+    }
+    .voice-item {
+      background: #F8FAFC; border-radius: 10px;
+      border-left: 4px solid #00C2CB;
+      padding: 12px 14px;
+    }
+    .voice-tag {
+      font-size: 10px; font-weight: 700; color: #00C2CB;
+      margin-bottom: 5px; letter-spacing: 0.04em;
+    }
+    .voice-text {
+      font-size: 12px; color: #475569; line-height: 1.7;
+    }
+    .voice-text::before { content: "「"; color: #00C2CB; font-weight: 700; }
+    .voice-text::after  { content: "」"; color: #00C2CB; font-weight: 700; }
+
+    .trend-legend {
+      display: flex; gap: 20px; justify-content: center;
+      margin-top: 10px; font-size: 12px; color: #64748B;
+    }
+    .trend-legend span { display: flex; align-items: center; gap: 6px; }
+    .legend-dot { width: 12px; height: 4px; border-radius: 2px; display: inline-block; }
+
     @media (max-width: 680px) {
       .hero h1 { font-size: 22px; }
       .summary-grid { grid-template-columns: repeat(2, 1fr); }
       .chart-row { grid-template-columns: 1fr; }
+      .pdca-issue-grid { grid-template-columns: 1fr; }
+      .voice-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -370,6 +448,157 @@
     </div>
   </div>
 
+  <!-- PDCA 改善分析 -->
+  <h2 class="section-title" style="margin-top: 52px;">PDCA 改善分析</h2>
+
+  <!-- 満足度・回答率 トレンド -->
+  <div class="chart-card">
+    <div class="chart-subtitle">満足度・回答率 トレンド（第2〜13回）</div>
+    <canvas id="trendChart" height="80"></canvas>
+    <div class="trend-legend">
+      <span><span class="legend-dot" style="background:#1E2761;"></span>満足度（左軸 /5点）</span>
+      <span><span class="legend-dot" style="background:#00C2CB;"></span>回答率（右軸 %）</span>
+    </div>
+    <p class="chart-note" style="margin-top:8px;">第8回（3.67）は「子なし大人」向け副業テーマで参加者層とのミスマッチが顕著。第12〜13回は4点台前半まで回復も下降傾向継続中。</p>
+  </div>
+
+  <!-- 繰り返し出る課題 3軸 -->
+  <div class="pdca-issue-grid">
+
+    <div class="pdca-issue-card">
+      <div class="pdca-issue-icon">🎯</div>
+      <div class="pdca-issue-title">コンテンツ品質<span class="pdca-issue-count">第12〜13回計</span></div>
+      <ul class="pdca-issue-list">
+        <li>進み方が早くてついていけない（10件）</li>
+        <li>もっと深掘り・実践してほしい（12件）</li>
+        <li>ツールのURL・資料を当日チャットで共有してほしい（8件）</li>
+        <li>内容が簡単すぎる / 子供向けすぎる（6件）</li>
+        <li>録画・スライドを後から見たい（9件）</li>
+      </ul>
+    </div>
+
+    <div class="pdca-issue-card">
+      <div class="pdca-issue-icon">🔗</div>
+      <div class="pdca-issue-title">Junior 登録促進<span class="pdca-issue-count">2回累計</span></div>
+      <ul class="pdca-issue-list">
+        <li>「とりあえずそのうち登録」で未登録（60件）</li>
+        <li>Junior の活動内容・メリットが不明（44件）</li>
+        <li>「Junior と知らずに参加していた」（14件）</li>
+        <li>Discord 登録方法がわからない（5件 ※第13回で新出）</li>
+        <li>登録率 29% 前後で2回連続横ばい</li>
+      </ul>
+    </div>
+
+    <div class="pdca-issue-card">
+      <div class="pdca-issue-icon">👥</div>
+      <div class="pdca-issue-title">参加者層ミスマッチ<span class="pdca-issue-count">構造的課題</span></div>
+      <ul class="pdca-issue-list">
+        <li>「その他（子なし大人）」が全体の 54〜64%</li>
+        <li>保護者より一般参加者が常に多数派</li>
+        <li>「子供向け内容で退屈」と「大人向けすぎる」が混在</li>
+        <li>子の満足度が低め（第13回：3.00）</li>
+        <li>ターゲット明示がないため期待値がズレやすい</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- 参加者の声（引用） -->
+  <div class="chart-card">
+    <div class="chart-subtitle">繰り返し届いた参加者の声（第12〜13回 自由記述より）</div>
+    <div class="voice-grid">
+      <div class="voice-item">
+        <div class="voice-tag">📌 スピード感</div>
+        <div class="voice-text">進み方が速くてついていけなかった。もう少しゆっくり進めてほしい</div>
+      </div>
+      <div class="voice-item">
+        <div class="voice-tag">📌 資料共有</div>
+        <div class="voice-text">使ったツールのURLをチャットに貼ってほしい。後で確認できなかった</div>
+      </div>
+      <div class="voice-item">
+        <div class="voice-tag">📌 Junior 認知</div>
+        <div class="voice-text">Juniorって何かわからなかった。今回初めて知った。どこで登録するの？</div>
+      </div>
+      <div class="voice-item">
+        <div class="voice-tag">📌 Discord</div>
+        <div class="voice-text">Discordの入り方がわからない。登録したいけど手順が不明</div>
+      </div>
+      <div class="voice-item">
+        <div class="voice-tag">📌 深掘り希望</div>
+        <div class="voice-text">もっと実際に試す時間がほしい。紹介で終わらず一緒にやってみたい</div>
+      </div>
+      <div class="voice-item">
+        <div class="voice-tag">📌 ターゲット明示</div>
+        <div class="voice-text">子供がいない大人でも参加して良いと事前に明示してほしかった</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 改善アクション -->
+  <div class="chart-card">
+    <div class="chart-subtitle">具体的改善アクション（優先度・担当付き）</div>
+    <table class="pdca-action-table">
+      <thead>
+        <tr>
+          <th style="width:80px;">優先度</th>
+          <th>アクション</th>
+          <th style="width:100px;">担当</th>
+          <th style="width:80px;">効果</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="priority-high">🔴 高</span></td>
+          <td>冒頭2分で「Juniorとは？登録方法」スライドを挿入。Discord登録QRコードをチャット固定</td>
+          <td><span class="owner-badge">運営 + 登壇者</span></td>
+          <td style="font-size:12px; color:#64748B;">登録率 ↑</td>
+        </tr>
+        <tr>
+          <td><span class="priority-high">🔴 高</span></td>
+          <td>登壇者がツールURLを使うたびチャットに投稿。または運営がホスト側でリアルタイム共有</td>
+          <td><span class="owner-badge">運営</span></td>
+          <td style="font-size:12px; color:#64748B;">満足度 ↑</td>
+        </tr>
+        <tr>
+          <td><span class="priority-high">🔴 高</span></td>
+          <td>サムネ・告知に「対象：保護者 / 中高生 / AI学習中の方 歓迎」と参加対象を明示</td>
+          <td><span class="owner-badge">アナウンス</span></td>
+          <td style="font-size:12px; color:#64748B;">ミスマッチ ↓</td>
+        </tr>
+        <tr>
+          <td><span class="priority-mid">🟡 中</span></td>
+          <td>セッション中に「ここまで大丈夫ですか？」確認ポイントを1〜2回設定。進行ペースを調整</td>
+          <td><span class="owner-badge">登壇者</span></td>
+          <td style="font-size:12px; color:#64748B;">満足度 ↑</td>
+        </tr>
+        <tr>
+          <td><span class="priority-mid">🟡 中</span></td>
+          <td>アンケートの参加者カテゴリ別満足度（保護者 / 子 / その他）を毎回自動集計・比較</td>
+          <td><span class="owner-badge">集計 GAS</span></td>
+          <td style="font-size:12px; color:#64748B;">分析精度 ↑</td>
+        </tr>
+        <tr>
+          <td><span class="priority-mid">🟡 中</span></td>
+          <td>未登録理由「活動内容不明」対策：終了後LINEに「Juniorでできること3選」を配信</td>
+          <td><span class="owner-badge">アナウンス</span></td>
+          <td style="font-size:12px; color:#64748B;">登録率 ↑</td>
+        </tr>
+        <tr>
+          <td><span class="priority-low">🟢 低</span></td>
+          <td>人気テーマ上位（自由研究・動画・画像生成）を優先的に年間スケジュールに組み込み</td>
+          <td><span class="owner-badge">企画</span></td>
+          <td style="font-size:12px; color:#64748B;">満足度 ↑</td>
+        </tr>
+        <tr>
+          <td><span class="priority-low">🟢 低</span></td>
+          <td>「子なし大人」向け枠を月1回設ける or タイトルで「大人もOK」と明示する回を作る</td>
+          <td><span class="owner-badge">企画</span></td>
+          <td style="font-size:12px; color:#64748B;">満足度 ↑</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 
 <footer>SHIFT AI ジュニア ウェビナーレポート一覧</footer>
@@ -437,6 +666,59 @@ new Chart(document.getElementById('triggerChart'), {
 });
 
 // ===== 都道府県ランキング =====
+// ===== 満足度・回答率 トレンド =====
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: {
+    labels: ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回"],
+    datasets: [
+      {
+        label: '満足度',
+        data: [4.85, 4.77, 4.81, 4.65, 4.77, 4.58, 3.67, 4.57, 4.57, 4.33, 4.18, 3.97],
+        borderColor: '#1E2761', backgroundColor: 'rgba(30,39,97,0.08)',
+        borderWidth: 2.5, pointRadius: 5, pointBackgroundColor: '#1E2761',
+        tension: 0.3, fill: true, yAxisID: 'y',
+      },
+      {
+        label: '回答率',
+        data: [34, 29, 54, 42, 47, 37, 16, 33, 37, 34, 31, 38.2],
+        borderColor: '#00C2CB', backgroundColor: 'transparent',
+        borderWidth: 2, pointRadius: 4, pointBackgroundColor: '#00C2CB',
+        borderDash: [5,3], tension: 0.3, fill: false, yAxisID: 'y2',
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ctx.datasetIndex === 0
+            ? ` 満足度：${ctx.parsed.y.toFixed(2)} / 5`
+            : ` 回答率：${ctx.parsed.y}%`
+        }
+      }
+    },
+    scales: {
+      y: {
+        type: 'linear', position: 'left',
+        min: 3.0, max: 5.0,
+        grid: { color: 'rgba(0,0,0,0.05)' },
+        ticks: { callback: v => v.toFixed(1) }
+      },
+      y2: {
+        type: 'linear', position: 'right',
+        min: 0, max: 70,
+        grid: { drawOnChartArea: false },
+        ticks: { callback: v => v + '%' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
 const prefData = [
   { name: "東京", count: 237 },
   { name: "大阪", count: 126 },
