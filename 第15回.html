@@ -597,13 +597,13 @@
     <div class="two-col">
       <div class="card">
         <div class="card-title">参加者内訳</div>
-        <div class="chart-wrap">
+        <div class="pie-wrap">
           <canvas id="chart15-type"></canvas>
         </div>
       </div>
       <div class="card">
         <div class="card-title">子ども学年内訳</div>
-        <div class="chart-wrap">
+        <div class="pie-wrap">
           <canvas id="chart15-grade"></canvas>
         </div>
       </div>
@@ -667,13 +667,13 @@
     <div class="practice-grid">
       <div class="card">
         <div class="card-title">保護者の実践意向</div>
-        <div class="chart-wrap">
+        <div class="pie-wrap">
           <canvas id="chart15-practice-parent"></canvas>
         </div>
       </div>
       <div class="card">
         <div class="card-title">やりたいテーマ TOP 5</div>
-        <div class="chart-wrap-hbar" style="height:260px;">
+        <div class="pie-wrap">
           <canvas id="chart15-theme"></canvas>
         </div>
       </div>
@@ -686,13 +686,13 @@
     <div class="two-col">
       <div class="card">
         <div class="card-title">知ったきっかけ</div>
-        <div class="chart-wrap">
+        <div class="pie-wrap">
           <canvas id="chart15-source"></canvas>
         </div>
       </div>
       <div class="card">
         <div class="card-title">Junior登録状況</div>
-        <div class="chart-wrap" style="height:200px;">
+        <div class="pie-wrap">
           <canvas id="chart15-junior"></canvas>
         </div>
         <div style="margin-top:16px;">
@@ -1181,6 +1181,8 @@ const PALETTE = [CYAN, YELLOW, '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFE
 
 // ===== 第15回 Charts =====
 
+const PIE_OPTS = { responsive: true, plugins: { legend: { position: 'bottom', labels: { padding: 16, font: { size: 12 }, boxWidth: 12 } } } };
+
 // 参加者内訳
 new Chart(document.getElementById('chart15-type'), {
   type: 'doughnut',
@@ -1188,7 +1190,7 @@ new Chart(document.getElementById('chart15-type'), {
     labels: ['保護者', '保護者+子', '一般参加者'],
     datasets: [{ data: [33, 1, 55], backgroundColor: [CYAN, YELLOW, NAVY_L], borderWidth: 2, borderColor: '#fff' }]
   },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+  options: PIE_OPTS
 });
 
 // 学年内訳
@@ -1198,7 +1200,7 @@ new Chart(document.getElementById('chart15-grade'), {
     labels: ['小学生', '中学生', '高校生'],
     datasets: [{ data: [8, 10, 16], backgroundColor: [CYAN, YELLOW, '#FF6B6B'], borderWidth: 2, borderColor: '#fff' }]
   },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+  options: PIE_OPTS
 });
 
 // 実践意向（保護者）
@@ -1208,23 +1210,17 @@ new Chart(document.getElementById('chart15-practice-parent'), {
     labels: ['すぐできる', '手順があれば', 'まだ難しい'],
     datasets: [{ data: [9, 21, 3], backgroundColor: [CYAN, YELLOW, '#FF6B6B'], borderWidth: 2, borderColor: '#fff' }]
   },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+  options: PIE_OPTS
 });
 
 // やりたいテーマ（第15回 Top5）
 new Chart(document.getElementById('chart15-theme'), {
-  type: 'bar',
+  type: 'doughnut',
   data: {
-    labels: ['勉強法', 'プログラミング', '動画作成', '自由研究', 'マナー・安全'],
-    datasets: [{ data: [26, 17, 16, 16, 13], backgroundColor: [CYAN, CYAN, CYAN, CYAN, CYAN] }]
+    labels: ['勉強法 26', 'プログラミング 17', '動画作成 16', '自由研究 16', 'マナー・安全 13'],
+    datasets: [{ data: [26, 17, 16, 16, 13], backgroundColor: [CYAN, YELLOW, '#FF6B6B', '#4ECDC4', NAVY_L], borderWidth: 2, borderColor: '#fff' }]
   },
-  options: {
-    indexAxis: 'y',
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
-    scales: { x: { beginAtZero: true } }
-  }
+  options: PIE_OPTS
 });
 
 // 知ったきっかけ
@@ -1234,7 +1230,7 @@ new Chart(document.getElementById('chart15-source'), {
     labels: ['LINE案内', 'コミュニティ', 'X(Twitter)', 'その他'],
     datasets: [{ data: [60, 25, 1, 3], backgroundColor: [CYAN, YELLOW, '#FF6B6B', '#ccc'], borderWidth: 2, borderColor: '#fff' }]
   },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+  options: PIE_OPTS
 });
 
 // Junior登録状況
@@ -1244,7 +1240,7 @@ new Chart(document.getElementById('chart15-junior'), {
     labels: ['登録済み (35)', '未登録 (54)'],
     datasets: [{ data: [35, 54], backgroundColor: [CYAN, '#e8eaf3'], borderWidth: 2, borderColor: '#fff' }]
   },
-  options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+  options: PIE_OPTS
 });
 
 // 未登録理由（第15回）
