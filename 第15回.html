@@ -251,6 +251,19 @@
     }
     @media (max-width: 640px) { .practice-grid { grid-template-columns: 1fr; } }
 
+    /* Repeater */
+    .repeater-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+    @media (max-width: 640px) { .repeater-grid { grid-template-columns: 1fr; } }
+    .rep-card { background: white; border-radius: 12px; padding: 22px 16px; box-shadow: 0 2px 12px rgba(30,39,97,0.08); text-align: center; border-top: 5px solid; }
+    .rep-card:nth-child(1) { border-color: var(--navy); }
+    .rep-card:nth-child(2) { border-color: var(--cyan); }
+    .rep-card:nth-child(3) { border-color: var(--yellow); }
+    .rep-val { font-size: 40px; font-weight: 800; line-height: 1; margin-bottom: 6px; }
+    .rep-card:nth-child(1) .rep-val { color: var(--navy); }
+    .rep-card:nth-child(2) .rep-val { color: var(--cyan); }
+    .rep-card:nth-child(3) .rep-val { color: #e6a800; }
+    .rep-label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+
     /* Free text */
     .freetext-list { list-style: none; }
     .freetext-list li {
@@ -608,6 +621,26 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- リピーター分析 -->
+  <div class="section">
+    <div class="section-title">リピーター分析</div>
+    <div class="repeater-grid">
+      <div class="rep-card">
+        <div class="rep-val">56</div>
+        <div class="rep-label">初参加（名）</div>
+      </div>
+      <div class="rep-card">
+        <div class="rep-val">33</div>
+        <div class="rep-label">リピーター（名）</div>
+      </div>
+      <div class="rep-card">
+        <div class="rep-val">37.1%</div>
+        <div class="rep-label">リピーター率</div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:#94A3B8;margin-top:-20px;margin-bottom:8px;">※ メールアドレスで初参加/リピーターを判定（第14回 28.3% → 第15回 37.1%）</p>
   </div>
 
   <!-- 満足度 -->
