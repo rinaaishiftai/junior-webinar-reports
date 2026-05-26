@@ -51,7 +51,7 @@
     .score-val  { font-weight: 700; font-size: 15px; color: #1E2761; display: block; }
     .stars      { font-size: 11px; color: #FFD166; display: block; margin-top: 2px; }
 
-    /* ====== 共通カード・グリッド（個別レポートと統一） ====== */
+    /* ====== 共通カード・グリッド ====== */
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 48px; }
     .stat-card  { background: white; border-radius: 12px; padding: 24px 20px 20px; box-shadow: 0 2px 12px rgba(30,39,97,0.08); text-align: center; border-top: 5px solid; }
     .stat-card:nth-child(1) { border-color: #1E2761; }
@@ -75,7 +75,6 @@
     .chart-note     { font-size: 12px; color: #94A3B8; margin-top: 12px; }
     .pie-wrap       { max-width: 300px; margin: 0 auto; }
 
-    /* 満足度・回答率トレンド凡例 */
     .trend-legend { display: flex; gap: 20px; justify-content: center; margin-top: 12px; font-size: 12px; color: #64748B; }
     .trend-legend span { display: flex; align-items: center; gap: 6px; }
     .legend-dot  { width: 14px; height: 4px; border-radius: 2px; display: inline-block; }
@@ -137,7 +136,7 @@
 <div class="hero">
   <div class="hero-tag">SHIFT AI ジュニア</div>
   <h1>ジュニア定例ウェビナー<span>一覧・累積分析</span></h1>
-  <p class="hero-sub">各回のアンケート集計・分析結果をまとめています（第1〜16回）</p>
+  <p class="hero-sub">各回のアンケート集計・分析結果をまとめています（第1〜18回）</p>
 </div>
 
 <div class="container">
@@ -159,6 +158,15 @@
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td class="td-round">第18回</td>
+            <td class="td-date">2026/05/25</td>
+            <td class="td-title"><a href="https://www.notion.so/33580b19aa4a81089417ee9f7cf34bde?source=copy_link" target="_blank" rel="noopener">ChatGPTで「日常」を画像にしよう 学校生活シーン別 プロンプト実演 60分ウェビナー</a></td>
+            <td class="td-speaker">Hakushi</td>
+            <td class="td-num">282<small> 名</small></td>
+            <td class="td-rate"><a class="rate-link" href="https://rinachi219510.github.io/junior-webinar-reports/%E7%AC%AC18%E5%9B%9E.html" target="_blank" rel="noopener">28.7% →</a></td>
+            <td class="td-score"><span class="score-val">4.32</span><span class="stars">★★★★☆</span></td>
+          </tr>
           <tr>
             <td class="td-round">第17回</td>
             <td class="td-date">2026/05/04</td>
@@ -318,30 +326,30 @@
   </div>
 
   <!-- ===== 累積サマリー ===== -->
-  <h2 class="section-title">累積データ分析（第1〜17回）</h2>
+  <h2 class="section-title">累積データ分析（第1〜18回）</h2>
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-value">17<span style="font-size:20px;font-weight:600;color:#64748B;">回</span></div>
+      <div class="stat-value">18<span style="font-size:20px;font-weight:600;color:#64748B;">回</span></div>
       <div class="stat-label">実施回数</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value" style="font-size:32px;">4,899</div>
+      <div class="stat-value" style="font-size:32px;">5,181</div>
       <div class="stat-label">累計参加者数（名）</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value">33.7<span style="font-size:20px;font-weight:600;color:#64748B;">%</span></div>
-      <div class="stat-label">平均回答率（第2〜17回）</div>
+      <div class="stat-value">33.4<span style="font-size:20px;font-weight:600;color:#64748B;">%</span></div>
+      <div class="stat-label">平均回答率（第2〜18回）</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value">4.41</div>
-      <div class="stat-label">平均満足度（第2〜17回）</div>
+      <div class="stat-value">4.40</div>
+      <div class="stat-label">平均満足度（第2〜18回）</div>
       <div class="stat-sub">/ 5点満点</div>
     </div>
   </div>
 
   <!-- 参加者数推移 -->
   <div class="chart-card full" style="margin-bottom:32px;">
-    <div class="chart-title">参加者数の推移（第1〜17回）</div>
+    <div class="chart-title">参加者数の推移（第1〜18回）</div>
     <div class="chart-subtitle">最多：第5回 762名（AI映像制作）</div>
     <div class="chart-wrap">
       <canvas id="participantChart"></canvas>
@@ -351,8 +359,8 @@
 
   <!-- 満足度・回答率トレンド -->
   <div class="chart-card full" style="margin-bottom:32px;">
-    <div class="chart-title">満足度・回答率 トレンド（第2〜17回）</div>
-    <div class="chart-subtitle">第8回（3.67）は「子なし大人」向け副業テーマで層ミスマッチが顕著。第13回低下後、第14→15→17回と回復基調。第16回127名（最少）・第17回は285名で急回復し満足度4.21。</div>
+    <div class="chart-title">満足度・回答率 トレンド（第2〜18回）</div>
+    <div class="chart-subtitle">第8回（3.67）は「子なし大人」向け副業テーマで層ミスマッチが顕著。第13回低下後、第14→15→17→18回と回復基調。第18回4.32は直近最高スコア。</div>
     <div class="chart-wrap">
       <canvas id="trendChart"></canvas>
     </div>
@@ -365,14 +373,14 @@
   <!-- テーマ・きっかけ -->
   <div class="charts-grid">
     <div class="chart-card">
-      <div class="chart-title">次回やりたいテーマ（第12〜17回 累積）</div>
-      <div class="chart-subtitle">全参加者 複数回答 合計569件</div>
+      <div class="chart-title">次回やりたいテーマ（第12〜18回 累積）</div>
+      <div class="chart-subtitle">全参加者 複数回答 合計669件</div>
       <div class="pie-wrap"><canvas id="themeChart"></canvas></div>
-      <p class="chart-note">勉強法・学習系が1位。動画・画像・プログラミングへの関心も高い。</p>
+      <p class="chart-note">勉強法・学習系が引き続き1位。動画・画像・プログラミングへの関心も高い。</p>
     </div>
     <div class="chart-card">
-      <div class="chart-title">参加のきっかけ（第12〜17回 累積）</div>
-      <div class="chart-subtitle">合計465件</div>
+      <div class="chart-title">参加のきっかけ（第12〜18回 累積）</div>
+      <div class="chart-subtitle">合計546件</div>
       <div class="pie-wrap"><canvas id="triggerChart"></canvas></div>
       <p class="chart-note">LINE案内が7割を占める主要集客チャネル。</p>
     </div>
@@ -381,12 +389,12 @@
   <!-- 子・保護者テーマ比較 -->
   <div class="charts-grid" style="margin-bottom:32px;">
     <div class="chart-card">
-      <div class="chart-title">🧒 子どものやりたいテーマ（第12〜17回 累積）</div>
-      <div class="chart-subtitle">保護者+子（子ども回答）＋学生本人 複数回答 合計30件</div>
+      <div class="chart-title">🧒 子どものやりたいテーマ（第12〜18回 累積）</div>
+      <div class="chart-subtitle">保護者+子（子ども回答）＋学生本人 複数回答 合計41件</div>
       <div class="pie-wrap"><canvas id="childThemeChart"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">👨‍👩‍👧 保護者のやりたいテーマ（第12〜17回 累積）</div>
+      <div class="chart-title">👨‍👩‍👧 保護者のやりたいテーマ（第12〜18回 累積）</div>
       <div class="chart-subtitle">保護者さま＋保護者+子（保護者回答）複数回答</div>
       <div class="pie-wrap"><canvas id="parentThemeChart"></canvas></div>
     </div>
@@ -394,64 +402,66 @@
 
   <!-- 都道府県ランキング -->
   <div class="chart-card" style="margin-bottom:48px;">
-    <div class="chart-title">都道府県別参加者数 ランキング（第1〜17回 累計 上位15）</div>
+    <div class="chart-title">都道府県別参加者数 ランキング（第1〜18回 累計 上位15）</div>
     <div class="chart-subtitle">東京・大阪・神奈川・愛知・埼玉がトップ5</div>
     <ul class="pref-ranking" id="prefRanking"></ul>
     <div class="pref-note">
-      ※ 第1〜17回の合算データ。第1〜11回は自由記述を正規化して集計、第12回以降はプルダウン形式で正確に集計。
+      ※ 第1〜18回の合算データ。第1〜11回は自由記述を正規化して集計、第12回以降はプルダウン形式で正確に集計。
     </div>
   </div>
 
   <!-- ===== PDCA 改善分析 ===== -->
-  <h2 class="section-title">PDCA 改善分析（第12〜17回 累積）</h2>
+  <h2 class="section-title">PDCA 改善分析（第12〜18回 累積）</h2>
 
   <!-- 3軸の繰り返し課題 -->
   <div class="charts-grid" style="margin-bottom:24px;">
     <div class="chart-card">
       <div class="chart-title">🎯 コンテンツ品質</div>
-      <div class="chart-subtitle">第12〜17回 自由記述より</div>
+      <div class="chart-subtitle">第12〜18回 自由記述より</div>
       <ul class="pdca-list">
         <li>進み方が早くてついていけない（10件）</li>
-        <li>もっと深掘り・実践してほしい（12件）</li>
+        <li>もっと深掘り・実践してほしい（14件）</li>
         <li>ツールのURL・資料を当日チャットで共有してほしい（8件）</li>
         <li>内容が簡単すぎる / 子供向けすぎる（6件）</li>
         <li>録画・スライドを後から見たい（9件）</li>
+        <li>AI倫理・リテラシー回を設けてほしい（3件 / 第18回新規）</li>
       </ul>
     </div>
     <div class="chart-card">
       <div class="chart-title">🔗 Junior 登録促進</div>
-      <div class="chart-subtitle">6回累計</div>
+      <div class="chart-subtitle">7回累計</div>
       <ul class="pdca-list">
-        <li>「とりあえずそのうち登録」で未登録（65件）</li>
-        <li>Juniorの活動内容・メリットが不明（49件）</li>
+        <li>「とりあえずそのうち登録」で未登録（84件）</li>
+        <li>Juniorの活動内容・メリットが不明（66件）</li>
         <li>「Juniorと知らずに参加していた」（14件）</li>
-        <li>Discord登録方法がわからない（6件）</li>
-        <li>登録率22〜39%台で推移（第15回 39%）</li>
+        <li>Discord・登録方法がわからない（15件）</li>
+        <li>登録率22〜39%台で推移（第15回 39%が最高）</li>
       </ul>
     </div>
     <div class="chart-card full">
       <div class="chart-title">👥 参加者層ミスマッチ</div>
       <div class="chart-subtitle">構造的課題</div>
       <ul class="pdca-list">
-        <li>「その他（子なし大人）」が全体の54〜64%を占める</li>
+        <li>「その他（子なし大人）」が全体の54〜65%を占める（第18回は65%）</li>
         <li>保護者より一般参加者が常に多数派</li>
         <li>「子供向け内容で退屈」と「大人向けすぎる」が混在</li>
-        <li>子の満足度が低め（第13回：3.00）</li>
+        <li>子の楽しさスコアが低め（第18回：3.50）</li>
         <li>ターゲット明示がないため期待値がズレやすい</li>
+        <li>第18回：接続トラブル（強制退出）が2件発生─ Zoom設定確認が必要</li>
       </ul>
     </div>
   </div>
 
   <!-- 参加者の声 -->
   <div class="chart-card" style="margin-bottom:24px;">
-    <div class="chart-title">繰り返し届いた参加者の声（第12〜17回 自由記述より）</div>
+    <div class="chart-title">繰り返し届いた参加者の声（第12〜18回 自由記述より）</div>
     <div class="voice-grid">
       <div class="voice-item"><div class="voice-tag">📌 スピード感</div><div class="voice-text">進み方が速くてついていけなかった。もう少しゆっくり進めてほしい</div></div>
       <div class="voice-item"><div class="voice-tag">📌 資料共有</div><div class="voice-text">使ったツールのURLをチャットに貼ってほしい。後で確認できなかった</div></div>
       <div class="voice-item"><div class="voice-tag">📌 Junior認知</div><div class="voice-text">Juniorって何かわからなかった。今回初めて知った。どこで登録するの？</div></div>
-      <div class="voice-item"><div class="voice-tag">📌 Discord</div><div class="voice-text">Discordの入り方がわからない。登録したいけど手順が不明</div></div>
-      <div class="voice-item"><div class="voice-tag">📌 深掘り希望</div><div class="voice-text">もっと実際に試す時間がほしい。紹介で終わらず一緒にやってみたい</div></div>
-      <div class="voice-item"><div class="voice-tag">📌 無料ツール（第15回）</div><div class="voice-text">無料版Geminiで使える内容にしてほしい。有料前提だと実践しにくい</div></div>
+      <div class="voice-item"><div class="voice-tag">📌 深掘り希望</div><div class="voice-text">技術的なことをもっと深掘りした講義があればうれしいです（第18回）</div></div>
+      <div class="voice-item"><div class="voice-tag">📌 倫理・リテラシー</div><div class="voice-text">「倫理」にあたる事柄をしっかり取り上げてほしい（第18回）</div></div>
+      <div class="voice-item"><div class="voice-tag">📌 接続問題</div><div class="voice-text">途中で退出させられてしまいましたが、なぜでしょうか（第18回）</div></div>
     </div>
   </div>
 
@@ -473,6 +483,12 @@
           <td>冒頭2分で「Juniorとは？登録方法」スライドを挿入。Discord登録QRコードをチャット固定</td>
           <td><span class="owner-badge">運営＋登壇者</span></td>
           <td style="font-size:12px;color:#64748B;">登録率 ↑</td>
+        </tr>
+        <tr>
+          <td><span class="priority-high">🔴 高</span></td>
+          <td>接続トラブル（強制退出）の原因調査と再発防止策。Zoom参加者設定・タイムアウト設定を確認</td>
+          <td><span class="owner-badge">運営</span></td>
+          <td style="font-size:12px;color:#64748B;">満足度 ↑</td>
         </tr>
         <tr>
           <td><span class="priority-high">🔴 高</span></td>
@@ -506,7 +522,7 @@
         </tr>
         <tr>
           <td><span class="priority-low">🟢 低</span></td>
-          <td>人気テーマ上位（勉強法・自由研究・動画）を優先的に年間スケジュールに組み込み</td>
+          <td>人気テーマ上位（勉強法・動画・画像）を優先的に年間スケジュールに組み込み。AI倫理回も中長期で検討</td>
           <td><span class="owner-badge">企画</span></td>
           <td style="font-size:12px;color:#64748B;">満足度 ↑</td>
         </tr>
@@ -522,41 +538,48 @@
 
   <!-- まとめ -->
   <div class="summary-section">
-    <h2 class="section-title">まとめ・今後の方針（第1〜17回 総括）</h2>
+    <h2 class="section-title">まとめ・今後の方針（第1〜18回 総括）</h2>
     <div class="insight-list">
       <div class="insight-item">
         <div class="insight-icon">📈</div>
         <div>
-          <div class="insight-title">第16回の低下から第17回が285名・満足度4.21で急回復</div>
-          <div class="insight-body">第13回3.97の低下後、第14回4.11→第15回4.30と連続回復。第16回は進路テーマで127名（全回最少）だったが、第17回は285名・回答率24.6%・満足度4.21と大幅回復。第15回の保護者満足度4.65は全17回最高値。</div>
+          <div class="insight-title">第18回 満足度4.32は第13回以降で最高スコア──回復基調が定着</div>
+          <div class="insight-body">第13回3.97の低下後、第14回4.11→第15回4.30→第17回4.21→第18回4.32と継続回復。ハンズオン形式との相性が良く、画像生成テーマで教育関係者・社会人層から高い評価を得た。第15回の保護者満足度4.65は全18回最高値。</div>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-icon">🔄</div>
         <div>
-          <div class="insight-title">リピーター率が5回連続上昇（3.4%→44.3%）、コア層の形成が加速</div>
-          <div class="insight-body">第13回3.4%→第14回28.3%→第15回37.1%→第16回42.9%→第17回44.3%と5回連続上昇、過去最高を更新。継続参加者が増えており、コミュニティの粘着性が上がっている。Discord誘導とアーカイブ活用強化が次の一手。</div>
+          <div class="insight-title">累計参加者5,181名に到達──LINE案内が全体の73%を担う主力チャネル</div>
+          <div class="insight-body">第18回で累計5,181名を突破。LINE案内経由が第12〜18回累積で396件（73%）と圧倒的多数。集客の主力として機能しており、LINE案内文の改善・対象者明示がそのまま集客品質向上につながる。</div>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-icon">📚</div>
         <div>
-          <div class="insight-title">「勉強法・学習」テーマが全回通じて最も人気。ハンズオン形式との相性も最高</div>
-          <div class="insight-body">12〜17回の累積テーマ集計で「勉強法・学習」が1位（104件）。第17回の古文×AIショートドラマも学習系テーマとして高評価。「勉強×AI」系テーマを軸に据えた月次企画が有効。</div>
+          <div class="insight-title">「勉強法・学習」テーマが全回通じて最も人気。画像生成・動画が追い上げ</div>
+          <div class="insight-body">第12〜18回の累積テーマ集計で「勉強法・学習」が122件で1位。ただし第18回では「画像生成(17件)・動画(16件)」が「勉強法(18件)」に肉薄。ハンズオン形式（作る・試す）との相性が高い回は満足度・回答率ともに高い。</div>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-icon">🎯</div>
         <div>
-          <div class="insight-title">LINE案内が7割を占める主要集客。テーマの対象者明示が集客品質の鍵</div>
-          <div class="insight-body">第12〜17回きっかけ累積でLINE案内が約72%（336件）。集客の主力チャネルとして機能している。ただし「子なし大人が多数」という層ミスマッチは告知の対象者明示で改善可能。</div>
+          <div class="insight-title">「活動内容不明」が7回通じた最多未登録理由──Junior認知向上が最優先課題</div>
+          <div class="insight-body">未登録理由の累計トップは「活動内容不明（66件）」。「そのうち登録（84件）」も多く、興味はあるが行動に至らない層が厚い。冒頭スライドへのJunior紹介挿入＋翌日LINE「できること3選」配信の組み合わせで行動転換を促す。</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon">🏫</div>
+        <div>
+          <div class="insight-title">「AI倫理・リテラシー」ニーズが第18回で顕在化──中長期での企画化を検討</div>
+          <div class="insight-body">複数の教育関係者・保護者から「倫理」「リテラシー」に関するコンテンツ要望が寄せられた。子どもに教える立場からの需要が高く、既存の「学び方・勉強法」テーマと組み合わせた形での企画が有効と考えられる。</div>
         </div>
       </div>
       <div class="insight-item">
         <div class="insight-icon">🔧</div>
         <div>
-          <div class="insight-title">Junior登録率は22〜39%で推移。「登録方法不明」解消が最優先課題</div>
-          <div class="insight-body">4回通じて未登録者の最多理由は「活動内容不明」と「そのうち登録」。冒頭QRコードスライドは継続しているが浸透に時間がかかっている。フォローLINE（「できること3選」）との組み合わせで改善を図る。</div>
+          <div class="insight-title">第18回で接続トラブル（強制退出）が発生──次回前にZoom設定の再確認を</div>
+          <div class="insight-body">「途中で退出させられた」という報告が2件。参加者制限・タイムアウト等が原因の可能性あり。次回開催前にZoom設定を必ず確認すること。また接続問題が発生した場合の案内フロー（アーカイブ案内等）をあらかじめ準備しておくと満足度維持につながる。</div>
         </div>
       </div>
     </div>
@@ -565,7 +588,7 @@
 </div>
 
 <footer>
-  SHIFT AI ジュニアウェビナー 一覧・累積分析　|　2026年5月更新（第1〜17回）　|
+  SHIFT AI ジュニアウェビナー 一覧・累積分析　|　2026年5月更新（第1〜18回）　|
   <a href="https://rinachi219510.github.io/junior-webinar-reports/" style="color:#00C2CB;">↑ ページトップ</a>
 </footer>
 
@@ -577,10 +600,10 @@ const C = { navy:'#1E2761', cyan:'#00C2CB', purple:'#9B5DE5', green:'#06D6A0', y
 new Chart(document.getElementById('participantChart'), {
   type: 'bar',
   data: {
-    labels: ["第1回","第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回","第14回","第15回","第16回","第17回"],
+    labels: ["第1回","第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回","第14回","第15回","第16回","第17回","第18回"],
     datasets: [{
-      data: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267, 231, 256, 127, 285],
-      backgroundColor: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267, 231, 256, 127, 285].map(v => v === 762 ? C.yellow : C.cyan),
+      data: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267, 231, 256, 127, 285, 282],
+      backgroundColor: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267, 231, 256, 127, 285, 282].map((v, i) => i === 17 ? C.orange : v === 762 ? C.yellow : C.cyan),
       borderRadius: 6, borderSkipped: false,
     }]
   },
@@ -601,20 +624,24 @@ new Chart(document.getElementById('participantChart'), {
 new Chart(document.getElementById('trendChart'), {
   type: 'line',
   data: {
-    labels: ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回","第14回","第15回","第16回","第17回"],
+    labels: ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回","第14回","第15回","第16回","第17回","第18回"],
     datasets: [
       {
         label: '満足度',
-        data: [4.85, 4.77, 4.81, 4.65, 4.77, 4.58, 3.67, 4.57, 4.57, 4.33, 4.18, 3.97, 4.11, 4.30, 4.18, 4.21],
+        data: [4.85, 4.77, 4.81, 4.65, 4.77, 4.58, 3.67, 4.57, 4.57, 4.33, 4.18, 3.97, 4.11, 4.30, 4.18, 4.21, 4.32],
         borderColor: C.navy, backgroundColor: 'rgba(30,39,97,0.08)',
-        borderWidth: 2.5, pointRadius: 5, pointBackgroundColor: C.navy,
+        borderWidth: 2.5,
+        pointRadius: [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,6],
+        pointBackgroundColor: [C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.orange],
         tension: 0.3, fill: true, yAxisID: 'y',
       },
       {
         label: '回答率',
-        data: [34, 29, 54, 42, 47, 37, 16, 33, 37, 34, 31, 38.2, 22.9, 34.8, 22.0, 24.6],
+        data: [34, 29, 54, 42, 47, 37, 16, 33, 37, 34, 31, 38.2, 22.9, 34.8, 22.0, 24.6, 28.7],
         borderColor: C.cyan, backgroundColor: 'transparent',
-        borderWidth: 2, pointRadius: 4, pointBackgroundColor: C.cyan,
+        borderWidth: 2,
+        pointRadius: [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,5],
+        pointBackgroundColor: [C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.orange],
         borderDash: [5,3], tension: 0.3, fill: false, yAxisID: 'y2',
       }
     ]
@@ -634,53 +661,53 @@ new Chart(document.getElementById('trendChart'), {
   }
 });
 
-// ===== テーマ円グラフ =====
+// ===== テーマ円グラフ（第12〜18回累積）=====
 new Chart(document.getElementById('themeChart'), {
   type: 'doughnut',
   data: {
-    labels: ["勉強法・学習","自由研究・工作","動画・映像","画像生成","プログラミング","マナー・安全","進路・受験","ゲーム","文章作成"],
-    datasets: [{ data: [104, 90, 92, 86, 71, 61, 54, 7, 4], backgroundColor: [C.navy,C.cyan,C.yellow,C.green,C.purple,C.red,C.teal,C.gray,C.orange], borderWidth: 2, borderColor: 'white' }]
+    labels: ["勉強法・学習","動画・映像","自由研究・工作","画像生成","プログラミング","マナー・安全","進路・受験","ゲーム","文章作成"],
+    datasets: [{ data: [122, 108, 106, 103, 81, 74, 61, 9, 5], backgroundColor: [C.navy,C.cyan,C.teal,C.purple,C.orange,C.red,C.yellow,C.gray,C.green], borderWidth: 2, borderColor: 'white' }]
   },
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
 
-// ===== きっかけ円グラフ =====
+// ===== きっかけ円グラフ（第12〜18回累積）=====
 new Chart(document.getElementById('triggerChart'), {
   type: 'doughnut',
   data: {
     labels: ["LINE（公式・グループ）","SHIFT AIコミュニティ","その他"],
-    datasets: [{ data: [336, 102, 27], backgroundColor: [C.cyan, C.navy, C.gray], borderWidth: 2, borderColor: 'white' }]
+    datasets: [{ data: [396, 116, 34], backgroundColor: [C.cyan, C.navy, C.gray], borderWidth: 2, borderColor: 'white' }]
   },
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
 
-// ===== 子どもテーマ =====
+// ===== 子どもテーマ（第12〜18回累積）=====
 new Chart(document.getElementById('childThemeChart'), {
   type: 'doughnut',
   data: {
-    labels: ['ゲーム作成','画像生成','動画作成・制作','進路関係','文章作成','自由研究','勉強法'],
-    datasets: [{ data: [7, 6, 5, 4, 3, 3, 2], backgroundColor: [C.red, C.purple, C.cyan, C.navy, C.teal, C.orange, C.green], borderWidth: 2, borderColor: 'white' }]
+    labels: ['ゲーム作成','自由研究','画像生成','動画作成・制作','進路関係','文章作成','勉強法'],
+    datasets: [{ data: [9, 6, 8, 7, 5, 4, 4], backgroundColor: [C.red, C.teal, C.purple, C.cyan, C.navy, C.gray, C.green], borderWidth: 2, borderColor: 'white' }]
   },
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
 
-// ===== 保護者テーマ =====
+// ===== 保護者テーマ（第12〜18回累積）=====
 new Chart(document.getElementById('parentThemeChart'), {
   type: 'doughnut',
   data: {
-    labels: ['勉強法','自由研究','動画作成・制作','画像生成','プログラミング','マナー・安全','進路関係'],
-    datasets: [{ data: [79, 72, 72, 71, 55, 48, 39], backgroundColor: [C.cyan, C.teal, C.green, C.purple, C.orange, C.yellow, C.navy], borderWidth: 2, borderColor: 'white' }]
+    labels: ['勉強法','動画作成・制作','画像生成','自由研究','プログラミング','マナー・安全','進路関係'],
+    datasets: [{ data: [95, 86, 86, 85, 65, 61, 45], backgroundColor: [C.cyan, C.green, C.purple, C.teal, C.orange, C.yellow, C.navy], borderWidth: 2, borderColor: 'white' }]
   },
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
 
-// ===== 都道府県ランキング =====
+// ===== 都道府県ランキング（第1〜18回累計）=====
 const prefData = [
-  { name: "東京", count: 287 }, { name: "大阪", count: 157 }, { name: "神奈川", count: 127 },
-  { name: "愛知", count: 117 }, { name: "埼玉", count: 110 }, { name: "兵庫", count: 88 },
-  { name: "福岡", count: 68 },  { name: "千葉", count: 63 },  { name: "北海道", count: 39 },
-  { name: "京都", count: 30 },  { name: "岡山", count: 23 },  { name: "静岡", count: 23 },
-  { name: "沖縄", count: 22 },  { name: "岐阜", count: 18 },  { name: "広島", count: 17 },
+  { name: "東京", count: 302 }, { name: "大阪", count: 165 }, { name: "神奈川", count: 131 },
+  { name: "愛知", count: 124 }, { name: "埼玉", count: 115 }, { name: "兵庫", count: 91 },
+  { name: "福岡", count: 71 },  { name: "千葉", count: 68 },  { name: "北海道", count: 42 },
+  { name: "京都", count: 30 },  { name: "静岡", count: 26 },  { name: "岡山", count: 23 },
+  { name: "沖縄", count: 23 },  { name: "広島", count: 20 },  { name: "岐阜", count: 19 },
 ];
 const maxCount = prefData[0].count;
 const rankEl = document.getElementById('prefRanking');
@@ -698,4 +725,3 @@ prefData.forEach((p, i) => {
 </script>
 </body>
 </html>
-
