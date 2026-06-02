@@ -611,9 +611,9 @@ const C = { navy:'#1E2761', cyan:'#00C2CB', purple:'#9B5DE5', green:'#06D6A0', y
 new Chart(document.getElementById('participantChart'), {
   type: 'bar',
   data: {
-    labels: ["第1回","第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回","第14回","第15回","第16回","第17回","第18回"],
+    labels: ["第1回","第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回","第14回","第15回","第16回","第17回","第18回,"第19回"],
     datasets: [{
-      data: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267, 231, 256, 127, 285, 282],
+      data: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267, 231, 256, 127, 285, 282, 389],
       backgroundColor: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267, 231, 256, 127, 285, 282].map((v, i) => i === 17 ? C.orange : v === 762 ? C.yellow : C.cyan),
       borderRadius: 6, borderSkipped: false,
     }]
@@ -635,7 +635,7 @@ new Chart(document.getElementById('participantChart'), {
 new Chart(document.getElementById('trendChart'), {
   type: 'line',
   data: {
-    labels: ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回","第14回","第15回","第16回","第17回","第18回"],
+    labels: ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回","第14回","第15回","第16回","第17回","第18回,"第19回"],
     datasets: [
       {
         label: '満足度',
@@ -676,8 +676,8 @@ new Chart(document.getElementById('trendChart'), {
 new Chart(document.getElementById('themeChart'), {
   type: 'doughnut',
   data: {
-    labels: ["勉強法・学習","動画・映像","自由研究・工作","画像生成","プログラミング","マナー・安全","進路・受験","ゲーム","文章作成"],
-    datasets: [{ data: [122, 108, 106, 103, 81, 74, 61, 9, 5], backgroundColor: [C.navy,C.cyan,C.teal,C.purple,C.orange,C.red,C.yellow,C.gray,C.green], borderWidth: 2, borderColor: 'white' }]
+    labels: ["画像生成","動画作成・制作","勉強法","自由研究","プログラミング","マナー・安全","進路関係","ゲーム作成","文章作成"],
+    datasets: [{ data: [35,32,29,28,21,13,11,4,1], backgroundColor: [C.navy,C.cyan,C.teal,C.purple,C.orange,C.red,C.yellow,C.gray,C.green], borderWidth: 2, borderColor: 'white' }]
   },
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
