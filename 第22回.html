@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ジュニアウェビナー第22回 アンケート結果レポート</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif; background: #F0F4F8; color: #1E2761; }
+
+    .hero {
+      background: linear-gradient(135deg, #1E2761 0%, #0A1040 100%);
+      color: white; padding: 60px 40px 50px; position: relative; overflow: hidden;
+    }
+    .hero::before { content: ""; position: absolute; top: -80px; right: -80px; width: 300px; height: 300px; border-radius: 50%; background: rgba(0,194,203,0.12); }
+    .hero::after  { content: ""; position: absolute; bottom: -60px; right: 100px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,209,102,0.08); }
+    .hero-tag     { display: inline-block; background: #00C2CB; color: #1E2761; font-weight: 700; font-size: 13px; padding: 4px 14px; border-radius: 20px; margin-bottom: 12px; }
+    .hero-round   { font-size: 14px; color: #00C2CB; font-weight: 700; margin-bottom: 8px; }
+    .hero h1      { font-size: 26px; font-weight: 800; line-height: 1.4; margin-bottom: 6px; }
+    .hero-speaker { font-size: 14px; color: #B0C0D8; margin-bottom: 20px; }
+    .hero-speaker span { color: #FFD166; font-weight: 700; }
+    .hero-meta    { display: flex; gap: 32px; flex-wrap: wrap; font-size: 14px; color: #B0C0D8; }
+    .hero-meta strong { color: #FFD166; font-size: 15px; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+    .section-title { font-size: 20px; font-weight: 700; color: #1E2761; margin-bottom: 20px; padding-left: 14px; border-left: 5px solid #00C2CB; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 48px; }
+    .stat-card  { background: white; border-radius: 12px; padding: 24px 20px 20px; box-shadow: 0 2px 12px rgba(30,39,97,0.08); text-align: center; border-top: 5px solid; }
+    .stat-card:nth-child(1) { border-color: #1E2761; }
+    .stat-card:nth-child(2) { border-color: #00C2CB; }
+    .stat-card:nth-child(3) { border-color: #9B5DE5; }
+    .stat-card:nth-child(4) { border-color: #06D6A0; }
+    .stat-value { font-size: 44px; font-weight: 800; line-height: 1; margin-bottom: 8px; }
+    .stat-card:nth-child(1) .stat-value { color: #1E2761; }
+    .stat-card:nth-child(2) .stat-value { color: #00C2CB; }
+    .stat-card:nth-child(3) .stat-value { color: #9B5DE5; }
+    .stat-card:nth-child(4) .stat-value { color: #06D6A0; }
+    .stat-label { font-size: 13px; color: #64748B; font-weight: 500; }
+    .stat-sub   { font-size: 11px; color: #94A3B8; margin-top: 4px; }
+
+    .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 24px; margin-bottom: 48px; }
+    .chart-card  { background: white; border-radius: 14px; padding: 28px 24px; box-shadow: 0 2px 12px rgba(30,39,97,0.08); }
+    .chart-card.full { grid-column: 1 / -1; }
+    .chart-title    { font-size: 16px; font-weight: 700; color: #1E2761; margin-bottom: 6px; }
+    .chart-subtitle { font-size: 12px; color: #94A3B8; margin-bottom: 20px; }
+    .chart-wrap     { position: relative; height: 280px; }
+    .chart-wrap.tall { height: 340px; }
+
+    .score-num-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 8px; }
+    .score-num-card { border-radius: 12px; padding: 18px 16px; text-align: center; border-top: 4px solid; background: #F8FAFC; }
+    .snc-val   { font-size: 40px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+    .snc-label { font-size: 12px; color: #64748B; font-weight: 600; margin-bottom: 4px; }
+    .snc-stars { font-size: 13px; color: #FFD166; }
+
+    .text-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px; }
+    @media (max-width: 700px) { .text-grid { grid-template-columns: 1fr; } }
+    .text-card { background: white; border-radius: 14px; padding: 28px 24px; box-shadow: 0 2px 12px rgba(30,39,97,0.08); }
+    .text-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .text-card-title  { font-size: 15px; font-weight: 700; color: #1E2761; }
+    .text-category { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .text-cat-badge { display: inline-block; background: #EEF2FF; color: #1E2761; font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 20px; white-space: nowrap; }
+    .text-cat-count { font-size: 12px; color: #94A3B8; }
+    .text-quote { font-size: 12px; color: #475569; padding: 8px 12px; background: #F8FAFC; border-radius: 8px; border-left: 3px solid #E2E8F0; line-height: 1.6; margin-bottom: 10px; }
+    .text-quote::before { content: "「"; color: #00C2CB; font-weight: 700; }
+    .text-quote::after  { content: "」"; color: #00C2CB; font-weight: 700; }
+
+    .pdca-badge { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; font-weight: 800; font-size: 15px; flex-shrink: 0; }
+    .pdca-badge.plan  { background: #EEF2FF; color: #1E2761; }
+    .pdca-badge.do    { background: #ECFDF5; color: #059669; }
+    .pdca-badge.check { background: #FFF7ED; color: #EA580C; }
+    .pdca-badge.act   { background: #FFF1F2; color: #E11D48; }
+    .pdca-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
+    .pdca-title  { font-size: 14px; font-weight: 700; color: #1E2761; }
+    .pdca-sub    { font-size: 11px; color: #94A3B8; margin-top: 2px; }
+    .pdca-list   { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .pdca-list li      { font-size: 13px; color: #334155; line-height: 1.6; padding: 8px 12px; border-radius: 8px; background: #F8FAFC; border-left: 3px solid #E2E8F0; }
+    .pdca-list li.good { border-left-color: #06D6A0; background: #F0FDF4; color: #1E2761; }
+    .pdca-list li.warn { border-left-color: #F59E0B; background: #FFFBEB; }
+
+    .voice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+    @media (max-width: 700px) { .voice-grid { grid-template-columns: 1fr 1fr; } }
+    .voice-item { background: #F8FAFC; border-radius: 10px; padding: 14px; border-left: 3px solid #00C2CB; }
+    .voice-tag  { font-size: 11px; font-weight: 700; color: #1E2761; margin-bottom: 6px; }
+    .voice-text { font-size: 12px; color: #475569; line-height: 1.6; }
+
+    .summary-section { background: linear-gradient(135deg, #1E2761 0%, #0A1040 100%); border-radius: 16px; padding: 36px 32px; margin-bottom: 48px; color: white; }
+    .summary-section .section-title { color: white; border-color: #FFD166; }
+    .insight-list { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+    .insight-item { display: flex; gap: 14px; align-items: flex-start; background: rgba(255,255,255,0.08); border-radius: 10px; padding: 14px 16px; }
+    .insight-icon  { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .insight-title { font-size: 14px; font-weight: 700; color: #FFD166; margin-bottom: 4px; }
+    .insight-body  { font-size: 13px; color: #B0C0D8; line-height: 1.6; }
+
+    .trend-section { background: white; border-radius: 14px; padding: 32px 28px; box-shadow: 0 2px 12px rgba(30,39,97,0.08); margin-bottom: 48px; }
+    .trend-section .section-title { margin-bottom: 24px; }
+
+    footer { text-align: center; padding: 24px; font-size: 12px; color: #94A3B8; }
+
+    @media (max-width: 700px) {
+      .hero { padding: 40px 20px 36px; }
+      .hero h1 { font-size: 19px; }
+      .charts-grid   { grid-template-columns: 1fr; }
+      .score-num-grid { grid-template-columns: repeat(2, 1fr); }
+      .voice-grid    { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">SHIFT AI ジュニア</div>
+  <div class="hero-round">第22回</div>
+  <h1>AIで作る、君だけの合格設計図<br>中高生が "強み発見→志望校→勉強サイクル" までオーダーメイドする60分</h1>
+  <div class="hero-speaker">登壇者：<span>中村格</span></div>
+  <div class="hero-meta">
+    <div>📅 実施日：<strong>2026年6月22日（月）</strong></div>
+    <div>👥 リアルタイム参加者：<strong>156名</strong></div>
+    <div>📋 アンケート回答：<strong>38名</strong></div>
+    <div>📊 回答率：<strong>24.4%</strong></div>
+    <div>📎 <a href="https://www.notion.so/33580b19aa4a811e88e1d84fbb295996" target="_blank" rel="noopener" style="color:#00C2CB;">Notionページ →</a></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- サマリー -->
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-value">156</div><div class="stat-label">リアルタイム参加者数</div></div>
+    <div class="stat-card"><div class="stat-value">38</div><div class="stat-label">アンケート回答数</div></div>
+    <div class="stat-card"><div class="stat-value">24.4%</div><div class="stat-label">回答率</div></div>
+    <div class="stat-card"><div class="stat-value">4.18</div><div class="stat-label">全体満足度（5点満点）</div></div>
+  </div>
+
+  <!-- 参加者内訳 -->
+  <h2 class="section-title">参加者内訳</h2>
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">参加者区分</div>
+      <div class="chart-subtitle">N=38</div>
+      <div class="chart-wrap"><canvas id="participantChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">お子さんの学年</div>
+      <div class="chart-subtitle">N=25（保護者さまのお子さんの学年）</div>
+      <div class="chart-wrap"><canvas id="gradeChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 満足度 -->
+  <h2 class="section-title">満足度スコア（5点満点）</h2>
+  <div class="charts-grid" style="margin-bottom:48px;">
+    <div class="chart-card">
+      <div class="chart-title">カテゴリ別満足度</div>
+      <div class="chart-subtitle">5点満点スコア</div>
+      <div class="score-num-grid">
+        <div class="score-num-card" style="border-color:#1E2761">
+          <div class="snc-val" style="color:#1E2761">4.18</div>
+          <div class="snc-label">全体平均</div>
+          <div class="snc-stars">★★★★☆</div>
+        </div>
+        <div class="score-num-card" style="border-color:#9B5DE5">
+          <div class="snc-val" style="color:#9B5DE5">3.77</div>
+          <div class="snc-label">一般参加者</div>
+          <div class="snc-stars">★★★★☆</div>
+        </div>
+        <div class="score-num-card" style="border-color:#06D6A0">
+          <div class="snc-val" style="color:#06D6A0">4.40</div>
+          <div class="snc-label">保護者</div>
+          <div class="snc-stars">★★★★☆</div>
+        </div>
+        <div class="score-num-card" style="border-color:#FF6B6B">
+          <div class="snc-val" style="color:#FF6B6B">5.00</div>
+          <div class="snc-label">子楽しさ（N=2）</div>
+          <div class="snc-stars">★★★★★</div>
+        </div>
+      </div>
+      <p style="margin-top:16px;font-size:12px;color:#94A3B8;">※ 保護者(23名)が最多区分。進路テーマで保護者満足度4.40と高水準。子楽しさ5.0はN=2のため参考値。</p>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">保護者の実践意欲</div>
+      <div class="chart-subtitle">N=23（保護者のみ対象）</div>
+      <div class="chart-wrap"><canvas id="practiceChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 参加のきっかけ & テーマ -->
+  <h2 class="section-title">参加のきっかけ ＆ やりたいテーマ</h2>
+  <div class="charts-grid">
+    <div class="chart-card full">
+      <div class="chart-title">ウェビナーを知ったきっかけ</div>
+      <div class="chart-subtitle">N=38</div>
+      <div class="chart-wrap"><canvas id="referralChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card full">
+      <div class="chart-title">📊 全参加者のやりたいテーマ（複数回答）</div>
+      <div class="chart-subtitle">全参加者 N=88件</div>
+      <div class="chart-wrap"><canvas id="themeChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">🧒 子どものやりたいテーマ（複数回答）</div>
+      <div class="chart-subtitle">保護者+子（子ども回答） N=5件</div>
+      <div class="chart-wrap"><canvas id="childThemeChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">👨‍👩‍👧 保護者のやりたいテーマ（複数回答）</div>
+      <div class="chart-subtitle">保護者さま＋保護者+子（保護者回答） N=83件</div>
+      <div class="chart-wrap"><canvas id="parentThemeChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">Junior登録状況</div>
+      <div class="chart-subtitle">N=38</div>
+      <div class="chart-wrap"><canvas id="registrationChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">未登録の理由</div>
+      <div class="chart-subtitle">未登録者 N=21（複数回答あり）</div>
+      <div class="chart-wrap"><canvas id="unregiChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="charts-grid" style="margin-bottom:48px;">
+    <div class="chart-card full">
+      <div class="chart-title">参加者の都道府県（上位10）</div>
+      <div class="chart-subtitle">16都道府県・海外から参加</div>
+      <div class="chart-wrap"><canvas id="prefChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 自由記述まとめ -->
+  <h2 class="section-title">自由記述まとめ（N=13名）</h2>
+  <div class="text-grid">
+    <div class="text-card">
+      <div class="text-card-header"><div style="font-size:24px">🎯</div><div class="text-card-title">視聴目的・きっかけ</div></div>
+
+      <div class="text-category">
+        <span class="text-cat-badge">教育関係の仕事に活かしたい</span>
+        <span class="text-cat-count">最多（4件）</span>
+      </div>
+      <div class="text-quote">教育関係の仕事なので。いつも楽しみにしています。</div>
+      <div class="text-quote">教育関係の仕事に活かしたい。定期試験の予想問題集のAIでの作り方なども知りたい</div>
+
+      <div class="text-category" style="margin-top:12px">
+        <span class="text-cat-badge">孫・家族のために</span>
+        <span class="text-cat-count">複数（3件）</span>
+      </div>
+      <div class="text-quote">孫の強み発見、志望校選定に活かしたい。発達障害のジュニアの学習のためにAIを活用すること</div>
+      <div class="text-quote">孫と一緒に学べる場所を作っていただけて最高です！</div>
+
+      <div class="text-category" style="margin-top:12px">
+        <span class="text-cat-badge">自分の進路・強み発見</span>
+        <span class="text-cat-count">複数</span>
+      </div>
+      <div class="text-quote">自分の強みをしり、今後自分に合った仕事を探し、活かしたいとおもいました。</div>
+      <div class="text-quote">仕事に活かしたい。ジュニアむけでも社会人ビキナーにも活用できるコンテンツが増えると嬉しいです</div>
+    </div>
+
+    <div class="text-card">
+      <div class="text-card-header"><div style="font-size:24px">💡</div><div class="text-card-title">期待・ご提案</div></div>
+
+      <div class="text-category">
+        <span class="text-cat-badge">フォローアップ編ウェビナーへの期待</span>
+        <span class="text-cat-count">強い要望</span>
+      </div>
+      <div class="text-quote">今回を入口編として、次回は「合格設計図の実行・振り返り・修正編」として展開されると、とても魅力的だと思います。</div>
+      <div class="text-quote">計画を作るところよりも、「実行できなかったときにどう修正するか」「AIにどのように追加質問して計画を改善するか」が非常に重要になると感じました。</div>
+
+      <div class="text-category" style="margin-top:12px">
+        <span class="text-cat-badge">社会人・大人向けコンテンツの拡充</span>
+        <span class="text-cat-count">複数</span>
+      </div>
+      <div class="text-quote">ジュニアむけでも社会人ビキナーにも活用できるコンテンツが増えると嬉しいです</div>
+
+      <div class="text-category" style="margin-top:12px">
+        <span class="text-cat-badge">AIの回答保存・活用法</span>
+        <span class="text-cat-count">要望</span>
+      </div>
+      <div class="text-quote">AIからもらった回答を残しておく方法が知りたいです。</div>
+
+      <div class="text-category" style="margin-top:12px">
+        <span class="text-cat-badge">特定テーマのリクエスト</span>
+        <span class="text-cat-count">複数</span>
+      </div>
+      <div class="text-quote">定期試験の予想問題集のAIでの作り方など（教育職からの具体的なリクエスト）</div>
+    </div>
+  </div>
+
+  <!-- PDCA 改善分析 -->
+  <h2 class="section-title">PDCA 改善分析（第22回）</h2>
+  <div class="charts-grid" style="margin-bottom:24px;">
+    <div class="chart-card">
+      <div class="pdca-header">
+        <span class="pdca-badge plan">P</span>
+        <div>
+          <div class="pdca-title">Plan ─ 前回からの改善計画</div>
+          <div class="pdca-sub">第21回の課題（活動内容不明36件・課金懸念・Junior名称障壁）への対応</div>
+        </div>
+      </div>
+      <ul class="pdca-list">
+        <li>課金・コスト情報の事前明示（動画生成ツールは有料前提の懸念への対応）</li>
+        <li>活動内容不明36件対策：冒頭Junior紹介スライドの継続</li>
+        <li>「Juniorという名前が大人参加の壁に」→告知文に「大人もOK」を追加</li>
+        <li>動画生成シリーズ化の検討（複数件の継続希望への応答）</li>
+      </ul>
+    </div>
+    <div class="chart-card">
+      <div class="pdca-header">
+        <span class="pdca-badge do">D</span>
+        <div>
+          <div class="pdca-title">Do ─ 実施内容</div>
+          <div class="pdca-sub">2026/06/22（月）20:00〜 中村格登壇</div>
+        </div>
+      </div>
+      <ul class="pdca-list">
+        <li>テーマ：AIで作る、君だけの合格設計図（進路・受験・勉強サイクル）</li>
+        <li>リアルタイム参加156名（前回比-313名）、回答38件（24.4%）</li>
+        <li>教育関係者・祖父母世代を中心とした特徴的な参加層</li>
+        <li>中学生・高校生（68%）が参加者の子の学年の大半を占めた</li>
+      </ul>
+    </div>
+    <div class="chart-card">
+      <div class="pdca-header">
+        <span class="pdca-badge check">C</span>
+        <div>
+          <div class="pdca-title">Check ─ 結果の確認</div>
+          <div class="pdca-sub">アンケート38件を分析</div>
+        </div>
+      </div>
+      <ul class="pdca-list">
+        <li class="good">保護者満足度4.40 ─ 進路テーマが保護者層に高評価 ✓</li>
+        <li class="good">教育専門家から質の高い建設的フィードバック（フォローアップ需要を確認） ✓</li>
+        <li class="good">中学・高校生世代（68%）の参加者構成が今回テーマとマッチ ✓</li>
+        <li class="warn">参加者156名（前回469名から-67%大幅減少）⚠️</li>
+        <li class="warn">LINE案内経由29名（前回129名から激減）─ 集客チャネルに課題 ⚠️</li>
+        <li class="warn">活動内容不明が依然未登録理由のトップ（10件）⚠️</li>
+        <li class="warn">回答率24.4%（前回33.3%から低下）⚠️</li>
+      </ul>
+    </div>
+    <div class="chart-card">
+      <div class="pdca-header">
+        <span class="pdca-badge act">A</span>
+        <div>
+          <div class="pdca-title">Act ─ 次回への改善アクション</div>
+          <div class="pdca-sub">第23回に向けた優先対応</div>
+        </div>
+      </div>
+      <ul class="pdca-list">
+        <li class="good">🔴 LINE案内の集客強化が最優先：前回129名→29名と激減。告知内容・タイミング・文面の見直しが急務</li>
+        <li class="good">🔴 活動内容不明対策の継続強化：冒頭Junior紹介スライド＋「大人・社会人も歓迎」の明示</li>
+        <li>🟡 フォローアップ型ウェビナーの企画：「設計図の実行・修正編」への需要が複数件</li>
+        <li>🟡 中村格登壇時は教育系チャネル（保護者向けLINE等）への配信を強化</li>
+        <li>🟢 テーマ希望：勉強法21件・プログラミング13件・マナー安全13件が上位 → 次回企画に活用</li>
+      </ul>
+    </div>
+  </div>
+  <div class="chart-card" style="margin-bottom:48px;">
+    <div class="chart-title">参加者の声（第22回 自由記述より）</div>
+    <div class="voice-grid">
+      <div class="voice-item"><div class="voice-tag">📌 好評</div><div class="voice-text">いつもわかりやすい説明で感謝してます。大人にもマッチしてる内容だとおもいます。</div></div>
+      <div class="voice-item"><div class="voice-tag">📌 家族で参加</div><div class="voice-text">孫と一緒に学べる場所を作っていただけて最高です！</div></div>
+      <div class="voice-item"><div class="voice-tag">📌 フォローアップ要望</div><div class="voice-text">今回を入口編として、次回は「実行・振り返り・修正編」として展開されるととても魅力的です。</div></div>
+      <div class="voice-item"><div class="voice-tag">📌 継続参加</div><div class="voice-text">いつも楽しみにしています。教育関係の仕事に活かしています。</div></div>
+      <div class="voice-item"><div class="voice-tag">📌 活用提案</div><div class="voice-text">AIの回答が面白い。AIからもらった回答を残しておく方法が知りたいです。</div></div>
+      <div class="voice-item"><div class="voice-tag">📌 テーマ提案</div><div class="voice-text">定期試験の予想問題集のAIでの作り方なども教えてほしい（教育職からの具体的リクエスト）</div></div>
+    </div>
+  </div>
+
+  <!-- まとめ・次回への提言 -->
+  <div class="summary-section">
+    <h2 class="section-title">まとめ・次回への提言</h2>
+    <div class="insight-list">
+      <div class="insight-item">
+        <div class="insight-icon">📉</div>
+        <div>
+          <div class="insight-title">参加者156名・LINE案内29名 ─ 「進路」テーマと集客チャネルの課題が明確に</div>
+          <div class="insight-body">前回469名から-313名（-67%）と大幅減少。LINE案内経由も129名→29名と激減しており、集客の主因はLINE告知の届き方にある可能性が高い。進路テーマはターゲット層（中高生の保護者・祖父母）が明確なため、そのセグメントへの配信最適化が必要。</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon">⭐</div>
+        <div>
+          <div class="insight-title">保護者満足度4.40 ─ 進路テーマは保護者層に強く刺さる</div>
+          <div class="insight-body">一般参加者3.77に対し保護者4.40と高い満足度を記録。中学・高校生世代（68%）の保護者が参加の中心で、「子どもの進路・受験に活かしたい」というニーズが直撃した。小規模でも的確なターゲット設計ができていれば高満足度を維持できることが確認された。</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon">🎓</div>
+        <div>
+          <div class="insight-title">教育専門家から質の高いフィードバック ─ フォローアップ型コンテンツへの強い需要</div>
+          <div class="insight-body">「設計図を作った後、実行できなかったときの修正プロセスが重要」「入口編→実行・振り返り・修正編へのシリーズ展開を」という非常に具体的な提案が届いた。受験支援・学習伴走に関わるプロからのインサイトであり、次回ウェビナー企画の具体的なヒントになる。</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon">📊</div>
+        <div>
+          <div class="insight-title">テーマ希望：勉強法21件・プログラミング13件・マナー安全13件が上位</div>
+          <div class="insight-body">全88件のテーマ希望を分析すると、勉強法（21件）が突出して多く、今回の進路テーマと連続性の高いテーマが求められていることがわかる。プログラミング(13)・マナー安全(13)・自由研究(12)・進路(10)が続き、教育・学習系テーマへの需要が高い参加者層の特性が表れている。</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon">👴</div>
+        <div>
+          <div class="insight-title">祖父母世代の参加 ─ 「孫のために学ぶ」という新しい参加動機</div>
+          <div class="insight-body">「孫の強み発見・志望校選定に活かしたい」「孫と一緒に学びたい」「外孫に少しでも役立ちたい」という祖父母世代からの参加が複数件確認できた。中高生の直接の保護者だけでなく祖父母世代にも届いているのは、Junior ウェビナーの認知が広がっている証拠でもある。</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon">📋</div>
+        <div>
+          <div class="insight-title">活動内容不明が依然最多未登録理由（10件） ─ 対策の継続が必要</div>
+          <div class="insight-body">未登録21名中、活動内容不明が10件でトップ。前回（36件/120名中）から比率は変わらず、冒頭Junior紹介スライドの効果確認と告知文での説明強化を継続すべき課題。「大人もOK・社会人歓迎」の明示も合わせて継続することで、登録転換率の改善が期待できる。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 全体トレンド分析 -->
+  <h2 class="section-title">全体トレンド分析（第12〜22回）</h2>
+  <div class="trend-section">
+    <div class="charts-grid" style="margin-bottom:0;">
+      <div class="chart-card" style="box-shadow:none;padding:0;">
+        <div class="chart-title">リアルタイム参加者数の推移</div>
+        <div class="chart-subtitle">回数ごとの参加者数</div>
+        <div class="chart-wrap tall"><canvas id="trendParticipant"></canvas></div>
+      </div>
+      <div class="chart-card" style="box-shadow:none;padding:0;">
+        <div class="chart-title">アンケート回答率の推移</div>
+        <div class="chart-subtitle">回答数 / リアルタイム参加者数</div>
+        <div class="chart-wrap tall"><canvas id="trendResponseRate"></canvas></div>
+      </div>
+      <div class="chart-card full" style="box-shadow:none;padding:0;">
+        <div class="chart-title">満足度の推移</div>
+        <div class="chart-subtitle">全体平均（5点満点）</div>
+        <div class="chart-wrap"><canvas id="trendSatisfaction"></canvas></div>
+      </div>
+      <div class="chart-card" style="box-shadow:none;padding:0;">
+        <div class="chart-title">Junior登録状況の推移</div>
+        <div class="chart-subtitle">登録済み vs 未登録（件数）</div>
+        <div class="chart-wrap tall"><canvas id="trendRegistration"></canvas></div>
+      </div>
+      <div class="chart-card" style="box-shadow:none;padding:0;">
+        <div class="chart-title">LINE案内経由参加者数の推移</div>
+        <div class="chart-subtitle">ウェビナーを知ったきっかけ：LINE案内</div>
+        <div class="chart-wrap tall"><canvas id="trendLine"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  SHIFT AI ジュニアウェビナー第22回 アンケート結果レポート　|　2026年6月　|
+  <a href="https://rinachi219510.github.io/junior-webinar-reports/" style="color:#00C2CB;">← 一覧に戻る</a>
+</footer>
+
+<script>
+Chart.defaults.font.family = '"Hiragino Sans", "Noto Sans JP", sans-serif';
+const C = { navy:'#1E2761', cyan:'#00C2CB', purple:'#9B5DE5', green:'#06D6A0', yellow:'#FFD166', red:'#FF6B6B', gray:'#94A3B8', teal:'#4ECDC4', orange:'#F4A261' };
+const tooltip  = { callbacks: { label: (ctx) => { const t = ctx.dataset.data.reduce((a,b)=>a+b,0); return ` ${ctx.label}: ${ctx.raw}件（${Math.round(ctx.raw/t*100)}%）`; } } };
+const tooltipN = { callbacks: { label: (ctx) => { const t = ctx.dataset.data.reduce((a,b)=>a+b,0); return ` ${ctx.label}: ${ctx.raw}名（${Math.round(ctx.raw/t*100)}%）`; } } };
+
+new Chart(document.getElementById('participantChart'), {
+  type: 'doughnut',
+  data: { labels: ['保護者','その他（大人）','保護者＋子','学生'], datasets: [{ data:[23,13,2,0], backgroundColor:[C.navy,C.gray,C.cyan,C.green], borderWidth:3, borderColor:'#fff' }] },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'bottom',labels:{padding:16,font:{size:13}}}, tooltip:tooltipN }, cutout:'60%' }
+});
+
+new Chart(document.getElementById('gradeChart'), {
+  type: 'bar',
+  data: { labels: ['未就学児','小学生','中学生','高校生'], datasets: [{ label:'人数', data:[2,6,8,9], backgroundColor:[C.cyan,C.navy,C.purple,C.green], borderRadius:6 }] },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ y:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, x:{grid:{display:false},ticks:{color:'#475569'}} } }
+});
+
+new Chart(document.getElementById('practiceChart'), {
+  type: 'doughnut',
+  data: { labels: ['すぐできる','手順があればできる','まだ難しい'], datasets: [{ data:[9,9,5], backgroundColor:[C.green,C.cyan,C.red], borderWidth:3, borderColor:'#fff' }] },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'bottom',labels:{padding:14,font:{size:12}}}, tooltip:tooltipN }, cutout:'55%' }
+});
+
+new Chart(document.getElementById('themeChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['勉強法','マナー・安全','プログラミング','自由研究','進路関係','画像生成','動画作成・制作','ゲーム作成','その他','文章作成'],
+    datasets: [{ data:[21,13,13,12,10,9,8,1,1,0], backgroundColor:[C.green,C.navy,C.orange,C.teal,C.yellow,C.purple,C.cyan,C.red,C.gray,'#B0C0D8'], borderWidth:2, borderColor:'#fff' }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'bottom',labels:{padding:10,font:{size:12},boxWidth:12}}, tooltip } }
+});
+
+new Chart(document.getElementById('childThemeChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['画像生成','動画作成・制作','ゲーム作成','勉強法','自由研究'],
+    datasets: [{ data:[1,1,1,1,1], backgroundColor:[C.purple,C.cyan,C.red,C.green,C.teal], borderWidth:2, borderColor:'#fff' }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'bottom',labels:{padding:10,font:{size:12},boxWidth:12}}, tooltip } }
+});
+
+new Chart(document.getElementById('parentThemeChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['勉強法','マナー・安全','プログラミング','自由研究','進路関係','画像生成','動画作成・制作','その他'],
+    datasets: [{ data:[20,13,13,11,10,8,7,1], backgroundColor:[C.green,C.navy,C.orange,C.teal,C.yellow,C.purple,C.cyan,C.gray], borderWidth:2, borderColor:'#fff' }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'bottom',labels:{padding:10,font:{size:12},boxWidth:12}}, tooltip } }
+});
+
+new Chart(document.getElementById('referralChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['LINE案内','コミュニティ','その他'],
+    datasets: [{ data:[29,7,2], backgroundColor:[C.cyan,C.navy,C.gray], borderWidth:2, borderColor:'#fff' }]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'bottom',labels:{padding:14,font:{size:12}}}, tooltip } }
+});
+
+new Chart(document.getElementById('registrationChart'), {
+  type: 'doughnut',
+  data: { labels: ['未登録','登録済み','登録方法不明'], datasets: [{ data:[21,17,3], backgroundColor:[C.red,C.green,C.gray], borderWidth:3, borderColor:'#fff' }] },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:'bottom',labels:{padding:14,font:{size:12}}}, tooltip:tooltipN }, cutout:'55%' }
+});
+
+new Chart(document.getElementById('unregiChart'), {
+  type: 'bar',
+  data: { labels: ['活動内容不明','そのうち登録','時間がない','安全面不安','費用面','類似サービス'], datasets: [{ label:'人数', data:[10,4,3,3,1,1], backgroundColor:[C.orange,C.cyan,C.red,C.gray,C.yellow,C.teal], borderRadius:5 }] },
+  options: { responsive:true, maintainAspectRatio:false, indexAxis:'y', plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, y:{grid:{display:false},ticks:{color:'#1E2761',font:{size:12}}} } }
+});
+
+new Chart(document.getElementById('prefChart'), {
+  type: 'bar',
+  data: { labels: ['東京都','大阪府','愛知県','神奈川県','宮城県','兵庫県','千葉県','茨城県','海外','京都府'], datasets: [{ label:'人数', data:[8,5,4,3,3,2,2,2,2,1], backgroundColor:[C.navy,C.navy,C.cyan,C.cyan,C.cyan,C.gray,C.gray,C.gray,C.gray,C.gray], borderRadius:5 }] },
+  options: { responsive:true, maintainAspectRatio:false, indexAxis:'y', plugins:{legend:{display:false}}, scales:{ x:{beginAtZero:true,grid:{color:'#E2E8F0'},ticks:{color:C.gray}}, y:{grid:{display:false},ticks:{color:'#1E2761',font:{size:12}}} } }
+});
+
+// トレンドチャート
+const trendLabels = ['第12回','第13回','第14回','第15回','第16回','第17回','第18回','第19回','第20回','第21回','第22回'];
+const trendParticipants = [397, 267, 231, 256, 127, 285, 282, 389, 314, 469, 156];
+const trendRates = [33.2, 43.4, 22.9, 34.8, 22.0, 24.6, 28.7, 31.1, 28.0, 33.3, 24.4];
+const trendSatisfaction = [4.17, 3.99, 4.11, 4.30, 4.18, 4.21, 4.32, 4.61, 4.58, 4.53, 4.18];
+const trendRegistered = [38, 33, 20, 35, 18, 25, 24, 34, 28, 36, 17];
+const trendUnregi = [94, 83, 33, 54, 10, 45, 57, 87, 60, 120, 21];
+const trendLine = [86, 81, 36, 60, 21, 56, 60, 89, 56, 129, 29];
+
+const highlightColor = (arr, base, highlight) => arr.map((_, i) => i === arr.length - 1 ? highlight : base);
+
+new Chart(document.getElementById('trendParticipant'), {
+  type: 'bar',
+  data: { labels: trendLabels, datasets: [{ data: trendParticipants, backgroundColor: highlightColor(trendParticipants, C.cyan, C.orange), borderRadius: 5 }] },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ y:{beginAtZero:true,grid:{color:'#E2E8F0'}}, x:{grid:{display:false}} } }
+});
+
+new Chart(document.getElementById('trendResponseRate'), {
+  type: 'line',
+  data: { labels: trendLabels, datasets: [{ data: trendRates, borderColor: C.cyan, backgroundColor: 'rgba(0,194,203,0.1)', pointRadius: highlightColor(trendRates,3,6), pointBackgroundColor: highlightColor(trendRates,C.cyan,C.orange), tension:0.3, fill:true }] },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ y:{min:0,max:60,grid:{color:'#E2E8F0'},ticks:{callback:v=>v+'%'}}, x:{grid:{display:false}} } }
+});
+
+new Chart(document.getElementById('trendSatisfaction'), {
+  type: 'line',
+  data: { labels: trendLabels, datasets: [{ data: trendSatisfaction, borderColor: C.navy, backgroundColor: 'rgba(30,39,97,0.08)', pointRadius: highlightColor(trendSatisfaction,4,7), pointBackgroundColor: highlightColor(trendSatisfaction,C.navy,C.orange), tension:0.3, fill:true }] },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ y:{min:3.5,max:5.0,grid:{color:'#E2E8F0'},ticks:{callback:v=>v.toFixed(1)}}, x:{grid:{display:false}} } }
+});
+
+new Chart(document.getElementById('trendRegistration'), {
+  type: 'bar',
+  data: { labels: trendLabels, datasets: [
+    { label:'登録済み', data: trendRegistered, backgroundColor: C.green, borderRadius:[5,5,0,0], stack:'s' },
+    { label:'未登録', data: trendUnregi, backgroundColor: C.red, borderRadius:[0,0,5,5], stack:'s' }
+  ]},
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'bottom'}}, scales:{ y:{beginAtZero:true,grid:{color:'#E2E8F0'}}, x:{grid:{display:false}} } }
+});
+
+new Chart(document.getElementById('trendLine'), {
+  type: 'bar',
+  data: { labels: trendLabels, datasets: [{ data: trendLine, backgroundColor: highlightColor(trendLine, C.cyan, C.orange), borderRadius: 5 }] },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{ y:{beginAtZero:true,grid:{color:'#E2E8F0'}}, x:{grid:{display:false}} } }
+});
+</script>
+</body>
+</html>
