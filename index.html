@@ -371,10 +371,10 @@
   </div>
 
   <!-- ===== 累積サマリー ===== -->
-  <h2 class="section-title">累積データ分析（第1〜22回）</h2>
+  <h2 class="section-title">累積データ分析（第1〜23回）</h2>
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-value">22<span style="font-size:20px;font-weight:600;color:#64748B;">回</span></div>
+      <div class="stat-value">23<span style="font-size:20px;font-weight:600;color:#64748B;">回</span></div>
       <div class="stat-label">実施回数</div>
     </div>
     <div class="stat-card">
@@ -387,14 +387,14 @@
     </div>
     <div class="stat-card">
       <div class="stat-value">4.41</div>
-      <div class="stat-label">平均満足度（第2〜22回）</div>
+      <div class="stat-label">平均満足度（第2〜23回）</div>
       <div class="stat-sub">/ 5点満点</div>
     </div>
   </div>
 
   <!-- 参加者数推移 -->
   <div class="chart-card full" style="margin-bottom:32px;">
-    <div class="chart-title">参加者数の推移（第1〜22回）</div>
+    <div class="chart-title">参加者数の推移（第1〜23回）</div>
     <div class="chart-subtitle">最多：第5回 762名（AI映像制作）</div>
     <div class="chart-wrap">
       <canvas id="participantChart"></canvas>
@@ -424,7 +424,7 @@
       <p class="chart-note">勉強法・学習系が引き続き1位。動画・画像・プログラミングへの関心も高い。</p>
     </div>
     <div class="chart-card">
-      <div class="chart-title">参加のきっかけ（第12〜22回 累積）</div>
+      <div class="chart-title">参加のきっかけ（第12〜23回 累積）</div>
       <div class="chart-subtitle">合計1,008件</div>
       <div class="pie-wrap"><canvas id="triggerChart"></canvas></div>
       <p class="chart-note">LINE案内が7割を占める主要集客チャネル。</p>
@@ -434,12 +434,12 @@
   <!-- 子・保護者テーマ比較 -->
   <div class="charts-grid" style="margin-bottom:32px;">
     <div class="chart-card">
-      <div class="chart-title">🧒 子どものやりたいテーマ（第12〜22回 累積）</div>
+      <div class="chart-title">🧒 子どものやりたいテーマ（第12〜23回 累積）</div>
       <div class="chart-subtitle">保護者+子（子ども回答）＋学生本人 複数回答 合計72件</div>
       <div class="pie-wrap"><canvas id="childThemeChart"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">👨‍👩‍👧 保護者のやりたいテーマ（第12〜22回 累積）</div>
+      <div class="chart-title">👨‍👩‍👧 保護者のやりたいテーマ（第12〜23回 累積）</div>
       <div class="chart-subtitle">保護者さま＋保護者+子（保護者回答）複数回答</div>
       <div class="pie-wrap"><canvas id="parentThemeChart"></canvas></div>
     </div>
@@ -447,16 +447,16 @@
 
   <!-- 都道府県ランキング -->
   <div class="chart-card" style="margin-bottom:48px;">
-    <div class="chart-title">都道府県別参加者数 ランキング（第1〜22回 累計 上位15）</div>
+    <div class="chart-title">都道府県別参加者数 ランキング（第1〜23回 累計 上位15）</div>
     <div class="chart-subtitle">東京・大阪・神奈川・愛知・埼玉がトップ5</div>
     <ul class="pref-ranking" id="prefRanking"></ul>
     <div class="pref-note">
-      ※ 第1〜22回の合算データ。第1〜11回は自由記述を正規化して集計、第12回以降はプルダウン形式で正確に集計。
+      ※ 第1〜23回の合算データ。第1〜11回は自由記述を正規化して集計、第12回以降はプルダウン形式で正確に集計。
     </div>
   </div>
 
   <!-- ===== PDCA 改善分析 ===== -->
-  <h2 class="section-title">PDCA 改善分析（第12〜22回 累積）</h2>
+  <h2 class="section-title">PDCA 改善分析（第12〜23回 累積）</h2>
 
   <!-- 3軸の繰り返し課題 -->
   <div class="charts-grid" style="margin-bottom:24px;">
@@ -585,7 +585,7 @@
 
   <!-- まとめ -->
   <div class="summary-section">
-    <h2 class="section-title">まとめ・今後の方針（第1〜22回 総括）</h2>
+    <h2 class="section-title">まとめ・今後の方針（第1〜23回 総括）</h2>
     <div class="insight-list">
       <div class="insight-item">
         <div class="insight-icon">🎬</div>
@@ -635,7 +635,7 @@
 </div>
 
 <footer>
-  SHIFT AI ジュニアウェビナー 一覧・累積分析　|　2026年6月更新（第1〜22回）　|
+  SHIFT AI ジュニアウェビナー 一覧・累積分析　|　2026年6月更新（第1〜23回）　|
   <a href="https://rinachi219510.github.io/junior-webinar-reports/" style="color:#00C2CB;">↑ ページトップ</a>
 </footer>
 
@@ -708,7 +708,7 @@ new Chart(document.getElementById('trendChart'), {
   }
 });
 
-// ===== テーマ円グラフ（第12〜20回累積）=====
+// ===== テーマ円グラフ（第12〜23回累積）=====
 new Chart(document.getElementById('themeChart'), {
   type: 'doughnut',
   data: {
@@ -718,7 +718,7 @@ new Chart(document.getElementById('themeChart'), {
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
 
-// ===== きっかけ円グラフ（第12〜20回累積）=====
+// ===== きっかけ円グラフ（第12〜23回累積）=====
 new Chart(document.getElementById('triggerChart'), {
   type: 'doughnut',
   data: {
@@ -728,7 +728,7 @@ new Chart(document.getElementById('triggerChart'), {
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
 
-// ===== 子どもテーマ（第12〜20回累積）=====
+// ===== 子どもテーマ（第12〜23回累積）=====
 new Chart(document.getElementById('childThemeChart'), {
   type: 'doughnut',
   data: {
@@ -738,7 +738,7 @@ new Chart(document.getElementById('childThemeChart'), {
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
 
-// ===== 保護者テーマ（第12〜20回累積）=====
+// ===== 保護者テーマ（第12〜23回累積）=====
 new Chart(document.getElementById('parentThemeChart'), {
   type: 'doughnut',
   data: {
@@ -748,7 +748,7 @@ new Chart(document.getElementById('parentThemeChart'), {
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
 
-// ===== 都道府県ランキング（第1〜20回累計）=====
+// ===== 都道府県ランキング（第1〜23回累計）=====
 const prefData = [
   { name: "東京", count: 393 }, { name: "大阪", count: 212 }, { name: "神奈川", count: 168 },
   { name: "愛知", count: 159 }, { name: "埼玉", count: 151 }, { name: "兵庫", count: 109 },
