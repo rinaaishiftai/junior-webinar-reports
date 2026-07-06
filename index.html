@@ -136,7 +136,7 @@
 <div class="hero">
   <div class="hero-tag">SHIFT AI ジュニア</div>
   <h1>ジュニア定例ウェビナー<span>一覧・累積分析</span></h1>
-  <p class="hero-sub">各回のアンケート集計・分析結果をまとめています（第1〜23回）</p>
+  <p class="hero-sub">各回のアンケート集計・分析結果をまとめています（第1〜24回）</p>
 </div>
 
 <div class="container">
@@ -387,7 +387,7 @@
       <div class="stat-label">実施回数</div>
     </div>
     <div class="stat-card">
-      <div class="stat-value" style="font-size:32px;">6,729</div>
+      <div class="stat-value" style="font-size:32px;">6,932</div>
       <div class="stat-label">累計参加者数（名）</div>
     </div>
     <div class="stat-card">
@@ -656,10 +656,10 @@ const C = { navy:'#1E2761', cyan:'#00C2CB', purple:'#9B5DE5', green:'#06D6A0', y
 new Chart(document.getElementById('participantChart'), {
   type: 'bar',
   data: {
-    labels: ["第1回","第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回","第14回","第15回","第16回","第17回","第18回","第19回","第20回","第21回","第22回","第23回"],
+    labels: ["第1回","第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回","第14回","第15回","第16回","第17回","第18回","第19回","第20回","第21回","第22回","第23回","第24回"],
     datasets: [{
-      data: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267, 231, 256, 127, 285, 282, 389, 314, 469, 156, 220],
-      backgroundColor: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267, 231, 256, 127, 285, 282, 389, 314, 469, 156, 220].map((v, i) => i === 22 ? C.orange : i === 21 ? C.purple : v === 762 ? C.yellow : C.cyan),
+      data: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267, 231, 256, 127, 285, 282, 389, 314, 469, 156, 220, 203],
+      backgroundColor: [424, 199, 325, 117, 762, 101, 656, 159, 127, 207, 259, 397, 267, 231, 256, 127, 285, 282, 389, 314, 469, 156, 220].map((v, i) => i === 23 ? C.orange : i === 22 ? C.purple : v === 762 ? C.yellow : C.cyan),
       borderRadius: 6, borderSkipped: false,
     }]
   },
@@ -680,24 +680,24 @@ new Chart(document.getElementById('participantChart'), {
 new Chart(document.getElementById('trendChart'), {
   type: 'line',
   data: {
-    labels: ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回","第14回","第15回","第16回","第17回","第18回","第19回","第20回","第21回","第22回","第23回"],
+    labels: ["第2回","第3回","第4回","第5回","第6回","第7回","第8回","第9回","第10回","第11回","第12回","第13回","第14回","第15回","第16回","第17回","第18回","第19回","第20回","第21回","第22回","第23回","第24回"],
     datasets: [
       {
         label: '満足度',
-        data: [4.85, 4.77, 4.81, 4.65, 4.77, 4.58, 3.67, 4.57, 4.57, 4.33, 4.18, 3.97, 4.11, 4.30, 4.18, 4.21, 4.32, 4.61, 4.58, 4.53, 4.18, 4.22],
+        data: [4.85, 4.77, 4.81, 4.65, 4.77, 4.58, 3.67, 4.57, 4.57, 4.33, 4.18, 3.97, 4.11, 4.30, 4.18, 4.21, 4.32, 4.61, 4.58, 4.53, 4.18, 4.22, 4.45],
         borderColor: C.navy, backgroundColor: 'rgba(30,39,97,0.08)',
         borderWidth: 2.5,
-        pointRadius: [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,6],
-        pointBackgroundColor: [C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.purple,C.purple,C.purple,C.purple,C.orange],
+        pointRadius: [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,7],
+        pointBackgroundColor: [C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.navy,C.purple,C.purple,C.purple,C.purple,C.purple,C.orange],
         tension: 0.3, fill: true, yAxisID: 'y',
       },
       {
         label: '回答率',
-        data: [34, 29, 54, 42, 47, 37, 16, 33, 37, 34, 31, 38.2, 22.9, 34.8, 22.0, 24.6, 28.7, 31.1, 28.0, 33.3, 24.4, 26.8],
+        data: [34, 29, 54, 42, 47, 37, 16, 33, 37, 34, 31, 38.2, 22.9, 34.8, 22.0, 24.6, 28.7, 31.1, 28.0, 33.3, 24.4, 26.8, 26.1],
         borderColor: C.cyan, backgroundColor: 'transparent',
         borderWidth: 2,
-        pointRadius: [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,5],
-        pointBackgroundColor: [C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.purple,C.purple,C.purple,C.purple,C.orange],
+        pointRadius: [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,5],
+        pointBackgroundColor: [C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.cyan,C.purple,C.purple,C.purple,C.purple,C.purple,C.orange],
         borderDash: [5,3], tension: 0.3, fill: false, yAxisID: 'y2',
       }
     ]
@@ -717,51 +717,51 @@ new Chart(document.getElementById('trendChart'), {
   }
 });
 
-// ===== テーマ円グラフ（第12〜23回累積）=====
+// ===== テーマ円グラフ（第12〜24回累積）=====
 new Chart(document.getElementById('themeChart'), {
   type: 'doughnut',
   data: {
     labels: ["勉強法・学習","動画・映像","画像生成","自由研究・工作","プログラミング","マナー・安全","進路・受験","ゲーム","文章作成"],
-    datasets: [{ data: [249, 211, 213, 208, 165, 142, 116, 22, 9], backgroundColor: [C.navy,C.cyan,C.purple,C.teal,C.orange,C.red,C.yellow,C.gray,C.green], borderWidth: 2, borderColor: 'white' }]
+    datasets: [{ data: [266, 221, 224, 214, 175, 148, 121, 24, 9], backgroundColor: [C.navy,C.cyan,C.purple,C.teal,C.orange,C.red,C.yellow,C.gray,C.green], borderWidth: 2, borderColor: 'white' }]
   },
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
 
-// ===== きっかけ円グラフ（第12〜23回累積）=====
+// ===== きっかけ円グラフ（第12〜24回累積）=====
 new Chart(document.getElementById('triggerChart'), {
   type: 'doughnut',
   data: {
     labels: ["LINE（公式・グループ）","SHIFT AIコミュニティ","その他"],
-    datasets: [{ data: [745, 204, 59], backgroundColor: [C.cyan, C.navy, C.gray], borderWidth: 2, borderColor: 'white' }]
+    datasets: [{ data: [787, 209, 65], backgroundColor: [C.cyan, C.navy, C.gray], borderWidth: 2, borderColor: 'white' }]
   },
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
 
-// ===== 子どもテーマ（第12〜23回累積）=====
+// ===== 子どもテーマ（第12〜24回累積）=====
 new Chart(document.getElementById('childThemeChart'), {
   type: 'doughnut',
   data: {
     labels: ['ゲーム作成','画像生成','動画作成・制作','自由研究','進路関係','文章作成','勉強法','その他'],
-    datasets: [{ data: [21, 19, 16, 11, 7, 6, 9, 1], backgroundColor: [C.red, C.purple, C.cyan, C.teal, C.navy, C.gray, C.green, '#B0C0D8'], borderWidth: 2, borderColor: 'white' }]
+    datasets: [{ data: [23, 22, 19, 11, 7, 6, 9, 1], backgroundColor: [C.red, C.purple, C.cyan, C.teal, C.navy, C.gray, C.green, '#B0C0D8'], borderWidth: 2, borderColor: 'white' }]
   },
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
 
-// ===== 保護者テーマ（第12〜23回累積）=====
+// ===== 保護者テーマ（第12〜24回累積）=====
 new Chart(document.getElementById('parentThemeChart'), {
   type: 'doughnut',
   data: {
     labels: ['勉強法','動画作成・制作','画像生成','自由研究','プログラミング','マナー・安全','進路関係'],
-    datasets: [{ data: [217, 180, 185, 182, 149, 129, 99], backgroundColor: [C.cyan, C.green, C.purple, C.teal, C.orange, C.yellow, C.navy], borderWidth: 2, borderColor: 'white' }]
+    datasets: [{ data: [234, 187, 193, 188, 159, 135, 104], backgroundColor: [C.cyan, C.green, C.purple, C.teal, C.orange, C.yellow, C.navy], borderWidth: 2, borderColor: 'white' }]
   },
   options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}：${ctx.raw}件` } } } }
 });
 
-// ===== 都道府県ランキング（第1〜23回累計）=====
+// ===== 都道府県ランキング（第1〜24回累計）=====
 const prefData = [
-  { name: "東京", count: 393 }, { name: "大阪", count: 212 }, { name: "神奈川", count: 168 },
-  { name: "愛知", count: 159 }, { name: "埼玉", count: 151 }, { name: "兵庫", count: 109 },
-  { name: "福岡", count: 90 },  { name: "千葉", count: 86 },  { name: "北海道", count: 46 },
+  { name: "東京", count: 405 }, { name: "大阪", count: 216 }, { name: "神奈川", count: 172 },
+  { name: "愛知", count: 161 }, { name: "埼玉", count: 158 }, { name: "兵庫", count: 109 },
+  { name: "福岡", count: 90 },  { name: "千葉", count: 88 },  { name: "北海道", count: 46 },
   { name: "宮城", count: 40 },  { name: "京都", count: 36 },  { name: "静岡", count: 35 },
   { name: "岡山", count: 26 },  { name: "茨城", count: 26 },  { name: "沖縄", count: 24 },
 ];
